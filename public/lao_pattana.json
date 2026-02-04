@@ -1,0 +1,25 @@
+{
+  "lottery": "lao_pattana",
+  "lottery_name": "หวยลาวพัฒนา",
+  "source_url": "https://exphuay.com/calculate/laosdevelops",
+  "fetched_at": "2026-02-04T02:51:31.066Z",
+  "window": {
+    "latest_n_draws": 30
+  },
+  "daily_calculation": {
+    "top3": [],
+    "top3_recommended": [],
+    "bottom2": [],
+    "bottom2_recommended": [],
+    "running_number": null,
+    "full_set_number": null
+  },
+  "digit_frequency": {
+    "data": []
+  },
+  "statistics_30_draws": {
+    "bottom2": [],
+    "top3": []
+  },
+  "notes": "ดึงข้อมูลจาก exphuay.com - รันเวลา 08:00 น."
+}
