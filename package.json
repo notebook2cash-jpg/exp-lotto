@@ -1,15 +1,24 @@
 {
   "name": "exp-lotto",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "ดึงผลหวยและสถิติจาก exphuay.com",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "scrape": "node scripts/scrape-exphuay.mjs",
+    "scrape:results": "node scripts/scrape-exphuay.mjs",
+    "scrape:calculation": "node scripts/scrape-calculation.mjs",
+    "scrape:all": "node scripts/scrape-exphuay.mjs && node scripts/scrape-calculation.mjs"
   },
-  "keywords": [],
+  "keywords": [
+    "lottery",
+    "thailand",
+    "scraper"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "puppeteer": "^24.36.1"
+    "puppeteer": "^23.0.0",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2"
   }
 }
