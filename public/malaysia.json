@@ -2,24 +2,258 @@
   "lottery": "malaysia",
   "lottery_name": "หวยมาเลย์",
   "source_url": "https://exphuay.com/calculate/magnum4d",
-  "fetched_at": "2026-02-04T02:51:53.935Z",
+  "fetched_at": "2026-02-04T03:05:44.677Z",
   "window": {
     "latest_n_draws": 30
   },
   "daily_calculation": {
-    "top3": [],
+    "top3": [
+      "623",
+      "750",
+      "497",
+      "197",
+      "450",
+      "121",
+      "126",
+      "127",
+      "180",
+      "209",
+      "212",
+      "213",
+      "240",
+      "433",
+      "441"
+    ],
     "top3_recommended": [],
-    "bottom2": [],
+    "bottom2": [
+      "63",
+      "75",
+      "47",
+      "26",
+      "73",
+      "84"
+    ],
     "bottom2_recommended": [],
-    "running_number": null,
-    "full_set_number": null
+    "running_number": "5",
+    "full_set_number": "6"
   },
   "digit_frequency": {
     "data": []
   },
   "statistics_30_draws": {
-    "bottom2": [],
-    "top3": []
+    "bottom2": [
+      {
+        "number": "13",
+        "count": 1
+      },
+      {
+        "number": "17",
+        "count": 1
+      },
+      {
+        "number": "18",
+        "count": 1
+      },
+      {
+        "number": "21",
+        "count": 1
+      },
+      {
+        "number": "22",
+        "count": 1
+      },
+      {
+        "number": "25",
+        "count": 1
+      },
+      {
+        "number": "31",
+        "count": 1
+      },
+      {
+        "number": "42",
+        "count": 1
+      },
+      {
+        "number": "45",
+        "count": 1
+      },
+      {
+        "number": "46",
+        "count": 1
+      },
+      {
+        "number": "47",
+        "count": 1
+      },
+      {
+        "number": "53",
+        "count": 1
+      },
+      {
+        "number": "57",
+        "count": 1
+      },
+      {
+        "number": "63",
+        "count": 1
+      },
+      {
+        "number": "64",
+        "count": 2
+      },
+      {
+        "number": "66",
+        "count": 2
+      },
+      {
+        "number": "68",
+        "count": 3
+      },
+      {
+        "number": "69",
+        "count": 1
+      },
+      {
+        "number": "74",
+        "count": 1
+      },
+      {
+        "number": "75",
+        "count": 2
+      },
+      {
+        "number": "78",
+        "count": 1
+      },
+      {
+        "number": "82",
+        "count": 1
+      },
+      {
+        "number": "01",
+        "count": 1
+      },
+      {
+        "number": "03",
+        "count": 2
+      }
+    ],
+    "top3": [
+      {
+        "number": "121",
+        "count": 1
+      },
+      {
+        "number": "126",
+        "count": 1
+      },
+      {
+        "number": "127",
+        "count": 1
+      },
+      {
+        "number": "180",
+        "count": 1
+      },
+      {
+        "number": "209",
+        "count": 1
+      },
+      {
+        "number": "212",
+        "count": 1
+      },
+      {
+        "number": "213",
+        "count": 1
+      },
+      {
+        "number": "240",
+        "count": 1
+      },
+      {
+        "number": "433",
+        "count": 1
+      },
+      {
+        "number": "441",
+        "count": 1
+      },
+      {
+        "number": "452",
+        "count": 1
+      },
+      {
+        "number": "474",
+        "count": 1
+      },
+      {
+        "number": "523",
+        "count": 1
+      },
+      {
+        "number": "532",
+        "count": 1
+      },
+      {
+        "number": "596",
+        "count": 1
+      },
+      {
+        "number": "629",
+        "count": 1
+      },
+      {
+        "number": "630",
+        "count": 1
+      },
+      {
+        "number": "642",
+        "count": 2
+      },
+      {
+        "number": "695",
+        "count": 1
+      },
+      {
+        "number": "700",
+        "count": 1
+      },
+      {
+        "number": "759",
+        "count": 2
+      },
+      {
+        "number": "782",
+        "count": 1
+      },
+      {
+        "number": "879",
+        "count": 1
+      },
+      {
+        "number": "943",
+        "count": 1
+      },
+      {
+        "number": "990",
+        "count": 1
+      },
+      {
+        "number": "022",
+        "count": 1
+      },
+      {
+        "number": "043",
+        "count": 1
+      },
+      {
+        "number": "057",
+        "count": 1
+      }
+    ]
   },
+  "blocked_by_cloudflare": false,
   "notes": "ดึงข้อมูลจาก exphuay.com - รันเวลา 08:00 น."
 }

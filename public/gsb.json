@@ -2,24 +2,282 @@
   "lottery": "gsb",
   "lottery_name": "หวยออมสิน",
   "source_url": "https://exphuay.com/calculate/gsb",
-  "fetched_at": "2026-02-04T02:52:39.711Z",
+  "fetched_at": "2026-02-04T03:06:39.395Z",
   "window": {
     "latest_n_draws": 30
   },
   "daily_calculation": {
-    "top3": [],
+    "top3": [
+      "507",
+      "655",
+      "484",
+      "284",
+      "455",
+      "128",
+      "133",
+      "171",
+      "271",
+      "288",
+      "293",
+      "305",
+      "344",
+      "352",
+      "410"
+    ],
     "top3_recommended": [],
-    "bottom2": [],
+    "bottom2": [
+      "62",
+      "88",
+      "07",
+      "95",
+      "82",
+      "60"
+    ],
     "bottom2_recommended": [],
-    "running_number": null,
-    "full_set_number": null
+    "running_number": "8",
+    "full_set_number": "6"
   },
   "digit_frequency": {
     "data": []
   },
   "statistics_30_draws": {
-    "bottom2": [],
-    "top3": []
+    "bottom2": [
+      {
+        "number": "12",
+        "count": 1
+      },
+      {
+        "number": "19",
+        "count": 1
+      },
+      {
+        "number": "25",
+        "count": 1
+      },
+      {
+        "number": "27",
+        "count": 1
+      },
+      {
+        "number": "32",
+        "count": 1
+      },
+      {
+        "number": "34",
+        "count": 1
+      },
+      {
+        "number": "39",
+        "count": 1
+      },
+      {
+        "number": "40",
+        "count": 1
+      },
+      {
+        "number": "45",
+        "count": 1
+      },
+      {
+        "number": "46",
+        "count": 1
+      },
+      {
+        "number": "54",
+        "count": 1
+      },
+      {
+        "number": "57",
+        "count": 1
+      },
+      {
+        "number": "58",
+        "count": 1
+      },
+      {
+        "number": "66",
+        "count": 2
+      },
+      {
+        "number": "67",
+        "count": 1
+      },
+      {
+        "number": "68",
+        "count": 2
+      },
+      {
+        "number": "72",
+        "count": 1
+      },
+      {
+        "number": "81",
+        "count": 1
+      },
+      {
+        "number": "82",
+        "count": 1
+      },
+      {
+        "number": "85",
+        "count": 1
+      },
+      {
+        "number": "86",
+        "count": 1
+      },
+      {
+        "number": "96",
+        "count": 1
+      },
+      {
+        "number": "97",
+        "count": 1
+      },
+      {
+        "number": "98",
+        "count": 1
+      },
+      {
+        "number": "09",
+        "count": 1
+      },
+      {
+        "number": "03",
+        "count": 1
+      },
+      {
+        "number": "05",
+        "count": 1
+      },
+      {
+        "number": "02",
+        "count": 1
+      }
+    ],
+    "top3": [
+      {
+        "number": "128",
+        "count": 1
+      },
+      {
+        "number": "133",
+        "count": 1
+      },
+      {
+        "number": "171",
+        "count": 1
+      },
+      {
+        "number": "271",
+        "count": 1
+      },
+      {
+        "number": "288",
+        "count": 1
+      },
+      {
+        "number": "293",
+        "count": 1
+      },
+      {
+        "number": "305",
+        "count": 1
+      },
+      {
+        "number": "344",
+        "count": 1
+      },
+      {
+        "number": "352",
+        "count": 1
+      },
+      {
+        "number": "410",
+        "count": 1
+      },
+      {
+        "number": "451",
+        "count": 1
+      },
+      {
+        "number": "457",
+        "count": 1
+      },
+      {
+        "number": "509",
+        "count": 1
+      },
+      {
+        "number": "539",
+        "count": 1
+      },
+      {
+        "number": "541",
+        "count": 1
+      },
+      {
+        "number": "545",
+        "count": 1
+      },
+      {
+        "number": "547",
+        "count": 1
+      },
+      {
+        "number": "567",
+        "count": 1
+      },
+      {
+        "number": "601",
+        "count": 1
+      },
+      {
+        "number": "606",
+        "count": 1
+      },
+      {
+        "number": "641",
+        "count": 1
+      },
+      {
+        "number": "684",
+        "count": 1
+      },
+      {
+        "number": "688",
+        "count": 1
+      },
+      {
+        "number": "716",
+        "count": 1
+      },
+      {
+        "number": "763",
+        "count": 1
+      },
+      {
+        "number": "815",
+        "count": 1
+      },
+      {
+        "number": "830",
+        "count": 1
+      },
+      {
+        "number": "950",
+        "count": 1
+      },
+      {
+        "number": "991",
+        "count": 1
+      },
+      {
+        "number": "004",
+        "count": 1
+      }
+    ]
   },
+  "blocked_by_cloudflare": false,
   "notes": "ดึงข้อมูลจาก exphuay.com - รันเวลา 08:00 น."
 }
