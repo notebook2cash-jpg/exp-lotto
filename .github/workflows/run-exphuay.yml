@@ -3,12 +3,10 @@ name: Run Exphuay All Results
 on:
   schedule:
     - cron: "0 23 * * *"   # 06:00 TH
-    - cron: "0 8 * * *"    # 15:00 TH
     - cron: "30 8 * * *"   # 15:30 TH
     - cron: "0 9 * * *"    # 16:00 TH
     - cron: "15 9 * * *"   # 16:15 TH
     - cron: "30 9 * * *"   # 16:30 TH
-    - cron: "0 10 * * *"   # 17:00 TH
     - cron: "45 10 * * *"  # 17:45 TH
     - cron: "45 11 * * *"  # 18:45 TH
     - cron: "45 12 * * *"  # 19:45 TH
@@ -30,10 +28,35 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install dependencies (temp)
+      - name: Install Chrome dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libnss3 \
+            libatk1.0-0 \
+            libatk-bridge2.0-0 \
+            libcups2 \
+            libdrm2 \
+            libxkbcommon0 \
+            libxcomposite1 \
+            libxdamage1 \
+            libxfixes3 \
+            libxrandr2 \
+            libgbm1 \
+            libasound2t64 \
+            libpango-1.0-0 \
+            libcairo2 \
+            libatspi2.0-0 \
+            fonts-liberation \
+            xdg-utils
+
+      - name: Install dependencies
         run: |
           npm init -y
-          npm install puppeteer
+          npm install puppeteer puppeteer-extra puppeteer-extra-plugin-stealth
+
+      - name: Install Puppeteer Chrome
+        run: npx puppeteer browsers install chrome
 
       - name: Run script
         run: node scripts/exphuay_all_results.mjs
