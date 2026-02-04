@@ -1,8 +1,19 @@
 {
   "source_url": "https://exphuay.com/",
-  "fetched_at": "2026-02-04T10:26:38.498Z",
-  "total_lotteries": 7,
+  "fetched_at": "2026-02-04T11:08:02.130Z",
+  "total_lotteries": 8,
   "lotteries": [
+    {
+      "lottery_type": "hanoi",
+      "lottery_name": "ฮานอยพิเศษ",
+      "draw_date": "2026-02-03",
+      "draw_date_thai": null,
+      "results": {
+        "top3": "882",
+        "bottom2": "83"
+      },
+      "draw_time": "17:30"
+    },
     {
       "lottery_type": "hanoi",
       "lottery_name": "ฮานอยปกติ",
