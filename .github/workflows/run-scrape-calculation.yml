@@ -2,38 +2,58 @@ name: Run scrape-calculation
 
 on:
   schedule:
-    - cron: "0 20 * * *"   # 06:00 TH
-  workflow_dispatch: {}
-
-permissions:
-  contents: write
+    - cron: '0 1 * * *'
+  workflow_dispatch:
 
 jobs:
   run:
     runs-on: ubuntu-latest
+    
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Chrome dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libnss3 \
+            libatk1.0-0 \
+            libatk-bridge2.0-0 \
+            libcups2 \
+            libdrm2 \
+            libxkbcommon0 \
+            libxcomposite1 \
+            libxdamage1 \
+            libxfixes3 \
+            libxrandr2 \
+            libgbm1 \
+            libasound2 \
+            libpango-1.0-0 \
+            libcairo2 \
+            libatspi2.0-0 \
+            fonts-liberation \
+            xdg-utils
 
       - name: Install dependencies (temp)
-        run: |
-          npm init -y
-          npm install puppeteer
+        run: npm install
+
+      - name: Install Puppeteer Chrome
+        run: npx puppeteer browsers install chrome
 
       - name: Run script
         run: node scripts/scrape-calculation.mjs
 
       - name: Commit & push if changed
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git add -A
-          if git diff --cached --quiet; then
-            echo "No changes."
-            exit 0
-          fi
-          git commit -m "chore: update scrape-calculation output"
+          git diff --staged --quiet || git commit -m "Update lottery data - $(date +'%Y-%m-%d %H:%M:%S')"
           git push
