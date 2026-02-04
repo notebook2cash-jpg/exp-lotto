@@ -1,38 +1,38 @@
 {
   "source_url": "https://exphuay.com/",
-  "fetched_at": "2026-02-03T03:21:51.192Z",
+  "fetched_at": "2026-02-04T03:17:21.091Z",
   "total_lotteries": 8,
   "lotteries": [
     {
       "lottery_type": "hanoi",
       "lottery_name": "ฮานอยพิเศษ",
-      "draw_date": "2026-02-01",
+      "draw_date": "2026-02-02",
       "draw_date_thai": null,
       "results": {
-        "top3": "038",
-        "bottom2": "93"
+        "top3": "040",
+        "bottom2": "55"
       },
       "draw_time": "17:30"
     },
     {
       "lottery_type": "hanoi",
       "lottery_name": "ฮานอยปกติ",
-      "draw_date": "2026-02-01",
+      "draw_date": "2026-02-02",
       "draw_date_thai": null,
       "results": {
-        "top3": "461",
-        "bottom2": "58"
+        "top3": "648",
+        "bottom2": "55"
       },
       "draw_time": "18:30"
     },
     {
       "lottery_type": "hanoi",
       "lottery_name": "ฮานอย VIP",
-      "draw_date": "2026-02-01",
+      "draw_date": "2026-02-02",
       "draw_date_thai": null,
       "results": {
-        "top3": "082",
-        "bottom2": "81"
+        "top3": "189",
+        "bottom2": "67"
       },
       "draw_time": "19:30"
     },
@@ -83,12 +83,12 @@
     {
       "lottery_type": "gsb",
       "lottery_name": "ผลหวยออมสิน",
-      "draw_date": "2023-12-29",
+      "draw_date": "2023-08-15",
       "draw_date_thai": null,
       "results": {
-        "full_number": "641",
-        "top3": "641",
-        "bottom2": "64"
+        "full_number": "567",
+        "top3": "567",
+        "bottom2": "56"
       }
     }
   ],

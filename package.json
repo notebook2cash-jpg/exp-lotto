@@ -17,8 +17,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "puppeteer": "^23.0.0",
+    "puppeteer": "^23.11.1",
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2"
-  }
+  },
+  "main": "index.js"
 }
