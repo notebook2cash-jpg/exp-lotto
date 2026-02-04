@@ -1,41 +1,8 @@
 {
   "source_url": "https://exphuay.com/",
-  "fetched_at": "2026-02-04T16:11:55.232Z",
-  "total_lotteries": 8,
+  "fetched_at": "2026-02-04T23:54:55.418Z",
+  "total_lotteries": 5,
   "lotteries": [
-    {
-      "lottery_type": "hanoi",
-      "lottery_name": "ฮานอยพิเศษ",
-      "draw_date": "2026-02-03",
-      "draw_date_thai": null,
-      "results": {
-        "top3": "882",
-        "bottom2": "83"
-      },
-      "draw_time": "17:30"
-    },
-    {
-      "lottery_type": "hanoi",
-      "lottery_name": "ฮานอยปกติ",
-      "draw_date": "2026-02-03",
-      "draw_date_thai": null,
-      "results": {
-        "top3": "517",
-        "bottom2": "20"
-      },
-      "draw_time": "18:30"
-    },
-    {
-      "lottery_type": "hanoi",
-      "lottery_name": "ฮานอย VIP",
-      "draw_date": "2026-02-03",
-      "draw_date_thai": null,
-      "results": {
-        "top3": "061",
-        "bottom2": "36"
-      },
-      "draw_time": "19:30"
-    },
     {
       "lottery_type": "thai_government",
       "lottery_name": "ผลหวยรัฐบาลไทย",
