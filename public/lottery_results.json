@@ -1,6 +1,6 @@
 {
   "source_url": "https://exphuay.com/",
-  "fetched_at": "2026-02-04T11:58:00.139Z",
+  "fetched_at": "2026-02-04T14:28:27.240Z",
   "total_lotteries": 8,
   "lotteries": [
     {
@@ -31,8 +31,8 @@
       "draw_date": "2026-02-03",
       "draw_date_thai": null,
       "results": {
-        "top3": "189",
-        "bottom2": "67"
+        "top3": "061",
+        "bottom2": "36"
       },
       "draw_time": "19:30"
     },
@@ -50,12 +50,12 @@
     {
       "lottery_type": "lao_pattana",
       "lottery_name": "ผลหวยลาวพัฒนา",
-      "draw_date": "2026-02-01",
+      "draw_date": "2026-02-03",
       "draw_date_thai": null,
       "results": {
-        "full_number": "087085",
-        "top3": "085",
-        "bottom2": "08"
+        "full_number": "168073",
+        "top3": "073",
+        "bottom2": "07"
       }
     },
     {
