@@ -1,5 +1,9 @@
 import fs from "node:fs/promises";
-import puppeteer from "puppeteer";
+import puppeteer from "puppeteer-extra";
+import StealthPlugin from "puppeteer-extra-plugin-stealth";
+
+// ใช้ Stealth plugin เพื่อหลีกเลี่ยง bot detection
+puppeteer.use(StealthPlugin());
 
 /**
  * Script สำหรับดึงข้อมูลการคำนวณหวยและสถิติ
@@ -51,6 +55,31 @@ function nowISO() {
 }
 
 /**
+ * รอให้ผ่าน Cloudflare challenge
+ */
+async function waitForCloudflare(page, timeout = 30000) {
+  const startTime = Date.now();
+  
+  while (Date.now() - startTime < timeout) {
+    const content = await page.content();
+    
+    // ตรวจสอบว่ายังอยู่ในหน้า Cloudflare หรือไม่
+    if (content.includes("Verify you are human") || 
+        content.includes("Just a moment") ||
+        content.includes("Checking your browser")) {
+      console.log("⏳ Waiting for Cloudflare challenge...");
+      await new Promise(r => setTimeout(r, 3000));
+    } else {
+      console.log("✅ Passed Cloudflare check");
+      return true;
+    }
+  }
+  
+  console.log("⚠️ Cloudflare timeout, continuing anyway...");
+  return false;
+}
+
+/**
  * ดึงข้อมูลการคำนวณหวยจากหน้า calculate
  */
 async function scrapeCalculationData(browser, source) {
@@ -58,18 +87,32 @@ async function scrapeCalculationData(browser, source) {
   
   const page = await browser.newPage();
 
+  // ตั้งค่าให้เหมือน browser จริง
   await page.setUserAgent(
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
   );
 
   await page.setViewport({ width: 1920, height: 1080 });
 
-  try {
-    await page.goto(source.url, { waitUntil: "networkidle2", timeout: 120000 });
+  // ตั้งค่า extra headers
+  await page.setExtraHTTPHeaders({
+    'Accept-Language': 'th-TH,th;q=0.9,en-US;q=0.8,en;q=0.7',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+  });
 
-    // รอให้ JavaScript render เสร็จ
+  try {
+    console.log("🌐 Loading page...");
+    await page.goto(source.url, { 
+      waitUntil: "domcontentloaded", 
+      timeout: 120000 
+    });
+
+    // รอให้ผ่าน Cloudflare
+    await waitForCloudflare(page, 45000);
+
+    // รอเพิ่มเติมให้ JavaScript render เสร็จ
     console.log("⏳ Waiting for JavaScript to render...");
-    await new Promise((r) => setTimeout(r, 10000));
+    await new Promise((r) => setTimeout(r, 15000));
 
     // Scroll ทั้งหน้าเพื่อให้ lazy load ทำงาน
     console.log("📜 Scrolling page...");
@@ -104,6 +147,25 @@ async function scrapeCalculationData(browser, source) {
         }
       };
 
+      // ตรวจสอบว่าติด Cloudflare หรือไม่
+      if (bodyText.includes("Verify you are human") || 
+          bodyText.includes("Just a moment") ||
+          bodyText.includes("Checking your browser")) {
+        return {
+          ...result,
+          _debug: {
+            bodyTextLength: bodyText.length,
+            foundTop3: 0,
+            foundBottom2: 0,
+            foundDigitFreq: 0,
+            foundStats30Bottom2: 0,
+            foundStats30Top3: 0,
+            bodyPreview: bodyText.slice(0, 500),
+            blocked: true
+          }
+        };
+      }
+
       // ============ 1. ดึงคำนวณหวยประจำวัน ============
       const sections = bodyText.split(/\n+/);
       
@@ -111,7 +173,6 @@ async function scrapeCalculationData(browser, source) {
       let inBottom2Section = false;
       let inRunningSection = false;
       let inFullSetSection = false;
-      let currentSection = null;
 
       // ฟังก์ชันดึงตัวเลข
       const extractNumbers = (text, digits) => {
@@ -242,7 +303,8 @@ async function scrapeCalculationData(browser, source) {
           foundDigitFreq: result.digit_frequency.data.length,
           foundStats30Bottom2: result.statistics_30_draws.bottom2.length,
           foundStats30Top3: result.statistics_30_draws.top3.length,
-          bodyPreview: bodyText.slice(0, 2000)
+          bodyPreview: bodyText.slice(0, 2000),
+          blocked: false
         }
       };
     }, source.name);
@@ -255,12 +317,16 @@ async function scrapeCalculationData(browser, source) {
 
     await page.close();
 
-    console.log(`✅ ${source.name} scraped successfully`);
-    console.log(`   - Top3: ${data._debug.foundTop3} numbers`);
-    console.log(`   - Bottom2: ${data._debug.foundBottom2} numbers`);
-    console.log(`   - Digit Frequency: ${data._debug.foundDigitFreq} rows`);
-    console.log(`   - Stats 30 Bottom2: ${data._debug.foundStats30Bottom2} rows`);
-    console.log(`   - Stats 30 Top3: ${data._debug.foundStats30Top3} rows`);
+    if (data._debug?.blocked) {
+      console.log(`⚠️ ${source.name} - Blocked by Cloudflare`);
+    } else {
+      console.log(`✅ ${source.name} scraped successfully`);
+      console.log(`   - Top3: ${data._debug.foundTop3} numbers`);
+      console.log(`   - Bottom2: ${data._debug.foundBottom2} numbers`);
+      console.log(`   - Digit Frequency: ${data._debug.foundDigitFreq} rows`);
+      console.log(`   - Stats 30 Bottom2: ${data._debug.foundStats30Bottom2} rows`);
+      console.log(`   - Stats 30 Top3: ${data._debug.foundStats30Top3} rows`);
+    }
 
     return data;
 
@@ -279,14 +345,16 @@ async function main() {
   console.log(`📅 Fetched at: ${nowISO()}`);
   console.log(`📋 Total sources: ${LOTTERY_SOURCES.length}`);
 
-  // เปิด browser
+  // เปิด browser ด้วย stealth mode
   const browser = await puppeteer.launch({
-    headless: true,
+    headless: "new",
     args: [
       "--no-sandbox",
       "--disable-setuid-sandbox",
       "--disable-dev-shm-usage",
       "--disable-gpu",
+      "--disable-blink-features=AutomationControlled",
+      "--window-size=1920,1080",
     ],
   });
 
@@ -309,6 +377,7 @@ async function main() {
         daily_calculation: data.daily_calculation,
         digit_frequency: data.digit_frequency,
         statistics_30_draws: data.statistics_30_draws,
+        blocked_by_cloudflare: data._debug?.blocked || false,
         notes: `ดึงข้อมูลจาก exphuay.com - รันเวลา 08:00 น.`
       };
 
@@ -346,10 +415,14 @@ async function main() {
   
   for (const result of allResults) {
     console.log(`\n📌 ${result.lottery_name}`);
-    console.log(`   3 ตัวบน: ${result.daily_calculation.top3.join(", ") || "N/A"}`);
-    console.log(`   2 ตัวล่าง: ${result.daily_calculation.bottom2.join(", ") || "N/A"}`);
-    console.log(`   วิ่ง: ${result.daily_calculation.running_number || "N/A"}`);
-    console.log(`   รูด: ${result.daily_calculation.full_set_number || "N/A"}`);
+    if (result.blocked_by_cloudflare) {
+      console.log(`   ⚠️ Blocked by Cloudflare`);
+    } else {
+      console.log(`   3 ตัวบน: ${result.daily_calculation.top3.join(", ") || "N/A"}`);
+      console.log(`   2 ตัวล่าง: ${result.daily_calculation.bottom2.join(", ") || "N/A"}`);
+      console.log(`   วิ่ง: ${result.daily_calculation.running_number || "N/A"}`);
+      console.log(`   รูด: ${result.daily_calculation.full_set_number || "N/A"}`);
+    }
   }
 
   console.log("\n✅ All done!");
