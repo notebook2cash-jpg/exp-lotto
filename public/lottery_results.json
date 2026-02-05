@@ -1,63 +1,7 @@
 {
   "source_url": "https://exphuay.com/",
-  "fetched_at": "2026-02-04T23:54:55.418Z",
-  "total_lotteries": 5,
-  "lotteries": [
-    {
-      "lottery_type": "thai_government",
-      "lottery_name": "ผลหวยรัฐบาลไทย",
-      "draw_date": "2026-01-31",
-      "draw_date_thai": null,
-      "results": {
-        "full_number": "174629",
-        "top3": "629",
-        "bottom2": "62"
-      }
-    },
-    {
-      "lottery_type": "lao_pattana",
-      "lottery_name": "ผลหวยลาวพัฒนา",
-      "draw_date": "2026-02-03",
-      "draw_date_thai": null,
-      "results": {
-        "full_number": "168073",
-        "top3": "073",
-        "bottom2": "07"
-      }
-    },
-    {
-      "lottery_type": "malaysia",
-      "lottery_name": "ผลหวยมาเลย์",
-      "draw_date": "2026-02-03",
-      "draw_date_thai": null,
-      "results": {
-        "full_number": "7527",
-        "top3": "527",
-        "bottom2": "52"
-      }
-    },
-    {
-      "lottery_type": "baac",
-      "lottery_name": "ผลหวยธ.ก.ส.",
-      "draw_date": "2026-01-16",
-      "draw_date_thai": null,
-      "results": {
-        "full_number": "559",
-        "top3": "559",
-        "bottom2": "55"
-      }
-    },
-    {
-      "lottery_type": "gsb",
-      "lottery_name": "ผลหวยออมสิน",
-      "draw_date": "2023-08-15",
-      "draw_date_thai": null,
-      "results": {
-        "full_number": "567",
-        "top3": "567",
-        "bottom2": "56"
-      }
-    }
-  ],
+  "fetched_at": "2026-02-05T10:29:04.975Z",
+  "total_lotteries": 0,
+  "lotteries": [],
   "notes": "ดึงข้อมูลผลหวยจาก exphuay.com โดยตรง"
 }
