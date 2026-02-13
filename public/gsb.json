@@ -2,7 +2,7 @@
   "lottery": "gsb",
   "lottery_name": "หวยออมสิน",
   "source_url": "https://exphuay.com/calculate/gsb",
-  "fetched_at": "2026-02-13T10:40:29.483Z",
+  "fetched_at": "2026-02-13T11:01:17.179Z",
   "window": {
     "latest_n_draws": 30
   },
@@ -315,5 +315,6 @@
       }
     ]
   },
-  "notes": "อ่านข้อมูลจากรูปภาพด้วย AI Vision"
+  "blocked_by_cloudflare": false,
+  "notes": "ดึงข้อมูลจาก exphuay.com - รันเวลา 08:00 น."
 }

@@ -2,7 +2,7 @@
   "lottery": "baac",
   "lottery_name": "หวยธ.ก.ส.",
   "source_url": "https://exphuay.com/calculate/baac",
-  "fetched_at": "2026-02-13T10:39:43.785Z",
+  "fetched_at": "2026-02-13T11:00:32.115Z",
   "window": {
     "latest_n_draws": 30
   },
@@ -315,5 +315,6 @@
       }
     ]
   },
-  "notes": "อ่านข้อมูลจากรูปภาพด้วย AI Vision"
+  "blocked_by_cloudflare": false,
+  "notes": "ดึงข้อมูลจาก exphuay.com - รันเวลา 08:00 น."
 }

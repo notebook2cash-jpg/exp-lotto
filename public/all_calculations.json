@@ -1,12 +1,13 @@
 {
-  "fetched_at": "2026-02-13T10:40:29.484Z",
+  "fetched_at": "2026-02-13T11:01:17.180Z",
   "total_lotteries": 5,
+  "scheduled_time": "08:00",
   "lotteries": [
     {
-      "lottery": "gov_thai",
+      "lottery": "thai_government",
       "lottery_name": "หวยรัฐบาลไทย",
       "source_url": "https://exphuay.com/calculate/goverment",
-      "fetched_at": "2026-02-13T10:37:25.139Z",
+      "fetched_at": "2026-02-13T10:58:17.843Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -325,13 +326,14 @@
           }
         ]
       },
-      "notes": "อ่านข้อมูลจากรูปภาพด้วย AI Vision"
+      "blocked_by_cloudflare": false,
+      "notes": "ดึงข้อมูลจาก exphuay.com - รันเวลา 08:00 น."
     },
     {
       "lottery": "lao_pattana",
       "lottery_name": "หวยลาวพัฒนา",
       "source_url": "https://exphuay.com/calculate/laosdevelops",
-      "fetched_at": "2026-02-13T10:38:09.494Z",
+      "fetched_at": "2026-02-13T10:59:03.325Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -653,13 +655,14 @@
           }
         ]
       },
-      "notes": "อ่านข้อมูลจากรูปภาพด้วย AI Vision"
+      "blocked_by_cloudflare": false,
+      "notes": "ดึงข้อมูลจาก exphuay.com - รันเวลา 08:00 น."
     },
     {
       "lottery": "malaysia",
       "lottery_name": "หวยมาเลย์",
       "source_url": "https://exphuay.com/calculate/magnum4d",
-      "fetched_at": "2026-02-13T10:38:54.973Z",
+      "fetched_at": "2026-02-13T10:59:47.584Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -978,13 +981,14 @@
           }
         ]
       },
-      "notes": "อ่านข้อมูลจากรูปภาพด้วย AI Vision"
+      "blocked_by_cloudflare": false,
+      "notes": "ดึงข้อมูลจาก exphuay.com - รันเวลา 08:00 น."
     },
     {
       "lottery": "baac",
       "lottery_name": "หวยธ.ก.ส.",
       "source_url": "https://exphuay.com/calculate/baac",
-      "fetched_at": "2026-02-13T10:39:43.785Z",
+      "fetched_at": "2026-02-13T11:00:32.115Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -1297,13 +1301,14 @@
           }
         ]
       },
-      "notes": "อ่านข้อมูลจากรูปภาพด้วย AI Vision"
+      "blocked_by_cloudflare": false,
+      "notes": "ดึงข้อมูลจาก exphuay.com - รันเวลา 08:00 น."
     },
     {
       "lottery": "gsb",
       "lottery_name": "หวยออมสิน",
       "source_url": "https://exphuay.com/calculate/gsb",
-      "fetched_at": "2026-02-13T10:40:29.483Z",
+      "fetched_at": "2026-02-13T11:01:17.179Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -1616,8 +1621,9 @@
           }
         ]
       },
-      "notes": "อ่านข้อมูลจากรูปภาพด้วย AI Vision"
+      "blocked_by_cloudflare": false,
+      "notes": "ดึงข้อมูลจาก exphuay.com - รันเวลา 08:00 น."
     }
   ],
-  "notes": "อ่านข้อมูลจากรูปภาพด้วย AI Vision (GitHub Models / Gemini)"
+  "notes": "ข้อมูลการคำนวณหวยและสถิติ - รันวันละ 1 ครั้ง"
 }

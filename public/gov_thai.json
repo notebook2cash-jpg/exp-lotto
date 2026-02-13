@@ -1,8 +1,8 @@
 {
-  "lottery": "gov_thai",
+  "lottery": "thai_government",
   "lottery_name": "หวยรัฐบาลไทย",
   "source_url": "https://exphuay.com/calculate/goverment",
-  "fetched_at": "2026-02-13T10:37:25.139Z",
+  "fetched_at": "2026-02-13T10:58:17.843Z",
   "window": {
     "latest_n_draws": 30
   },
@@ -321,5 +321,6 @@
       }
     ]
   },
-  "notes": "อ่านข้อมูลจากรูปภาพด้วย AI Vision"
+  "blocked_by_cloudflare": false,
+  "notes": "ดึงข้อมูลจาก exphuay.com - รันเวลา 08:00 น."
 }

@@ -2,7 +2,7 @@
   "lottery": "malaysia",
   "lottery_name": "หวยมาเลย์",
   "source_url": "https://exphuay.com/calculate/magnum4d",
-  "fetched_at": "2026-02-13T10:38:54.973Z",
+  "fetched_at": "2026-02-13T10:59:47.584Z",
   "window": {
     "latest_n_draws": 30
   },
@@ -321,5 +321,6 @@
       }
     ]
   },
-  "notes": "อ่านข้อมูลจากรูปภาพด้วย AI Vision"
+  "blocked_by_cloudflare": false,
+  "notes": "ดึงข้อมูลจาก exphuay.com - รันเวลา 08:00 น."
 }
