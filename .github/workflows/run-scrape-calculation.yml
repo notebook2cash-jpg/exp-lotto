@@ -22,7 +22,7 @@ jobs:
       - name: Run script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: node scripts/exp_lotto_stats.mjs
+        run: node scripts/scrape-calculation.mjs
 
       - name: Commit & push if changed
         run: |
