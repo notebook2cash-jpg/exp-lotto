@@ -1,435 +1,397 @@
 import fs from "node:fs/promises";
-import puppeteer from "puppeteer-extra";
-import StealthPlugin from "puppeteer-extra-plugin-stealth";
-
-// ใช้ Stealth plugin เพื่อหลีกเลี่ยง bot detection
-puppeteer.use(StealthPlugin());
+import path from "node:path";
 
 /**
- * Script สำหรับดึงข้อมูลการคำนวณหวยและสถิติ
- * รันวันละ 1 ครั้ง ตอน 08:00 น.
- * 
- * ข้อมูลที่ดึง:
- * - คำนวณหวยประจำวัน (3 ตัวบน, 2 ตัวล่าง, วิ่ง, รูด)
- * - สถิติจำนวนครั้งที่ออก (เลข 0-9)
- * - ตารางแสดงผลหวย 2 ตัวล่าง 30 งวดที่ผ่านมา
- * - ตารางแสดงผลหวย 3 ตัวบน 30 งวดที่ผ่านมา
+ * Script สำหรับอ่านข้อมูลหวยจากรูปภาพด้วย AI Vision (GitHub Models)
+ *
+ * รูปภาพอยู่ใน scripts/exp-images/:
+ *   {id}_1.png = คำนวณหวยประจำวัน (3 ตัวบน, 2 ตัวล่าง, วิ่ง, รูด)
+ *   {id}_2.png = สถิติจำนวนครั้งที่ออก (เลข 0-9)
+ *   {id}_3.png = สถิติ 30 งวดล่าสุด (ตาราง 2 ตัวล่าง + 3 ตัวบน)
  */
 
-// รายชื่อหวยที่ต้องดึงข้อมูลการคำนวณ
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+const GITHUB_MODELS_URL =
+  "https://models.github.ai/inference/chat/completions";
+
+const SCRIPT_DIR = path.dirname(new URL(import.meta.url).pathname);
+const IMAGES_DIR = path.join(SCRIPT_DIR, "exp-images");
+
+// ===== รายชื่อหวย =====
 const LOTTERY_SOURCES = [
   {
-    id: "thai_government",
+    id: "gov_thai",
     name: "หวยรัฐบาลไทย",
-    url: "https://exphuay.com/calculate/goverment",
-    outputFile: "gov_thai.json"
+    sourceUrl: "https://exphuay.com/calculate/goverment",
+    outputFile: "gov_thai.json",
   },
   {
     id: "lao_pattana",
     name: "หวยลาวพัฒนา",
-    url: "https://exphuay.com/calculate/laosdevelops",
-    outputFile: "lao_pattana.json"
+    sourceUrl: "https://exphuay.com/calculate/laosdevelops",
+    outputFile: "lao_pattana.json",
   },
   {
     id: "malaysia",
     name: "หวยมาเลย์",
-    url: "https://exphuay.com/calculate/magnum4d",
-    outputFile: "malaysia.json"
+    sourceUrl: "https://exphuay.com/calculate/magnum4d",
+    outputFile: "malaysia.json",
   },
   {
     id: "baac",
     name: "หวยธ.ก.ส.",
-    url: "https://exphuay.com/calculate/baac",
-    outputFile: "baac.json"
+    sourceUrl: "https://exphuay.com/calculate/baac",
+    outputFile: "baac.json",
   },
   {
     id: "gsb",
     name: "หวยออมสิน",
-    url: "https://exphuay.com/calculate/gsb",
-    outputFile: "gsb.json"
-  }
+    sourceUrl: "https://exphuay.com/calculate/gsb",
+    outputFile: "gsb.json",
+  },
 ];
 
 function nowISO() {
   return new Date().toISOString();
 }
 
-/**
- * รอให้ผ่าน Cloudflare challenge
- */
-async function waitForCloudflare(page, timeout = 30000) {
-  const startTime = Date.now();
-  
-  while (Date.now() - startTime < timeout) {
-    const content = await page.content();
-    
-    // ตรวจสอบว่ายังอยู่ในหน้า Cloudflare หรือไม่
-    if (content.includes("Verify you are human") || 
-        content.includes("Just a moment") ||
-        content.includes("Checking your browser")) {
-      console.log("⏳ Waiting for Cloudflare challenge...");
-      await new Promise(r => setTimeout(r, 3000));
-    } else {
-      console.log("✅ Passed Cloudflare check");
-      return true;
-    }
+// ===== Prompts =====
+
+const CALC_PROMPT = `Read this Thai lottery calculation image. Return JSON ONLY:
+{
+  "top3": ["043", "682", "430", "830", "482"],
+  "top3_recommended": ["043", "430", "830"],
+  "bottom2": ["76", "44", "39", "08", "46", "03"],
+  "bottom2_recommended": ["44", "46"],
+  "running_number": "4",
+  "full_set_number": "3"
+}
+Rules:
+- "top3": ALL 3-digit numbers under "3 ตัวบน" (left to right)
+- "top3_recommended": ONLY those with GREEN background
+- "bottom2": ALL 2-digit numbers under "2 ตัวล่าง" (left to right)
+- "bottom2_recommended": ONLY those with GREEN background
+- "running_number": the single digit under "วิ่ง"
+- "full_set_number": the single digit under "รูด"
+- All values MUST be strings. Read EVERY number.`;
+
+const DIGIT_FREQ_PROMPT = `Read this digit frequency table image. Return JSON ONLY:
+{
+  "data": [
+    {"digit": "0", "top3_count": 12, "bottom2_count": 6, "total": 18},
+    {"digit": "1", "top3_count": 9, "bottom2_count": 6, "total": 15}
+  ]
+}
+Rules:
+- Read the table with columns: เลข (digit 0-9), 3 ตัวบน (top3_count), 2 ตัวล่าง (bottom2_count), รวม (total)
+- digit is string, all counts are integers
+- Must have exactly 10 rows (digits 0-9)
+- Read EVERY row carefully`;
+
+const STAT_30_PROMPT = `Read this lottery statistics table image showing 30 recent draws. Return JSON ONLY:
+{
+  "bottom2": [
+    {"number": "45", "count": 2},
+    {"number": "64", "count": 2}
+  ],
+  "top3": [
+    {"number": "440", "count": 1},
+    {"number": "145", "count": 1}
+  ]
+}
+Rules:
+- LEFT table = "2 ตัวล่าง": Read ALL rows (number as string, count as integer)
+- RIGHT table = "3 ตัวบน": Read ALL rows (number as string, count as integer)
+- Read EVERY single row in both tables, do not skip any`;
+
+// ===== AI Vision Call =====
+
+async function callGitHubModels(prompt, imageBase64) {
+  if (!GITHUB_TOKEN) throw new Error("No GITHUB_TOKEN");
+
+  const res = await fetch(GITHUB_MODELS_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${GITHUB_TOKEN}`,
+    },
+    body: JSON.stringify({
+      model: "openai/gpt-4o",
+      messages: [
+        {
+          role: "user",
+          content: [
+            { type: "text", text: prompt },
+            {
+              type: "image_url",
+              image_url: { url: `data:image/png;base64,${imageBase64}` },
+            },
+          ],
+        },
+      ],
+      temperature: 0,
+      max_tokens: 4000,
+    }),
+  });
+
+  if (!res.ok) {
+    const errText = await res.text();
+    throw new Error(`GitHub Models ${res.status}: ${errText.slice(0, 300)}`);
   }
-  
-  console.log("⚠️ Cloudflare timeout, continuing anyway...");
-  return false;
+
+  const data = await res.json();
+  const text = data.choices?.[0]?.message?.content;
+  if (!text) throw new Error("Empty response from GitHub Models");
+
+  return parseJSON(text);
 }
 
-/**
- * ดึงข้อมูลการคำนวณหวยจากหน้า calculate
- */
-async function scrapeCalculationData(browser, source) {
-  console.log(`\n📊 Scraping ${source.name} from ${source.url}...`);
-  
-  const page = await browser.newPage();
+async function callGemini(prompt, imageBase64, maxRetries = 3) {
+  if (!GEMINI_API_KEY) throw new Error("No GEMINI_API_KEY");
 
-  // ตั้งค่าให้เหมือน browser จริง
-  await page.setUserAgent(
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+  const body = {
+    contents: [
+      {
+        parts: [
+          { text: prompt },
+          { inline_data: { mime_type: "image/png", data: imageBase64 } },
+        ],
+      },
+    ],
+    generationConfig: { temperature: 0, responseMimeType: "application/json" },
+  };
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+
+    if (res.status === 429) {
+      const wait = attempt * 15;
+      console.log(`    ⏳ Rate limited, retrying in ${wait}s...`);
+      await new Promise((r) => setTimeout(r, wait * 1000));
+      continue;
+    }
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error(`Gemini ${res.status}: ${errText.slice(0, 300)}`);
+    }
+
+    const data = await res.json();
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (!text) throw new Error("Empty response from Gemini");
+    return parseJSON(text);
+  }
+  throw new Error("Gemini: max retries exceeded");
+}
+
+function parseJSON(text) {
+  try {
+    return JSON.parse(text);
+  } catch {
+    const m = text.match(/```(?:json)?\s*([\s\S]*?)```/);
+    if (m) return JSON.parse(m[1].trim());
+    const obj = text.match(/\{[\s\S]*\}/);
+    if (obj) return JSON.parse(obj[0]);
+    throw new Error(`Cannot parse JSON: ${text.slice(0, 300)}`);
+  }
+}
+
+async function readImageAI(prompt, imagePath) {
+  const base64 = (await fs.readFile(imagePath)).toString("base64");
+
+  if (GITHUB_TOKEN) {
+    try {
+      return await callGitHubModels(prompt, base64);
+    } catch (e) {
+      console.log(`    ⚠️ GitHub Models failed: ${e.message.slice(0, 80)}`);
+    }
+  }
+
+  if (GEMINI_API_KEY) {
+    try {
+      return await callGemini(prompt, base64);
+    } catch (e) {
+      console.log(`    ⚠️ Gemini failed: ${e.message.slice(0, 80)}`);
+    }
+  }
+
+  throw new Error("ไม่มี AI service ใช้งานได้");
+}
+
+// ===== Process single lottery =====
+
+async function processLottery(source) {
+  const img1 = path.join(IMAGES_DIR, `${source.id}_1.png`);
+  const img2 = path.join(IMAGES_DIR, `${source.id}_2.png`);
+  const img3 = path.join(IMAGES_DIR, `${source.id}_3.png`);
+
+  // ตรวจไฟล์
+  for (const f of [img1, img2, img3]) {
+    try {
+      await fs.access(f);
+    } catch {
+      console.log(`  ⚠️ Missing: ${path.basename(f)} - skipping`);
+      return null;
+    }
+  }
+
+  // 1. อ่าน calc (คำนวณประจำวัน)
+  console.log(`  📊 Reading ${source.id}_1.png (calc)...`);
+  const calcData = await readImageAI(CALC_PROMPT, img1);
+  console.log(
+    `    ✅ top3: ${calcData.top3?.length || 0}, bottom2: ${calcData.bottom2?.length || 0}, วิ่ง: ${calcData.running_number}, รูด: ${calcData.full_set_number}`
   );
 
-  await page.setViewport({ width: 1920, height: 1080 });
+  await delay(5000);
 
-  // ตั้งค่า extra headers
-  await page.setExtraHTTPHeaders({
-    'Accept-Language': 'th-TH,th;q=0.9,en-US;q=0.8,en;q=0.7',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
-  });
+  // 2. อ่าน digit frequency (สถิติเลข 0-9)
+  console.log(`  📊 Reading ${source.id}_2.png (digit freq)...`);
+  const digitFreq = await readImageAI(DIGIT_FREQ_PROMPT, img2);
+  console.log(`    ✅ digit_frequency: ${digitFreq.data?.length || 0} entries`);
 
-  try {
-    console.log("🌐 Loading page...");
-    await page.goto(source.url, { 
-      waitUntil: "domcontentloaded", 
-      timeout: 120000 
-    });
+  await delay(5000);
 
-    // รอให้ผ่าน Cloudflare
-    await waitForCloudflare(page, 45000);
+  // 3. อ่าน stat 30 draws
+  console.log(`  📊 Reading ${source.id}_3.png (stat 30)...`);
+  const stat30 = await readImageAI(STAT_30_PROMPT, img3);
+  console.log(
+    `    ✅ bottom2: ${stat30.bottom2?.length || 0}, top3: ${stat30.top3?.length || 0}`
+  );
 
-    // รอเพิ่มเติมให้ JavaScript render เสร็จ
-    console.log("⏳ Waiting for JavaScript to render...");
-    await new Promise((r) => setTimeout(r, 15000));
-
-    // Scroll ทั้งหน้าเพื่อให้ lazy load ทำงาน
-    console.log("📜 Scrolling page...");
-    await page.evaluate(async () => {
-      for (let i = 0; i < 20; i++) {
-        window.scrollBy(0, 500);
-        await new Promise((r) => setTimeout(r, 400));
-      }
-      window.scrollTo(0, 0);
-    });
-
-    await new Promise((r) => setTimeout(r, 3000));
-
-    // ดึงข้อมูลจากหน้าเว็บ
-    const data = await page.evaluate((lotteryName) => {
-      const bodyText = document.body.innerText;
-      const result = {
-        daily_calculation: {
-          top3: [],
-          top3_recommended: [],
-          bottom2: [],
-          bottom2_recommended: [],
-          running_number: null,
-          full_set_number: null
-        },
-        digit_frequency: {
-          data: []
-        },
-        statistics_30_draws: {
-          bottom2: [],
-          top3: []
-        }
-      };
-
-      // ตรวจสอบว่าติด Cloudflare หรือไม่
-      if (bodyText.includes("Verify you are human") || 
-          bodyText.includes("Just a moment") ||
-          bodyText.includes("Checking your browser")) {
-        return {
-          ...result,
-          _debug: {
-            bodyTextLength: bodyText.length,
-            foundTop3: 0,
-            foundBottom2: 0,
-            foundDigitFreq: 0,
-            foundStats30Bottom2: 0,
-            foundStats30Top3: 0,
-            bodyPreview: bodyText.slice(0, 500),
-            blocked: true
-          }
-        };
-      }
-
-      // ============ 1. ดึงคำนวณหวยประจำวัน ============
-      const sections = bodyText.split(/\n+/);
-      
-      let inTop3Section = false;
-      let inBottom2Section = false;
-      let inRunningSection = false;
-      let inFullSetSection = false;
-
-      // ฟังก์ชันดึงตัวเลข
-      const extractNumbers = (text, digits) => {
-        const regex = new RegExp(`\\b\\d{${digits}}\\b`, "g");
-        const matches = text.match(regex) || [];
-        return matches.filter(n => n !== "0".repeat(digits));
-      };
-
-      for (const line of sections) {
-        const trimmed = line.trim();
-
-        // ตรวจหา section headers
-        if (trimmed.includes("3 ตัวบน") && !trimmed.includes("ตาราง")) {
-          inTop3Section = true;
-          inBottom2Section = false;
-          inRunningSection = false;
-          inFullSetSection = false;
-          continue;
-        }
-        if (trimmed.includes("2 ตัวล่าง") && !trimmed.includes("ตาราง")) {
-          inTop3Section = false;
-          inBottom2Section = true;
-          inRunningSection = false;
-          inFullSetSection = false;
-          continue;
-        }
-        if (trimmed === "วิ่ง" || trimmed.includes("เลขวิ่ง")) {
-          inTop3Section = false;
-          inBottom2Section = false;
-          inRunningSection = true;
-          inFullSetSection = false;
-          continue;
-        }
-        if (trimmed === "รูด" || trimmed.includes("เลขรูด")) {
-          inTop3Section = false;
-          inBottom2Section = false;
-          inRunningSection = false;
-          inFullSetSection = true;
-          continue;
-        }
-
-        // ดึงตัวเลขจากแต่ละ section
-        if (inTop3Section) {
-          const nums = extractNumbers(trimmed, 3);
-          result.daily_calculation.top3.push(...nums);
-        }
-        if (inBottom2Section) {
-          const nums = extractNumbers(trimmed, 2);
-          result.daily_calculation.bottom2.push(...nums);
-        }
-        if (inRunningSection && /^\d$/.test(trimmed)) {
-          result.daily_calculation.running_number = trimmed;
-          inRunningSection = false;
-        }
-        if (inFullSetSection && /^\d$/.test(trimmed)) {
-          result.daily_calculation.full_set_number = trimmed;
-          inFullSetSection = false;
-        }
-      }
-
-      // ลบ duplicates
-      result.daily_calculation.top3 = [...new Set(result.daily_calculation.top3)].slice(0, 15);
-      result.daily_calculation.bottom2 = [...new Set(result.daily_calculation.bottom2)].slice(0, 15);
-
-      // ============ 2. ดึงสถิติจำนวนครั้งที่ออก (เลข 0-9) ============
-      const freqMatch = bodyText.match(
-        /เลข\s+3\s*ตัวบน\s+2\s*ตัวล่าง\s+รวม([\s\S]*?)(?:สถิติ|ตาราง|$)/i
-      );
-      
-      if (freqMatch) {
-        const freqText = freqMatch[1];
-        const rows = freqText.trim().split("\n");
-        for (const row of rows) {
-          const parts = row.trim().split(/\s+/);
-          if (parts.length >= 4 && /^[0-9]$/.test(parts[0])) {
-            result.digit_frequency.data.push({
-              digit: parts[0],
-              top3_count: parseInt(parts[1]) || 0,
-              bottom2_count: parseInt(parts[2]) || 0,
-              total: parseInt(parts[3]) || 0
-            });
-          }
-        }
-      }
-
-      // ============ 3. ดึงตาราง 2 ตัวล่าง 30 งวด ============
-      const bottom2TableMatch = bodyText.match(
-        /ตารางแสดงผล.*?2\s*ตัวล่าง[\s\S]*?เลขที่ออก\s+จำนวนครั้งที่ออก([\s\S]*?)(?:ตารางแสดงผล|คำนวณ|สถิติ.*?3\s*ตัวบน|$)/i
-      );
-      
-      if (bottom2TableMatch) {
-        const rows = bottom2TableMatch[1].trim().split("\n");
-        for (const row of rows) {
-          const parts = row.trim().split(/\s+/);
-          if (parts.length >= 2 && /^\d{2}$/.test(parts[0])) {
-            result.statistics_30_draws.bottom2.push({
-              number: parts[0],
-              count: parseInt(parts[1]) || 0
-            });
-          }
-        }
-      }
-
-      // ============ 4. ดึงตาราง 3 ตัวบน 30 งวด ============
-      const top3TableMatch = bodyText.match(
-        /ตารางแสดงผล.*?3\s*ตัวบน[\s\S]*?เลขที่ออก\s+จำนวนครั้งที่ออก([\s\S]*?)(?:ตารางแสดงผล|คำนวณ|$)/i
-      );
-      
-      if (top3TableMatch) {
-        const rows = top3TableMatch[1].trim().split("\n");
-        for (const row of rows) {
-          const parts = row.trim().split(/\s+/);
-          if (parts.length >= 2 && /^\d{3}$/.test(parts[0])) {
-            result.statistics_30_draws.top3.push({
-              number: parts[0],
-              count: parseInt(parts[1]) || 0
-            });
-          }
-        }
-      }
-
-      return {
-        ...result,
-        _debug: {
-          bodyTextLength: bodyText.length,
-          foundTop3: result.daily_calculation.top3.length,
-          foundBottom2: result.daily_calculation.bottom2.length,
-          foundDigitFreq: result.digit_frequency.data.length,
-          foundStats30Bottom2: result.statistics_30_draws.bottom2.length,
-          foundStats30Top3: result.statistics_30_draws.top3.length,
-          bodyPreview: bodyText.slice(0, 2000),
-          blocked: false
-        }
-      };
-    }, source.name);
-
-    // Save screenshot for debugging
-    await page.screenshot({ 
-      path: `debug-${source.id}.png`, 
-      fullPage: true 
-    });
-
-    await page.close();
-
-    if (data._debug?.blocked) {
-      console.log(`⚠️ ${source.name} - Blocked by Cloudflare`);
-    } else {
-      console.log(`✅ ${source.name} scraped successfully`);
-      console.log(`   - Top3: ${data._debug.foundTop3} numbers`);
-      console.log(`   - Bottom2: ${data._debug.foundBottom2} numbers`);
-      console.log(`   - Digit Frequency: ${data._debug.foundDigitFreq} rows`);
-      console.log(`   - Stats 30 Bottom2: ${data._debug.foundStats30Bottom2} rows`);
-      console.log(`   - Stats 30 Top3: ${data._debug.foundStats30Top3} rows`);
-    }
-
-    return data;
-
-  } catch (error) {
-    console.error(`❌ Error scraping ${source.name}:`, error.message);
-    await page.close();
-    return null;
-  }
+  return {
+    lottery: source.id,
+    lottery_name: source.name,
+    source_url: source.sourceUrl,
+    fetched_at: nowISO(),
+    window: { latest_n_draws: 30 },
+    daily_calculation: {
+      top3: calcData.top3 || [],
+      top3_recommended: calcData.top3_recommended || [],
+      bottom2: calcData.bottom2 || [],
+      bottom2_recommended: calcData.bottom2_recommended || [],
+      running_number: calcData.running_number || "",
+      full_set_number: calcData.full_set_number || "",
+    },
+    digit_frequency: {
+      data: digitFreq.data || [],
+    },
+    statistics_30_draws: {
+      bottom2: stat30.bottom2 || [],
+      top3: stat30.top3 || [],
+    },
+    notes: "อ่านข้อมูลจากรูปภาพด้วย AI Vision",
+  };
 }
 
-/**
- * Main function
- */
+function delay(ms) {
+  return new Promise((r) => setTimeout(r, ms));
+}
+
+// ===== Main =====
+
 async function main() {
-  console.log("🎰 Starting lottery calculation scraper...");
-  console.log(`📅 Fetched at: ${nowISO()}`);
-  console.log(`📋 Total sources: ${LOTTERY_SOURCES.length}`);
+  console.log("🎰 Starting lottery image reader...");
+  console.log(`📅 ${nowISO()}\n`);
 
-  // เปิด browser ด้วย stealth mode
-  const browser = await puppeteer.launch({
-    headless: "new",
-    args: [
-      "--no-sandbox",
-      "--disable-setuid-sandbox",
-      "--disable-dev-shm-usage",
-      "--disable-gpu",
-      "--disable-blink-features=AutomationControlled",
-      "--window-size=1920,1080",
-    ],
-  });
+  // ตรวจ AI services
+  console.log("🔑 AI Services:");
+  if (GITHUB_TOKEN) console.log("  ✅ GitHub Models (GITHUB_TOKEN)");
+  else console.log("  ❌ GitHub Models");
+  if (GEMINI_API_KEY) console.log("  ✅ Gemini (GEMINI_API_KEY)");
+  else console.log("  ❌ Gemini");
 
-  // สร้างโฟลเดอร์ output
+  if (!GITHUB_TOKEN && !GEMINI_API_KEY) {
+    throw new Error("ต้องมี GITHUB_TOKEN หรือ GEMINI_API_KEY");
+  }
+
+  // ตรวจ images folder
+  try {
+    await fs.access(IMAGES_DIR);
+  } catch {
+    throw new Error(`ไม่พบ folder: ${IMAGES_DIR}`);
+  }
+
+  const files = await fs.readdir(IMAGES_DIR);
+  console.log(`\n📁 Images folder: ${files.length} files`);
+  console.log(`📋 Lotteries: ${LOTTERY_SOURCES.length}\n`);
+
   await fs.mkdir("public", { recursive: true });
 
   const allResults = [];
 
-  // ดึงข้อมูลแต่ละหวย
   for (const source of LOTTERY_SOURCES) {
-    const data = await scrapeCalculationData(browser, source);
-    
-    if (data) {
-      const result = {
-        lottery: source.id,
-        lottery_name: source.name,
-        source_url: source.url,
-        fetched_at: nowISO(),
-        window: { latest_n_draws: 30 },
-        daily_calculation: data.daily_calculation,
-        digit_frequency: data.digit_frequency,
-        statistics_30_draws: data.statistics_30_draws,
-        blocked_by_cloudflare: data._debug?.blocked || false,
-        notes: `ดึงข้อมูลจาก exphuay.com - รันเวลา 08:00 น.`
-      };
+    console.log(`\n${"=".repeat(50)}`);
+    console.log(`📌 ${source.name} (${source.id})`);
+    console.log("=".repeat(50));
 
-      // เซฟไฟล์แยกสำหรับแต่ละหวย
-      const outputPath = `public/${source.outputFile}`;
-      await fs.writeFile(outputPath, JSON.stringify(result, null, 2), "utf8");
-      console.log(`💾 Saved: ${outputPath}`);
+    try {
+      const result = await processLottery(source);
 
-      allResults.push(result);
+      if (result) {
+        // เซฟไฟล์แยก
+        const outPath = `public/${source.outputFile}`;
+        await fs.writeFile(outPath, JSON.stringify(result, null, 2), "utf8");
+        console.log(`  💾 Saved: ${outPath}`);
+        allResults.push(result);
+      }
+    } catch (e) {
+      console.log(`  ❌ Error: ${e.message}`);
+    }
+
+    // delay ระหว่างหวย
+    if (source !== LOTTERY_SOURCES[LOTTERY_SOURCES.length - 1]) {
+      console.log("\n  ⏳ Waiting 10s before next lottery...");
+      await delay(10000);
     }
   }
 
-  // เซฟไฟล์รวมทั้งหมด
-  const combinedResult = {
+  // เซฟไฟล์รวม
+  const combined = {
     fetched_at: nowISO(),
     total_lotteries: allResults.length,
-    scheduled_time: "08:00",
     lotteries: allResults,
-    notes: "ข้อมูลการคำนวณหวยและสถิติ - รันวันละ 1 ครั้ง"
+    notes: "อ่านข้อมูลจากรูปภาพด้วย AI Vision (GitHub Models / Gemini)",
   };
 
   await fs.writeFile(
     "public/all_calculations.json",
-    JSON.stringify(combinedResult, null, 2),
+    JSON.stringify(combined, null, 2),
     "utf8"
   );
   console.log("\n💾 Saved: public/all_calculations.json");
 
-  await browser.close();
-
-  // แสดงสรุป
+  // สรุป
   console.log("\n" + "=".repeat(50));
   console.log("📊 SUMMARY");
   console.log("=".repeat(50));
-  
-  for (const result of allResults) {
-    console.log(`\n📌 ${result.lottery_name}`);
-    if (result.blocked_by_cloudflare) {
-      console.log(`   ⚠️ Blocked by Cloudflare`);
-    } else {
-      console.log(`   3 ตัวบน: ${result.daily_calculation.top3.join(", ") || "N/A"}`);
-      console.log(`   2 ตัวล่าง: ${result.daily_calculation.bottom2.join(", ") || "N/A"}`);
-      console.log(`   วิ่ง: ${result.daily_calculation.running_number || "N/A"}`);
-      console.log(`   รูด: ${result.daily_calculation.full_set_number || "N/A"}`);
-    }
+
+  for (const r of allResults) {
+    console.log(`\n📌 ${r.lottery_name}`);
+    console.log(
+      `   3 ตัวบน: ${r.daily_calculation.top3.join(", ") || "N/A"}`
+    );
+    console.log(
+      `   2 ตัวล่าง: ${r.daily_calculation.bottom2.join(", ") || "N/A"}`
+    );
+    console.log(`   วิ่ง: ${r.daily_calculation.running_number || "N/A"}`);
+    console.log(`   รูด: ${r.daily_calculation.full_set_number || "N/A"}`);
+    console.log(
+      `   Digit freq: ${r.digit_frequency.data.length} entries`
+    );
+    console.log(
+      `   Stats 30: bottom2=${r.statistics_30_draws.bottom2.length}, top3=${r.statistics_30_draws.top3.length}`
+    );
   }
 
-  console.log("\n✅ All done!");
+  console.log(`\n✅ All done! Processed ${allResults.length}/${LOTTERY_SOURCES.length} lotteries`);
 }
 
 main().catch((err) => {
   console.error("❌ Error:", err.message);
-  console.error(err.stack);
   process.exit(1);
 });
