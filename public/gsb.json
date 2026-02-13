@@ -2,25 +2,318 @@
   "lottery": "gsb",
   "lottery_name": "หวยออมสิน",
   "source_url": "https://exphuay.com/calculate/gsb",
-  "fetched_at": "2026-02-13T05:44:04.642Z",
+  "fetched_at": "2026-02-13T10:40:29.483Z",
   "window": {
     "latest_n_draws": 30
   },
   "daily_calculation": {
-    "top3": [],
+    "top3": [
+      "325",
+      "959",
+      "414",
+      "114",
+      "459"
+    ],
     "top3_recommended": [],
-    "bottom2": [],
-    "bottom2_recommended": [],
-    "running_number": null,
-    "full_set_number": null
+    "bottom2": [
+      "40",
+      "89",
+      "78",
+      "67",
+      "80",
+      "17"
+    ],
+    "bottom2_recommended": [
+      "89"
+    ],
+    "running_number": "9",
+    "full_set_number": "8"
   },
   "digit_frequency": {
-    "data": []
+    "data": [
+      {
+        "digit": "0",
+        "top3_count": 6,
+        "bottom2_count": 5,
+        "total": 11
+      },
+      {
+        "digit": "1",
+        "top3_count": 12,
+        "bottom2_count": 9,
+        "total": 21
+      },
+      {
+        "digit": "2",
+        "top3_count": 12,
+        "bottom2_count": 4,
+        "total": 16
+      },
+      {
+        "digit": "3",
+        "top3_count": 7,
+        "bottom2_count": 3,
+        "total": 10
+      },
+      {
+        "digit": "4",
+        "top3_count": 12,
+        "bottom2_count": 10,
+        "total": 22
+      },
+      {
+        "digit": "5",
+        "top3_count": 7,
+        "bottom2_count": 3,
+        "total": 10
+      },
+      {
+        "digit": "6",
+        "top3_count": 9,
+        "bottom2_count": 6,
+        "total": 15
+      },
+      {
+        "digit": "7",
+        "top3_count": 8,
+        "bottom2_count": 6,
+        "total": 14
+      },
+      {
+        "digit": "8",
+        "top3_count": 9,
+        "bottom2_count": 10,
+        "total": 19
+      },
+      {
+        "digit": "9",
+        "top3_count": 8,
+        "bottom2_count": 4,
+        "total": 12
+      }
+    ]
   },
   "statistics_30_draws": {
-    "bottom2": [],
-    "top3": []
+    "bottom2": [
+      {
+        "number": "10",
+        "count": 1
+      },
+      {
+        "number": "11",
+        "count": 1
+      },
+      {
+        "number": "14",
+        "count": 1
+      },
+      {
+        "number": "21",
+        "count": 1
+      },
+      {
+        "number": "35",
+        "count": 1
+      },
+      {
+        "number": "41",
+        "count": 2
+      },
+      {
+        "number": "42",
+        "count": 1
+      },
+      {
+        "number": "45",
+        "count": 1
+      },
+      {
+        "number": "47",
+        "count": 1
+      },
+      {
+        "number": "48",
+        "count": 1
+      },
+      {
+        "number": "49",
+        "count": 2
+      },
+      {
+        "number": "53",
+        "count": 1
+      },
+      {
+        "number": "60",
+        "count": 1
+      },
+      {
+        "number": "61",
+        "count": 1
+      },
+      {
+        "number": "68",
+        "count": 1
+      },
+      {
+        "number": "76",
+        "count": 2
+      },
+      {
+        "number": "79",
+        "count": 1
+      },
+      {
+        "number": "80",
+        "count": 2
+      },
+      {
+        "number": "81",
+        "count": 1
+      },
+      {
+        "number": "82",
+        "count": 1
+      },
+      {
+        "number": "84",
+        "count": 1
+      },
+      {
+        "number": "86",
+        "count": 1
+      },
+      {
+        "number": "88",
+        "count": 1
+      },
+      {
+        "number": "97",
+        "count": 1
+      },
+      {
+        "number": "02",
+        "count": 1
+      }
+    ],
+    "top3": [
+      {
+        "number": "132",
+        "count": 1
+      },
+      {
+        "number": "159",
+        "count": 1
+      },
+      {
+        "number": "195",
+        "count": 1
+      },
+      {
+        "number": "211",
+        "count": 1
+      },
+      {
+        "number": "278",
+        "count": 1
+      },
+      {
+        "number": "300",
+        "count": 2
+      },
+      {
+        "number": "327",
+        "count": 1
+      },
+      {
+        "number": "332",
+        "count": 1
+      },
+      {
+        "number": "356",
+        "count": 1
+      },
+      {
+        "number": "383",
+        "count": 1
+      },
+      {
+        "number": "393",
+        "count": 1
+      },
+      {
+        "number": "404",
+        "count": 1
+      },
+      {
+        "number": "420",
+        "count": 1
+      },
+      {
+        "number": "470",
+        "count": 1
+      },
+      {
+        "number": "475",
+        "count": 1
+      },
+      {
+        "number": "524",
+        "count": 1
+      },
+      {
+        "number": "649",
+        "count": 1
+      },
+      {
+        "number": "653",
+        "count": 1
+      },
+      {
+        "number": "774",
+        "count": 1
+      },
+      {
+        "number": "811",
+        "count": 1
+      },
+      {
+        "number": "813",
+        "count": 1
+      },
+      {
+        "number": "826",
+        "count": 1
+      },
+      {
+        "number": "900",
+        "count": 1
+      },
+      {
+        "number": "918",
+        "count": 1
+      },
+      {
+        "number": "959",
+        "count": 1
+      },
+      {
+        "number": "973",
+        "count": 1
+      },
+      {
+        "number": "095",
+        "count": 1
+      },
+      {
+        "number": "025",
+        "count": 1
+      },
+      {
+        "number": "087",
+        "count": 1
+      }
+    ]
   },
-  "blocked_by_cloudflare": false,
-  "notes": "ดึงข้อมูลจาก exphuay.com - รันเวลา 08:00 น."
+  "notes": "อ่านข้อมูลจากรูปภาพด้วย AI Vision"
 }

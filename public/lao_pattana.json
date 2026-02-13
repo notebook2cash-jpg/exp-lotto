@@ -2,25 +2,327 @@
   "lottery": "lao_pattana",
   "lottery_name": "หวยลาวพัฒนา",
   "source_url": "https://exphuay.com/calculate/laosdevelops",
-  "fetched_at": "2026-02-13T05:42:36.746Z",
+  "fetched_at": "2026-02-13T10:38:09.494Z",
   "window": {
     "latest_n_draws": 30
   },
   "daily_calculation": {
-    "top3": [],
-    "top3_recommended": [],
-    "bottom2": [],
-    "bottom2_recommended": [],
-    "running_number": null,
-    "full_set_number": null
+    "top3": [
+      "043",
+      "682",
+      "430",
+      "830",
+      "482"
+    ],
+    "top3_recommended": [
+      "043",
+      "430",
+      "830"
+    ],
+    "bottom2": [
+      "76",
+      "44",
+      "39",
+      "08",
+      "46",
+      "03"
+    ],
+    "bottom2_recommended": [
+      "44",
+      "46"
+    ],
+    "running_number": "4",
+    "full_set_number": "3"
   },
   "digit_frequency": {
-    "data": []
+    "data": [
+      {
+        "digit": "0",
+        "top3_count": 13,
+        "bottom2_count": 10,
+        "total": 23
+      },
+      {
+        "digit": "1",
+        "top3_count": 4,
+        "bottom2_count": 2,
+        "total": 6
+      },
+      {
+        "digit": "2",
+        "top3_count": 6,
+        "bottom2_count": 1,
+        "total": 7
+      },
+      {
+        "digit": "3",
+        "top3_count": 10,
+        "bottom2_count": 5,
+        "total": 15
+      },
+      {
+        "digit": "4",
+        "top3_count": 12,
+        "bottom2_count": 10,
+        "total": 22
+      },
+      {
+        "digit": "5",
+        "top3_count": 13,
+        "bottom2_count": 5,
+        "total": 18
+      },
+      {
+        "digit": "6",
+        "top3_count": 7,
+        "bottom2_count": 8,
+        "total": 15
+      },
+      {
+        "digit": "7",
+        "top3_count": 11,
+        "bottom2_count": 8,
+        "total": 19
+      },
+      {
+        "digit": "8",
+        "top3_count": 9,
+        "bottom2_count": 6,
+        "total": 15
+      },
+      {
+        "digit": "9",
+        "top3_count": 5,
+        "bottom2_count": 5,
+        "total": 10
+      }
+    ]
   },
   "statistics_30_draws": {
-    "bottom2": [],
-    "top3": []
+    "bottom2": [
+      {
+        "number": "26",
+        "count": 1
+      },
+      {
+        "number": "30",
+        "count": 1
+      },
+      {
+        "number": "34",
+        "count": 1
+      },
+      {
+        "number": "36",
+        "count": 1
+      },
+      {
+        "number": "38",
+        "count": 1
+      },
+      {
+        "number": "41",
+        "count": 1
+      },
+      {
+        "number": "45",
+        "count": 2
+      },
+      {
+        "number": "46",
+        "count": 1
+      },
+      {
+        "number": "48",
+        "count": 1
+      },
+      {
+        "number": "55",
+        "count": 1
+      },
+      {
+        "number": "59",
+        "count": 1
+      },
+      {
+        "number": "64",
+        "count": 2
+      },
+      {
+        "number": "67",
+        "count": 1
+      },
+      {
+        "number": "70",
+        "count": 2
+      },
+      {
+        "number": "74",
+        "count": 1
+      },
+      {
+        "number": "76",
+        "count": 1
+      },
+      {
+        "number": "77",
+        "count": 1
+      },
+      {
+        "number": "78",
+        "count": 1
+      },
+      {
+        "number": "80",
+        "count": 2
+      },
+      {
+        "number": "84",
+        "count": 1
+      },
+      {
+        "number": "91",
+        "count": 1
+      },
+      {
+        "number": "96",
+        "count": 1
+      },
+      {
+        "number": "09",
+        "count": 2
+      },
+      {
+        "number": "03",
+        "count": 1
+      },
+      {
+        "number": "00",
+        "count": 1
+      }
+    ],
+    "top3": [
+      {
+        "number": "145",
+        "count": 1
+      },
+      {
+        "number": "182",
+        "count": 1
+      },
+      {
+        "number": "369",
+        "count": 1
+      },
+      {
+        "number": "401",
+        "count": 1
+      },
+      {
+        "number": "430",
+        "count": 1
+      },
+      {
+        "number": "439",
+        "count": 1
+      },
+      {
+        "number": "440",
+        "count": 1
+      },
+      {
+        "number": "469",
+        "count": 1
+      },
+      {
+        "number": "509",
+        "count": 1
+      },
+      {
+        "number": "541",
+        "count": 1
+      },
+      {
+        "number": "546",
+        "count": 1
+      },
+      {
+        "number": "603",
+        "count": 1
+      },
+      {
+        "number": "626",
+        "count": 1
+      },
+      {
+        "number": "653",
+        "count": 1
+      },
+      {
+        "number": "662",
+        "count": 1
+      },
+      {
+        "number": "685",
+        "count": 1
+      },
+      {
+        "number": "753",
+        "count": 1
+      },
+      {
+        "number": "789",
+        "count": 1
+      },
+      {
+        "number": "817",
+        "count": 1
+      },
+      {
+        "number": "845",
+        "count": 1
+      },
+      {
+        "number": "892",
+        "count": 1
+      },
+      {
+        "number": "905",
+        "count": 1
+      },
+      {
+        "number": "932",
+        "count": 1
+      },
+      {
+        "number": "963",
+        "count": 1
+      },
+      {
+        "number": "073",
+        "count": 1
+      },
+      {
+        "number": "085",
+        "count": 1
+      },
+      {
+        "number": "039",
+        "count": 1
+      },
+      {
+        "number": "060",
+        "count": 1
+      },
+      {
+        "number": "052",
+        "count": 1
+      },
+      {
+        "number": "099",
+        "count": 1
+      }
+    ]
   },
-  "blocked_by_cloudflare": false,
-  "notes": "ดึงข้อมูลจาก exphuay.com - รันเวลา 08:00 น."
+  "notes": "อ่านข้อมูลจากรูปภาพด้วย AI Vision"
 }
