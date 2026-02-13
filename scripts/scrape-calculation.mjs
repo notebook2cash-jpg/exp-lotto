@@ -19,33 +19,40 @@ const SCRIPT_DIR = path.dirname(new URL(import.meta.url).pathname);
 const IMAGES_DIR = path.join(SCRIPT_DIR, "exp-images");
 
 // ===== รายชื่อหวย =====
+// id = ค่าที่ใส่ใน JSON field "lottery" (ต้องตรงกับสคริปต์เก่า)
+// imagePrefix = prefix ของชื่อรูปใน exp-images/ (เช่น gov_thai_1.png)
 const LOTTERY_SOURCES = [
   {
-    id: "gov_thai",
+    id: "thai_government",
+    imagePrefix: "gov_thai",
     name: "หวยรัฐบาลไทย",
     sourceUrl: "https://exphuay.com/calculate/goverment",
     outputFile: "gov_thai.json",
   },
   {
     id: "lao_pattana",
+    imagePrefix: "lao_pattana",
     name: "หวยลาวพัฒนา",
     sourceUrl: "https://exphuay.com/calculate/laosdevelops",
     outputFile: "lao_pattana.json",
   },
   {
     id: "malaysia",
+    imagePrefix: "malaysia",
     name: "หวยมาเลย์",
     sourceUrl: "https://exphuay.com/calculate/magnum4d",
     outputFile: "malaysia.json",
   },
   {
     id: "baac",
+    imagePrefix: "baac",
     name: "หวยธ.ก.ส.",
     sourceUrl: "https://exphuay.com/calculate/baac",
     outputFile: "baac.json",
   },
   {
     id: "gsb",
+    imagePrefix: "gsb",
     name: "หวยออมสิน",
     sourceUrl: "https://exphuay.com/calculate/gsb",
     outputFile: "gsb.json",
@@ -226,9 +233,10 @@ async function readImageAI(prompt, imagePath) {
 // ===== Process single lottery =====
 
 async function processLottery(source) {
-  const img1 = path.join(IMAGES_DIR, `${source.id}_1.png`);
-  const img2 = path.join(IMAGES_DIR, `${source.id}_2.png`);
-  const img3 = path.join(IMAGES_DIR, `${source.id}_3.png`);
+  const prefix = source.imagePrefix || source.id;
+  const img1 = path.join(IMAGES_DIR, `${prefix}_1.png`);
+  const img2 = path.join(IMAGES_DIR, `${prefix}_2.png`);
+  const img3 = path.join(IMAGES_DIR, `${prefix}_3.png`);
 
   // ตรวจไฟล์
   for (const f of [img1, img2, img3]) {
@@ -241,7 +249,7 @@ async function processLottery(source) {
   }
 
   // 1. อ่าน calc (คำนวณประจำวัน)
-  console.log(`  📊 Reading ${source.id}_1.png (calc)...`);
+  console.log(`  📊 Reading ${prefix}_1.png (calc)...`);
   const calcData = await readImageAI(CALC_PROMPT, img1);
   console.log(
     `    ✅ top3: ${calcData.top3?.length || 0}, bottom2: ${calcData.bottom2?.length || 0}, วิ่ง: ${calcData.running_number}, รูด: ${calcData.full_set_number}`
@@ -250,14 +258,14 @@ async function processLottery(source) {
   await delay(5000);
 
   // 2. อ่าน digit frequency (สถิติเลข 0-9)
-  console.log(`  📊 Reading ${source.id}_2.png (digit freq)...`);
+  console.log(`  📊 Reading ${prefix}_2.png (digit freq)...`);
   const digitFreq = await readImageAI(DIGIT_FREQ_PROMPT, img2);
   console.log(`    ✅ digit_frequency: ${digitFreq.data?.length || 0} entries`);
 
   await delay(5000);
 
   // 3. อ่าน stat 30 draws
-  console.log(`  📊 Reading ${source.id}_3.png (stat 30)...`);
+  console.log(`  📊 Reading ${prefix}_3.png (stat 30)...`);
   const stat30 = await readImageAI(STAT_30_PROMPT, img3);
   console.log(
     `    ✅ bottom2: ${stat30.bottom2?.length || 0}, top3: ${stat30.top3?.length || 0}`
@@ -274,8 +282,8 @@ async function processLottery(source) {
       top3_recommended: calcData.top3_recommended || [],
       bottom2: calcData.bottom2 || [],
       bottom2_recommended: calcData.bottom2_recommended || [],
-      running_number: calcData.running_number || "",
-      full_set_number: calcData.full_set_number || "",
+      running_number: calcData.running_number ?? null,
+      full_set_number: calcData.full_set_number ?? null,
     },
     digit_frequency: {
       data: digitFreq.data || [],
@@ -284,7 +292,8 @@ async function processLottery(source) {
       bottom2: stat30.bottom2 || [],
       top3: stat30.top3 || [],
     },
-    notes: "อ่านข้อมูลจากรูปภาพด้วย AI Vision",
+    blocked_by_cloudflare: false,
+    notes: `ดึงข้อมูลจาก exphuay.com - รันเวลา 08:00 น.`,
   };
 }
 
@@ -354,8 +363,9 @@ async function main() {
   const combined = {
     fetched_at: nowISO(),
     total_lotteries: allResults.length,
+    scheduled_time: "08:00",
     lotteries: allResults,
-    notes: "อ่านข้อมูลจากรูปภาพด้วย AI Vision (GitHub Models / Gemini)",
+    notes: "ข้อมูลการคำนวณหวยและสถิติ - รันวันละ 1 ครั้ง",
   };
 
   await fs.writeFile(
