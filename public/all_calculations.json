@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-02-17T05:42:26.724Z",
+  "fetched_at": "2026-02-18T03:36:28.893Z",
   "total_lotteries": 5,
   "scheduled_time": "08:00",
   "lotteries": [
@@ -7,7 +7,7 @@
       "lottery": "thai_government",
       "lottery_name": "หวยรัฐบาลไทย",
       "source_url": "https://exphuay.com/calculate/goverment",
-      "fetched_at": "2026-02-17T05:39:28.617Z",
+      "fetched_at": "2026-02-18T03:32:56.492Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -333,7 +333,7 @@
       "lottery": "lao_pattana",
       "lottery_name": "หวยลาวพัฒนา",
       "source_url": "https://exphuay.com/calculate/laosdevelops",
-      "fetched_at": "2026-02-17T05:40:15.134Z",
+      "fetched_at": "2026-02-18T03:33:52.467Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -662,7 +662,7 @@
       "lottery": "malaysia",
       "lottery_name": "หวยมาเลย์",
       "source_url": "https://exphuay.com/calculate/magnum4d",
-      "fetched_at": "2026-02-17T05:40:57.892Z",
+      "fetched_at": "2026-02-18T03:34:36.785Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -988,7 +988,7 @@
       "lottery": "baac",
       "lottery_name": "หวยธ.ก.ส.",
       "source_url": "https://exphuay.com/calculate/baac",
-      "fetched_at": "2026-02-17T05:41:41.628Z",
+      "fetched_at": "2026-02-18T03:35:27.602Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -1308,7 +1308,7 @@
       "lottery": "gsb",
       "lottery_name": "หวยออมสิน",
       "source_url": "https://exphuay.com/calculate/gsb",
-      "fetched_at": "2026-02-17T05:42:26.723Z",
+      "fetched_at": "2026-02-18T03:36:28.892Z",
       "window": {
         "latest_n_draws": 30
       },
