@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-02-22T03:34:05.425Z",
+  "fetched_at": "2026-02-23T03:37:30.715Z",
   "total_lotteries": 5,
   "scheduled_time": "08:00",
   "lotteries": [
@@ -7,7 +7,7 @@
       "lottery": "thai_government",
       "lottery_name": "หวยรัฐบาลไทย",
       "source_url": "https://exphuay.com/calculate/goverment",
-      "fetched_at": "2026-02-22T03:31:10.753Z",
+      "fetched_at": "2026-02-23T03:34:37.874Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -333,7 +333,7 @@
       "lottery": "lao_pattana",
       "lottery_name": "หวยลาวพัฒนา",
       "source_url": "https://exphuay.com/calculate/laosdevelops",
-      "fetched_at": "2026-02-22T03:31:55.984Z",
+      "fetched_at": "2026-02-23T03:35:22.706Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -662,7 +662,7 @@
       "lottery": "malaysia",
       "lottery_name": "หวยมาเลย์",
       "source_url": "https://exphuay.com/calculate/magnum4d",
-      "fetched_at": "2026-02-22T03:32:38.613Z",
+      "fetched_at": "2026-02-23T03:36:04.978Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -988,7 +988,7 @@
       "lottery": "baac",
       "lottery_name": "หวยธ.ก.ส.",
       "source_url": "https://exphuay.com/calculate/baac",
-      "fetched_at": "2026-02-22T03:33:22.301Z",
+      "fetched_at": "2026-02-23T03:36:46.544Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -1098,18 +1098,6 @@
             "count": 1
           },
           {
-            "number": "21",
-            "count": 1
-          },
-          {
-            "number": "23",
-            "count": 1
-          },
-          {
-            "number": "26",
-            "count": 1
-          },
-          {
             "number": "30",
             "count": 1
           },
@@ -1126,10 +1114,6 @@
             "count": 1
           },
           {
-            "number": "45",
-            "count": 2
-          },
-          {
             "number": "47",
             "count": 1
           },
@@ -1144,10 +1128,6 @@
           {
             "number": "63",
             "count": 1
-          },
-          {
-            "number": "64",
-            "count": 2
           },
           {
             "number": "66",
@@ -1328,7 +1308,7 @@
       "lottery": "gsb",
       "lottery_name": "หวยออมสิน",
       "source_url": "https://exphuay.com/calculate/gsb",
-      "fetched_at": "2026-02-22T03:34:05.424Z",
+      "fetched_at": "2026-02-23T03:37:30.715Z",
       "window": {
         "latest_n_draws": 30
       },
