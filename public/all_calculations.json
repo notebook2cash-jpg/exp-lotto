@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-02-25T08:02:46.141Z",
+  "fetched_at": "2026-02-26T03:30:43.080Z",
   "total_lotteries": 5,
   "scheduled_time": "08:00",
   "lotteries": [
@@ -7,7 +7,7 @@
       "lottery": "thai_government",
       "lottery_name": "หวยรัฐบาลไทย",
       "source_url": "https://exphuay.com/calculate/goverment",
-      "fetched_at": "2026-02-25T07:59:46.811Z",
+      "fetched_at": "2026-02-26T03:27:29.206Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -323,7 +323,7 @@
       "lottery": "lao_pattana",
       "lottery_name": "หวยลาวพัฒนา",
       "source_url": "https://exphuay.com/calculate/laosdevelops",
-      "fetched_at": "2026-02-25T08:00:31.019Z",
+      "fetched_at": "2026-02-26T03:28:18.309Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -440,7 +440,7 @@
           },
           {
             "number": "45",
-            "count": 1
+            "count": 2
           },
           {
             "number": "46",
@@ -464,7 +464,7 @@
           },
           {
             "number": "64",
-            "count": 1
+            "count": 2
           },
           {
             "number": "66",
@@ -645,7 +645,7 @@
       "lottery": "malaysia",
       "lottery_name": "หวยมาเลย์",
       "source_url": "https://exphuay.com/calculate/magnum4d",
-      "fetched_at": "2026-02-25T08:01:14.678Z",
+      "fetched_at": "2026-02-26T03:29:06.890Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -959,7 +959,7 @@
       "lottery": "baac",
       "lottery_name": "หวยธ.ก.ส.",
       "source_url": "https://exphuay.com/calculate/baac",
-      "fetched_at": "2026-02-25T08:02:01.320Z",
+      "fetched_at": "2026-02-26T03:29:55.044Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -1070,6 +1070,10 @@
           },
           {
             "number": "23",
+            "count": 1
+          },
+          {
+            "number": "26",
             "count": 1
           },
           {
@@ -1287,7 +1291,7 @@
       "lottery": "gsb",
       "lottery_name": "หวยออมสิน",
       "source_url": "https://exphuay.com/calculate/gsb",
-      "fetched_at": "2026-02-25T08:02:46.140Z",
+      "fetched_at": "2026-02-26T03:30:43.079Z",
       "window": {
         "latest_n_draws": 30
       },
