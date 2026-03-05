@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-03-05T09:03:26.420Z",
+  "fetched_at": "2026-03-05T09:16:24.522Z",
   "total_lotteries": 5,
   "scheduled_time": "08:00",
   "lotteries": [
@@ -7,7 +7,7 @@
       "lottery": "thai_government",
       "lottery_name": "หวยรัฐบาลไทย",
       "source_url": "https://exphuay.com/calculate/goverment",
-      "fetched_at": "2026-03-05T09:02:16.340Z",
+      "fetched_at": "2026-03-05T09:11:23.027Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -331,7 +331,7 @@
       "lottery": "lao_pattana",
       "lottery_name": "หวยลาวพัฒนา",
       "source_url": "https://exphuay.com/calculate/laosdevelops",
-      "fetched_at": "2026-03-05T09:02:26.351Z",
+      "fetched_at": "2026-03-05T09:11:33.034Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -658,7 +658,7 @@
       "lottery": "malaysia",
       "lottery_name": "หวยมาเลย์",
       "source_url": "https://exphuay.com/calculate/magnum4d",
-      "fetched_at": "2026-03-05T09:02:36.365Z",
+      "fetched_at": "2026-03-05T09:11:43.049Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -972,7 +972,7 @@
       "lottery": "baac",
       "lottery_name": "หวยธ.ก.ส.",
       "source_url": "https://exphuay.com/calculate/baac",
-      "fetched_at": "2026-03-05T09:02:46.376Z",
+      "fetched_at": "2026-03-05T09:11:53.063Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -1300,7 +1300,7 @@
       "lottery": "gsb",
       "lottery_name": "หวยออมสิน",
       "source_url": "https://exphuay.com/calculate/gsb",
-      "fetched_at": "2026-03-05T09:02:56.391Z",
+      "fetched_at": "2026-03-05T09:12:03.078Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -1624,15 +1624,15 @@
   "failures": [
     {
       "lottery": "hanoi_normal",
-      "reason": "AI disabled for this run after 3 consecutive 429 responses"
+      "reason": "ไม่มี AI service ใช้งานได้ (GitHub: AI disabled for this run after 5 consecutive 429 responses)"
     },
     {
       "lottery": "hanoi_special",
-      "reason": "AI disabled for this run after 3 consecutive 429 responses"
+      "reason": "AI disabled for this run after 5 consecutive 429 responses"
     },
     {
       "lottery": "hanoi_vip",
-      "reason": "AI disabled for this run after 3 consecutive 429 responses"
+      "reason": "AI disabled for this run after 5 consecutive 429 responses"
     }
   ],
   "notes": "ข้อมูลการคำนวณหวยและสถิติ - รันวันละ 1 ครั้ง"
