@@ -12,6 +12,14 @@ import crypto from "node:crypto";
  */
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+const GITHUB_TOKENS = process.env.GITHUB_TOKENS;
+const GITHUB_TOKEN_POOL = Array.from(
+  new Set(
+    [GITHUB_TOKEN, ...(GITHUB_TOKENS || "").split(/[,\s]+/)]
+      .map((v) => (v || "").trim())
+      .filter(Boolean)
+  )
+);
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const GITHUB_MODELS_URL =
   "https://models.github.ai/inference/chat/completions";
@@ -20,13 +28,25 @@ const SCRIPT_DIR = path.dirname(new URL(import.meta.url).pathname);
 const IMAGES_DIR = path.join(SCRIPT_DIR, "exp-images");
 const CACHE_FILE = path.join(SCRIPT_DIR, ".vision-cache.json");
 const PUBLIC_DIR = path.resolve(process.cwd(), "public");
-let githubCooldownUntil = 0;
 const MAX_CONSECUTIVE_429_BEFORE_DISABLE = 5;
 let consecutive429Count = 0;
 let aiDisabledForRun = false;
 let aiDisabledReason = "";
 const CALC_AI_PER_RUN = Number(process.env.CALC_AI_PER_RUN || 5);
 const HEAVY_AI_PER_RUN = Number(process.env.HEAVY_AI_PER_RUN || 1);
+const MAX_AI_CALLS_PER_RUN = Number(process.env.MAX_AI_CALLS_PER_RUN || 6);
+const MIN_AI_INTERVAL_MS = Number(process.env.MIN_AI_INTERVAL_MS || 30000);
+const FULL_REFRESH_MODE = process.env.FULL_REFRESH_MODE === "1";
+const FULL_REFRESH_MAX_WAIT_MINUTES = Number(
+  process.env.FULL_REFRESH_MAX_WAIT_MINUTES || 720
+);
+const FAST_RUN_MODE = process.env.FAST_RUN_MODE === "1";
+const FAST_RUN_MAX_MINUTES = Number(process.env.FAST_RUN_MAX_MINUTES || 5);
+let aiCallCount = 0;
+let nextAllowedAiAt = 0;
+let runStartedAtMs = Date.now();
+let githubTokenCursor = 0;
+const githubTokenCooldownUntil = new Map();
 
 // ===== รายชื่อหวย =====
 // id = ค่าที่ใส่ใน JSON field "lottery" (ต้องตรงกับสคริปต์เก่า)
@@ -145,26 +165,87 @@ Rules:
 
 // ===== AI Vision Call =====
 
+function getRetryDelaySeconds(res, attempt) {
+  if (FAST_RUN_MODE) {
+    // โหมดสปีดสูง: retry สั้นเพื่อให้สลับ token ต่อเนื่องและจบรันไว
+    return Math.min(20, 2 * attempt);
+  }
+  const retryAfter = res.headers.get("retry-after");
+  const asNumber = Number(retryAfter);
+  if (Number.isFinite(asNumber) && asNumber > 0) {
+    return Math.max(5, Math.ceil(asNumber));
+  }
+  return Math.min(900, 15 * 2 ** (attempt - 1));
+}
+
+function pickGithubToken() {
+  if (GITHUB_TOKEN_POOL.length === 0) {
+    return { token: null, waitMs: 0 };
+  }
+
+  const now = Date.now();
+  let bestToken = GITHUB_TOKEN_POOL[0];
+  let bestWaitMs = Number.POSITIVE_INFINITY;
+
+  for (let i = 0; i < GITHUB_TOKEN_POOL.length; i++) {
+    const idx = (githubTokenCursor + i) % GITHUB_TOKEN_POOL.length;
+    const token = GITHUB_TOKEN_POOL[idx];
+    const cooldownUntil = githubTokenCooldownUntil.get(token) || 0;
+    const waitMs = Math.max(0, cooldownUntil - now);
+
+    if (waitMs === 0) {
+      githubTokenCursor = (idx + 1) % GITHUB_TOKEN_POOL.length;
+      return { token, waitMs: 0 };
+    }
+
+    if (waitMs < bestWaitMs) {
+      bestWaitMs = waitMs;
+      bestToken = token;
+    }
+  }
+
+  return { token: bestToken, waitMs: bestWaitMs };
+}
+
+function canContinueFullRefreshWait() {
+  const elapsedMin = (Date.now() - runStartedAtMs) / 60000;
+  const limit = FAST_RUN_MODE
+    ? Math.min(FULL_REFRESH_MAX_WAIT_MINUTES, FAST_RUN_MAX_MINUTES)
+    : FULL_REFRESH_MAX_WAIT_MINUTES;
+  return elapsedMin < limit;
+}
+
 async function callGitHubModels(prompt, imageBase64, maxRetries = 6) {
-  if (!GITHUB_TOKEN) throw new Error("No GITHUB_TOKEN");
+  if (GITHUB_TOKEN_POOL.length === 0) throw new Error("No GITHUB_TOKEN");
   if (aiDisabledForRun) {
     throw new Error(aiDisabledReason || "AI disabled for this run");
   }
 
-  for (let attempt = 1; attempt <= maxRetries; attempt++) {
-    const now = Date.now();
-    if (githubCooldownUntil > now) {
-      const waitMs = githubCooldownUntil - now;
+  for (let attempt = 1; ; attempt++) {
+    if (!FULL_REFRESH_MODE && attempt > maxRetries) {
+      break;
+    }
+    if (FULL_REFRESH_MODE && !canContinueFullRefreshWait()) {
+      throw new Error(
+        `Full refresh wait exceeded ${FULL_REFRESH_MAX_WAIT_MINUTES} minutes`
+      );
+    }
+
+    const tokenPick = pickGithubToken();
+    if (!tokenPick.token) throw new Error("No available GitHub token");
+    if (tokenPick.waitMs > 0) {
+      const waitMs = tokenPick.waitMs;
       const waitSec = Math.ceil(waitMs / 1000);
-      console.log(`    ⏳ GitHub Models cooling down ${waitSec}s...`);
+      console.log(`    ⏳ GitHub token pool cooling down ${waitSec}s...`);
       await delay(waitMs);
     }
+    const selectedToken = pickGithubToken().token;
 
     const res = await fetch(GITHUB_MODELS_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${GITHUB_TOKEN}`,
+        Authorization: `Bearer ${selectedToken}`,
       },
       body: JSON.stringify({
         model: "openai/gpt-4o",
@@ -187,8 +268,13 @@ async function callGitHubModels(prompt, imageBase64, maxRetries = 6) {
 
     if (res.status === 429 || res.status >= 500) {
       if (res.status === 429) {
-        consecutive429Count += 1;
-        if (consecutive429Count >= MAX_CONSECUTIVE_429_BEFORE_DISABLE) {
+        if (!FULL_REFRESH_MODE) {
+          consecutive429Count += 1;
+        }
+        if (
+          !FULL_REFRESH_MODE &&
+          consecutive429Count >= MAX_CONSECUTIVE_429_BEFORE_DISABLE
+        ) {
           aiDisabledForRun = true;
           aiDisabledReason =
             `AI disabled for this run after ${consecutive429Count} consecutive 429 responses`;
@@ -199,15 +285,20 @@ async function callGitHubModels(prompt, imageBase64, maxRetries = 6) {
         consecutive429Count = 0;
       }
 
-      if (attempt < maxRetries) {
-        const wait = Math.min(300, 15 * 2 ** (attempt - 1));
-        if (res.status === 429) {
-          githubCooldownUntil = Math.max(githubCooldownUntil, Date.now() + wait * 1000);
-        }
-        console.log(`    ⏳ GitHub Models retry in ${wait}s (status ${res.status})...`);
-        await delay(wait * 1000);
-        continue;
+      const wait = getRetryDelaySeconds(res, attempt);
+      if (res.status === 429) {
+        githubTokenCooldownUntil.set(
+          selectedToken,
+          Math.max(githubTokenCooldownUntil.get(selectedToken) || 0, Date.now() + wait * 1000)
+        );
       }
+      console.log(`    ⏳ GitHub Models retry in ${wait}s (status ${res.status})...`);
+      // ถ้ามี token อื่นที่พร้อม ใช้ทันทีไม่ต้องรอ
+      const nextPick = pickGithubToken();
+      if (!nextPick.token || nextPick.waitMs > 0) {
+        await delay(wait * 1000);
+      }
+      continue;
     }
     if (!res.ok) {
       consecutive429Count = 0;
@@ -287,11 +378,26 @@ async function readImageAI(prompt, imagePath) {
   if (aiDisabledForRun) {
     throw new Error(aiDisabledReason || "AI disabled for this run");
   }
+  if (!FULL_REFRESH_MODE && aiCallCount >= MAX_AI_CALLS_PER_RUN) {
+    aiDisabledForRun = true;
+    aiDisabledReason = `AI disabled for this run after reaching MAX_AI_CALLS_PER_RUN=${MAX_AI_CALLS_PER_RUN}`;
+    throw new Error(aiDisabledReason);
+  }
+
+  const now = Date.now();
+  if (nextAllowedAiAt > now) {
+    const waitMs = nextAllowedAiAt - now;
+    const waitSec = Math.ceil(waitMs / 1000);
+    console.log(`    ⏱️ Throttle: waiting ${waitSec}s before next AI call...`);
+    await delay(waitMs);
+  }
+  nextAllowedAiAt = Date.now() + MIN_AI_INTERVAL_MS;
+  aiCallCount += 1;
 
   const base64 = (await fs.readFile(imagePath)).toString("base64");
   const errors = [];
 
-  if (GITHUB_TOKEN) {
+  if (GITHUB_TOKEN_POOL.length > 0) {
     try {
       return await callGitHubModels(prompt, base64);
     } catch (e) {
@@ -335,6 +441,8 @@ function shouldTryAIForSegment({
   hasPreviousData,
   totalSources,
 }) {
+  if (FULL_REFRESH_MODE) return true;
+
   // ถ้าไม่มีข้อมูลเก่า ต้องยิง AI เพื่อ seed ครั้งแรก
   if (!hasPreviousData) return true;
 
@@ -375,7 +483,7 @@ async function processLottery(source, sourceIndex, totalSources, cacheStore) {
       totalSources,
     });
 
-    if (cached?.hash === imageHash && cached?.data) {
+    if (!FULL_REFRESH_MODE && cached?.hash === imageHash && cached?.data) {
       console.log(`    ♻️ Using cache for ${path.basename(imagePath)} (${segmentName})`);
       return { data: cached.data, source: "cache" };
     }
@@ -415,7 +523,7 @@ async function processLottery(source, sourceIndex, totalSources, cacheStore) {
     `    ✅ top3: ${calcData.top3?.length || 0}, bottom2: ${calcData.bottom2?.length || 0}, วิ่ง: ${calcData.running_number}, รูด: ${calcData.full_set_number}`
   );
 
-  if (calcSegment.source === "ai") await delay(5000);
+  if (calcSegment.source === "ai" && !FAST_RUN_MODE) await delay(5000);
 
   // 2. อ่าน digit frequency (สถิติเลข 0-9)
   console.log(`  📊 Reading ${prefix}_2.png (digit freq)...`);
@@ -428,7 +536,7 @@ async function processLottery(source, sourceIndex, totalSources, cacheStore) {
   const digitFreq = digitFreqSegment.data;
   console.log(`    ✅ digit_frequency: ${digitFreq.data?.length || 0} entries`);
 
-  if (digitFreqSegment.source === "ai") await delay(5000);
+  if (digitFreqSegment.source === "ai" && !FAST_RUN_MODE) await delay(5000);
 
   // 3. อ่าน stat 30 draws
   console.log(`  📊 Reading ${prefix}_3.png (stat 30)...`);
@@ -487,6 +595,31 @@ async function readPreviousOutput(outputFile) {
   }
 }
 
+async function readPreviousCombinedOutput() {
+  try {
+    const raw = await fs.readFile(path.join(PUBLIC_DIR, "all_calculations.json"), "utf8");
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+async function getFallbackLotteryResult(source, reason) {
+  const byFile = await readPreviousOutput(source.outputFile);
+  if (byFile) {
+    console.log(`  ♻️ Fallback to previous cache: ${source.outputFile} (${reason})`);
+    return byFile;
+  }
+
+  const combined = await readPreviousCombinedOutput();
+  const byCombined = combined?.lotteries?.find((x) => x?.lottery === source.id) || null;
+  if (byCombined) {
+    console.log(`  ♻️ Fallback to previous all_calculations for ${source.id} (${reason})`);
+    return byCombined;
+  }
+  return null;
+}
+
 async function loadCacheStore() {
   try {
     const raw = await fs.readFile(CACHE_FILE, "utf8");
@@ -509,15 +642,35 @@ async function main() {
 
   // ตรวจ AI services
   console.log("🔑 AI Services:");
-  if (GITHUB_TOKEN) console.log("  ✅ GitHub Models (GITHUB_TOKEN)");
+  if (GITHUB_TOKEN_POOL.length > 0) {
+    console.log(`  ✅ GitHub Models (${GITHUB_TOKEN_POOL.length} token${GITHUB_TOKEN_POOL.length > 1 ? "s" : ""})`);
+  }
   else console.log("  ❌ GitHub Models");
   if (GEMINI_API_KEY) console.log("  ✅ Gemini (GEMINI_API_KEY)");
   else console.log("  ❌ Gemini");
-  console.log(`  🎯 Daily AI budget: calc=${CALC_AI_PER_RUN}, heavy=${HEAVY_AI_PER_RUN}\n`);
+  console.log(
+    `  🚦 Mode: ${FULL_REFRESH_MODE ? "FULL_REFRESH (read all images)" : "SMART_CACHE"}`
+  );
+  if (FAST_RUN_MODE) {
+    console.log(`  ⚡ Fast run mode: ON (target <= ${FAST_RUN_MAX_MINUTES} minutes)`);
+  }
+  if (FULL_REFRESH_MODE) {
+    console.log(
+      `  🕒 Full refresh max wait: ${FULL_REFRESH_MAX_WAIT_MINUTES} minutes`
+    );
+  }
+  console.log(
+    `  🎯 Daily AI budget: calc=${CALC_AI_PER_RUN}, heavy=${HEAVY_AI_PER_RUN}`
+  );
+  console.log(
+    `  🛡️ Run protection: max_calls=${MAX_AI_CALLS_PER_RUN}, min_interval_ms=${MIN_AI_INTERVAL_MS}\n`
+  );
 
-  if (!GITHUB_TOKEN && !GEMINI_API_KEY) {
+  if (GITHUB_TOKEN_POOL.length === 0 && !GEMINI_API_KEY) {
     throw new Error("ต้องมี GITHUB_TOKEN หรือ GEMINI_API_KEY");
   }
+
+  runStartedAtMs = Date.now();
 
   // ตรวจ images folder
   try {
@@ -556,23 +709,49 @@ async function main() {
         console.log(`  💾 Saved: ${outPath}`);
         allResults.push(result);
       } else {
-        failedLotteries.push({
-          lottery: source.id,
-          reason: "missing image files",
-        });
+        const fallback = await getFallbackLotteryResult(source, "missing image files");
+        if (fallback) {
+          const outPath = `public/${source.outputFile}`;
+          await fs.writeFile(outPath, JSON.stringify(fallback, null, 2), "utf8");
+          console.log(`  💾 Saved fallback: ${outPath}`);
+          allResults.push(fallback);
+          failedLotteries.push({
+            lottery: source.id,
+            reason: "missing image files (used previous cache)",
+          });
+        } else {
+          failedLotteries.push({
+            lottery: source.id,
+            reason: "missing image files",
+          });
+        }
       }
     } catch (e) {
       console.log(`  ❌ Error: ${e.message}`);
-      failedLotteries.push({
-        lottery: source.id,
-        reason: e.message,
-      });
+      const fallback = await getFallbackLotteryResult(source, e.message);
+      if (fallback) {
+        const outPath = `public/${source.outputFile}`;
+        await fs.writeFile(outPath, JSON.stringify(fallback, null, 2), "utf8");
+        console.log(`  💾 Saved fallback: ${outPath}`);
+        allResults.push(fallback);
+        failedLotteries.push({
+          lottery: source.id,
+          reason: `${e.message} (used previous cache)`,
+        });
+      } else {
+        failedLotteries.push({
+          lottery: source.id,
+          reason: e.message,
+        });
+      }
     }
 
     // delay ระหว่างหวย
     if (source !== LOTTERY_SOURCES[LOTTERY_SOURCES.length - 1]) {
-      console.log("\n  ⏳ Waiting 10s before next lottery...");
-      await delay(10000);
+      if (!FAST_RUN_MODE) {
+        console.log("\n  ⏳ Waiting 10s before next lottery...");
+        await delay(10000);
+      }
     }
   }
 
@@ -586,7 +765,26 @@ async function main() {
         console.log(`   - ${f.lottery}: ${f.reason}`);
       }
     }
-    throw new Error("no successful lottery results; skip writing empty all_calculations.json");
+    const prevCombined = await readPreviousCombinedOutput();
+    if (prevCombined?.lotteries?.length > 0) {
+      const combined = {
+        fetched_at: nowISO(),
+        total_lotteries: prevCombined.lotteries.length,
+        scheduled_time: "08:00",
+        lotteries: prevCombined.lotteries,
+        failures: failedLotteries,
+        notes:
+          "fallback ทั้งรอบ: ใช้ข้อมูล cache เดิม เพราะอ่านรอบล่าสุดไม่สำเร็จ",
+      };
+      await fs.writeFile(
+        "public/all_calculations.json",
+        JSON.stringify(combined, null, 2),
+        "utf8"
+      );
+      console.log("\n💾 Saved fallback: public/all_calculations.json");
+      return;
+    }
+    throw new Error("no successful lottery results and no previous cache available");
   }
 
   // เซฟไฟล์รวม
