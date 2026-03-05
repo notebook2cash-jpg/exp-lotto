@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import crypto from "node:crypto";
 
 /**
  * Script สำหรับอ่านข้อมูลหวยจากรูปภาพด้วย AI Vision (GitHub Models)
@@ -17,6 +18,13 @@ const GITHUB_MODELS_URL =
 
 const SCRIPT_DIR = path.dirname(new URL(import.meta.url).pathname);
 const IMAGES_DIR = path.join(SCRIPT_DIR, "exp-images");
+const CACHE_FILE = path.join(SCRIPT_DIR, ".vision-cache.json");
+const PUBLIC_DIR = path.resolve(process.cwd(), "public");
+let githubCooldownUntil = 0;
+const MAX_CONSECUTIVE_429_BEFORE_DISABLE = 3;
+let consecutive429Count = 0;
+let aiDisabledForRun = false;
+let aiDisabledReason = "";
 
 // ===== รายชื่อหวย =====
 // id = ค่าที่ใส่ใน JSON field "lottery" (ต้องตรงกับสคริปต์เก่า)
@@ -135,10 +143,21 @@ Rules:
 
 // ===== AI Vision Call =====
 
-async function callGitHubModels(prompt, imageBase64, maxRetries = 3) {
+async function callGitHubModels(prompt, imageBase64, maxRetries = 6) {
   if (!GITHUB_TOKEN) throw new Error("No GITHUB_TOKEN");
+  if (aiDisabledForRun) {
+    throw new Error(aiDisabledReason || "AI disabled for this run");
+  }
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    const now = Date.now();
+    if (githubCooldownUntil > now) {
+      const waitMs = githubCooldownUntil - now;
+      const waitSec = Math.ceil(waitMs / 1000);
+      console.log(`    ⏳ GitHub Models cooling down ${waitSec}s...`);
+      await delay(waitMs);
+    }
+
     const res = await fetch(GITHUB_MODELS_URL, {
       method: "POST",
       headers: {
@@ -165,18 +184,36 @@ async function callGitHubModels(prompt, imageBase64, maxRetries = 3) {
     });
 
     if (res.status === 429 || res.status >= 500) {
+      if (res.status === 429) {
+        consecutive429Count += 1;
+        if (consecutive429Count >= MAX_CONSECUTIVE_429_BEFORE_DISABLE) {
+          aiDisabledForRun = true;
+          aiDisabledReason =
+            `AI disabled for this run after ${consecutive429Count} consecutive 429 responses`;
+          console.log(`    🛑 ${aiDisabledReason}`);
+          throw new Error(aiDisabledReason);
+        }
+      } else {
+        consecutive429Count = 0;
+      }
+
       if (attempt < maxRetries) {
-        const wait = attempt * 15;
+        const wait = Math.min(300, 15 * 2 ** (attempt - 1));
+        if (res.status === 429) {
+          githubCooldownUntil = Math.max(githubCooldownUntil, Date.now() + wait * 1000);
+        }
         console.log(`    ⏳ GitHub Models retry in ${wait}s (status ${res.status})...`);
         await delay(wait * 1000);
         continue;
       }
     }
     if (!res.ok) {
+      consecutive429Count = 0;
       const errText = await res.text();
       throw new Error(`GitHub Models ${res.status}: ${errText.slice(0, 300)}`);
     }
 
+    consecutive429Count = 0;
     const data = await res.json();
     const text = data.choices?.[0]?.message?.content;
     if (!text) throw new Error("Empty response from GitHub Models");
@@ -189,6 +226,9 @@ async function callGitHubModels(prompt, imageBase64, maxRetries = 3) {
 
 async function callGemini(prompt, imageBase64, maxRetries = 3) {
   if (!GEMINI_API_KEY) throw new Error("No GEMINI_API_KEY");
+  if (aiDisabledForRun) {
+    throw new Error(aiDisabledReason || "AI disabled for this run");
+  }
 
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
   const body = {
@@ -242,13 +282,20 @@ function parseJSON(text) {
 }
 
 async function readImageAI(prompt, imagePath) {
+  if (aiDisabledForRun) {
+    throw new Error(aiDisabledReason || "AI disabled for this run");
+  }
+
   const base64 = (await fs.readFile(imagePath)).toString("base64");
+  const errors = [];
 
   if (GITHUB_TOKEN) {
     try {
       return await callGitHubModels(prompt, base64);
     } catch (e) {
-      console.log(`    ⚠️ GitHub Models failed: ${e.message.slice(0, 80)}`);
+      const msg = e?.message || String(e);
+      errors.push(`GitHub: ${msg}`);
+      console.log(`    ⚠️ GitHub Models failed: ${msg.slice(0, 120)}`);
     }
   }
 
@@ -256,20 +303,23 @@ async function readImageAI(prompt, imagePath) {
     try {
       return await callGemini(prompt, base64);
     } catch (e) {
-      console.log(`    ⚠️ Gemini failed: ${e.message.slice(0, 80)}`);
+      const msg = e?.message || String(e);
+      errors.push(`Gemini: ${msg}`);
+      console.log(`    ⚠️ Gemini failed: ${msg.slice(0, 120)}`);
     }
   }
 
-  throw new Error("ไม่มี AI service ใช้งานได้");
+  throw new Error(`ไม่มี AI service ใช้งานได้ (${errors.join(" | ") || "unknown"})`);
 }
 
 // ===== Process single lottery =====
 
-async function processLottery(source) {
+async function processLottery(source, cacheStore) {
   const prefix = source.imagePrefix || source.id;
   const img1 = path.join(IMAGES_DIR, `${prefix}_1.png`);
   const img2 = path.join(IMAGES_DIR, `${prefix}_2.png`);
   const img3 = path.join(IMAGES_DIR, `${prefix}_3.png`);
+  const previousOutput = await readPreviousOutput(source.outputFile);
 
   // ตรวจไฟล์
   for (const f of [img1, img2, img3]) {
@@ -281,25 +331,69 @@ async function processLottery(source) {
     }
   }
 
+  const readSegment = async ({ segmentName, prompt, imagePath, previousData }) => {
+    const imageHash = await hashFile(imagePath);
+    const cacheKey = `${source.id}:${segmentName}`;
+    const cached = cacheStore[cacheKey];
+
+    if (cached?.hash === imageHash && cached?.data) {
+      console.log(`    ♻️ Using cache for ${path.basename(imagePath)} (${segmentName})`);
+      return { data: cached.data, source: "cache" };
+    }
+
+    try {
+      const data = await readImageAI(prompt, imagePath);
+      cacheStore[cacheKey] = { hash: imageHash, data, updated_at: nowISO() };
+      return { data, source: "ai" };
+    } catch (e) {
+      if (previousData) {
+        console.log(
+          `    ♻️ AI unavailable, using previous ${segmentName} from public/${source.outputFile}`
+        );
+        cacheStore[cacheKey] = { hash: imageHash, data: previousData, updated_at: nowISO() };
+        return { data: previousData, source: "previous" };
+      }
+      throw e;
+    }
+  };
+
   // 1. อ่าน calc (คำนวณประจำวัน)
   console.log(`  📊 Reading ${prefix}_1.png (calc)...`);
-  const calcData = await readImageAI(CALC_PROMPT, img1);
+  const calcSegment = await readSegment({
+    segmentName: "calc",
+    prompt: CALC_PROMPT,
+    imagePath: img1,
+    previousData: previousOutput?.daily_calculation || null,
+  });
+  const calcData = calcSegment.data;
   console.log(
     `    ✅ top3: ${calcData.top3?.length || 0}, bottom2: ${calcData.bottom2?.length || 0}, วิ่ง: ${calcData.running_number}, รูด: ${calcData.full_set_number}`
   );
 
-  await delay(5000);
+  if (calcSegment.source === "ai") await delay(5000);
 
   // 2. อ่าน digit frequency (สถิติเลข 0-9)
   console.log(`  📊 Reading ${prefix}_2.png (digit freq)...`);
-  const digitFreq = await readImageAI(DIGIT_FREQ_PROMPT, img2);
+  const digitFreqSegment = await readSegment({
+    segmentName: "digit_frequency",
+    prompt: DIGIT_FREQ_PROMPT,
+    imagePath: img2,
+    previousData: previousOutput?.digit_frequency || null,
+  });
+  const digitFreq = digitFreqSegment.data;
   console.log(`    ✅ digit_frequency: ${digitFreq.data?.length || 0} entries`);
 
-  await delay(5000);
+  if (digitFreqSegment.source === "ai") await delay(5000);
 
   // 3. อ่าน stat 30 draws
   console.log(`  📊 Reading ${prefix}_3.png (stat 30)...`);
-  const stat30 = await readImageAI(STAT_30_PROMPT, img3);
+  const stat30Segment = await readSegment({
+    segmentName: "statistics_30_draws",
+    prompt: STAT_30_PROMPT,
+    imagePath: img3,
+    previousData: previousOutput?.statistics_30_draws || null,
+  });
+  const stat30 = stat30Segment.data;
   console.log(
     `    ✅ bottom2: ${stat30.bottom2?.length || 0}, top3: ${stat30.top3?.length || 0}`
   );
@@ -334,6 +428,34 @@ function delay(ms) {
   return new Promise((r) => setTimeout(r, ms));
 }
 
+async function hashFile(filePath) {
+  const fileBuffer = await fs.readFile(filePath);
+  return crypto.createHash("sha256").update(fileBuffer).digest("hex");
+}
+
+async function readPreviousOutput(outputFile) {
+  try {
+    const raw = await fs.readFile(path.join(PUBLIC_DIR, outputFile), "utf8");
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+async function loadCacheStore() {
+  try {
+    const raw = await fs.readFile(CACHE_FILE, "utf8");
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === "object" ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+async function saveCacheStore(cacheStore) {
+  await fs.writeFile(CACHE_FILE, JSON.stringify(cacheStore, null, 2), "utf8");
+}
+
 // ===== Main =====
 
 async function main() {
@@ -363,6 +485,7 @@ async function main() {
   console.log(`📋 Lotteries: ${LOTTERY_SOURCES.length}\n`);
 
   await fs.mkdir("public", { recursive: true });
+  const cacheStore = await loadCacheStore();
 
   const allResults = [];
   const failedLotteries = [];
@@ -373,7 +496,7 @@ async function main() {
     console.log("=".repeat(50));
 
     try {
-      const result = await processLottery(source);
+      const result = await processLottery(source, cacheStore);
 
       if (result) {
         // เซฟไฟล์แยก
@@ -401,6 +524,8 @@ async function main() {
       await delay(10000);
     }
   }
+
+  await saveCacheStore(cacheStore);
 
   if (allResults.length === 0) {
     console.log("\n❌ No lotteries were processed successfully.");
