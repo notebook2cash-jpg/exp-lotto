@@ -3,7 +3,7 @@ name: Run Exp Lotto Stats
 on:
   workflow_dispatch: {}
   schedule:
-    - cron: "0 1 * * *"   # ทุกวัน เวลา 08:00 น. ไทย
+    - cron: "0 1 * * *"   # ทุกวัน 08:00 น. ไทย (01:00 UTC)
 
 permissions:
   contents: write
@@ -21,7 +21,16 @@ jobs:
 
       - name: Run script
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # token pool หลายตัวที่คุณสร้างไว้ใน secret MODELS_TOKENS
+          GITHUB_TOKENS: ${{ secrets.MODELS_TOKENS }}
+
+          # โหมดอ่านใหม่ทั้งรอบ (ไม่ใช้ cache มาข้าม)
+          FULL_REFRESH_MODE: "1"
+          FULL_REFRESH_MAX_WAIT_MINUTES: "5"
+
+          # ปรับความเร็ว/limit ให้จบไวขึ้น
+          MIN_AI_INTERVAL_MS: "1500"
+          MAX_AI_CALLS_PER_RUN: "200"
         run: node scripts/scrape-calculation.mjs
 
       - name: Commit & push if changed
