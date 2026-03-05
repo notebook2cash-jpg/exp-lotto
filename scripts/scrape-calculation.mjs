@@ -21,10 +21,12 @@ const IMAGES_DIR = path.join(SCRIPT_DIR, "exp-images");
 const CACHE_FILE = path.join(SCRIPT_DIR, ".vision-cache.json");
 const PUBLIC_DIR = path.resolve(process.cwd(), "public");
 let githubCooldownUntil = 0;
-const MAX_CONSECUTIVE_429_BEFORE_DISABLE = 3;
+const MAX_CONSECUTIVE_429_BEFORE_DISABLE = 5;
 let consecutive429Count = 0;
 let aiDisabledForRun = false;
 let aiDisabledReason = "";
+const CALC_AI_PER_RUN = Number(process.env.CALC_AI_PER_RUN || 5);
+const HEAVY_AI_PER_RUN = Number(process.env.HEAVY_AI_PER_RUN || 1);
 
 // ===== รายชื่อหวย =====
 // id = ค่าที่ใส่ใน JSON field "lottery" (ต้องตรงกับสคริปต์เก่า)
@@ -312,9 +314,40 @@ async function readImageAI(prompt, imagePath) {
   throw new Error(`ไม่มี AI service ใช้งานได้ (${errors.join(" | ") || "unknown"})`);
 }
 
+function getDayOfYear(date = new Date()) {
+  const start = new Date(Date.UTC(date.getUTCFullYear(), 0, 0));
+  const now = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
+  const diff = now - start;
+  return Math.floor(diff / 86400000);
+}
+
+function isSelectedForToday(sourceIndex, limitPerRun, totalSources) {
+  if (limitPerRun >= totalSources) return true;
+  const day = getDayOfYear();
+  const start = day % totalSources;
+  const distance = (sourceIndex - start + totalSources) % totalSources;
+  return distance < limitPerRun;
+}
+
+function shouldTryAIForSegment({
+  sourceIndex,
+  segmentName,
+  hasPreviousData,
+  totalSources,
+}) {
+  // ถ้าไม่มีข้อมูลเก่า ต้องยิง AI เพื่อ seed ครั้งแรก
+  if (!hasPreviousData) return true;
+
+  if (segmentName === "calc") {
+    return isSelectedForToday(sourceIndex, CALC_AI_PER_RUN, totalSources);
+  }
+
+  return isSelectedForToday(sourceIndex, HEAVY_AI_PER_RUN, totalSources);
+}
+
 // ===== Process single lottery =====
 
-async function processLottery(source, cacheStore) {
+async function processLottery(source, sourceIndex, totalSources, cacheStore) {
   const prefix = source.imagePrefix || source.id;
   const img1 = path.join(IMAGES_DIR, `${prefix}_1.png`);
   const img2 = path.join(IMAGES_DIR, `${prefix}_2.png`);
@@ -335,10 +368,22 @@ async function processLottery(source, cacheStore) {
     const imageHash = await hashFile(imagePath);
     const cacheKey = `${source.id}:${segmentName}`;
     const cached = cacheStore[cacheKey];
+    const shouldTryAI = shouldTryAIForSegment({
+      sourceIndex,
+      segmentName,
+      hasPreviousData: Boolean(previousData),
+      totalSources,
+    });
 
     if (cached?.hash === imageHash && cached?.data) {
       console.log(`    ♻️ Using cache for ${path.basename(imagePath)} (${segmentName})`);
       return { data: cached.data, source: "cache" };
+    }
+
+    if (!shouldTryAI && previousData) {
+      console.log(`    ⏭️ Skip AI for ${segmentName} (daily budget), using previous data`);
+      cacheStore[cacheKey] = { hash: imageHash, data: previousData, updated_at: nowISO() };
+      return { data: previousData, source: "previous_scheduled" };
     }
 
     try {
@@ -468,6 +513,7 @@ async function main() {
   else console.log("  ❌ GitHub Models");
   if (GEMINI_API_KEY) console.log("  ✅ Gemini (GEMINI_API_KEY)");
   else console.log("  ❌ Gemini");
+  console.log(`  🎯 Daily AI budget: calc=${CALC_AI_PER_RUN}, heavy=${HEAVY_AI_PER_RUN}\n`);
 
   if (!GITHUB_TOKEN && !GEMINI_API_KEY) {
     throw new Error("ต้องมี GITHUB_TOKEN หรือ GEMINI_API_KEY");
@@ -490,13 +536,18 @@ async function main() {
   const allResults = [];
   const failedLotteries = [];
 
-  for (const source of LOTTERY_SOURCES) {
+  for (const [sourceIndex, source] of LOTTERY_SOURCES.entries()) {
     console.log(`\n${"=".repeat(50)}`);
     console.log(`📌 ${source.name} (${source.id})`);
     console.log("=".repeat(50));
 
     try {
-      const result = await processLottery(source, cacheStore);
+      const result = await processLottery(
+        source,
+        sourceIndex,
+        LOTTERY_SOURCES.length,
+        cacheStore
+      );
 
       if (result) {
         // เซฟไฟล์แยก
