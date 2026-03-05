@@ -135,44 +135,56 @@ Rules:
 
 // ===== AI Vision Call =====
 
-async function callGitHubModels(prompt, imageBase64) {
+async function callGitHubModels(prompt, imageBase64, maxRetries = 3) {
   if (!GITHUB_TOKEN) throw new Error("No GITHUB_TOKEN");
 
-  const res = await fetch(GITHUB_MODELS_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${GITHUB_TOKEN}`,
-    },
-    body: JSON.stringify({
-      model: "openai/gpt-4o",
-      messages: [
-        {
-          role: "user",
-          content: [
-            { type: "text", text: prompt },
-            {
-              type: "image_url",
-              image_url: { url: `data:image/png;base64,${imageBase64}` },
-            },
-          ],
-        },
-      ],
-      temperature: 0,
-      max_tokens: 4000,
-    }),
-  });
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    const res = await fetch(GITHUB_MODELS_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${GITHUB_TOKEN}`,
+      },
+      body: JSON.stringify({
+        model: "openai/gpt-4o",
+        messages: [
+          {
+            role: "user",
+            content: [
+              { type: "text", text: prompt },
+              {
+                type: "image_url",
+                image_url: { url: `data:image/png;base64,${imageBase64}` },
+              },
+            ],
+          },
+        ],
+        temperature: 0,
+        max_tokens: 4000,
+      }),
+    });
 
-  if (!res.ok) {
-    const errText = await res.text();
-    throw new Error(`GitHub Models ${res.status}: ${errText.slice(0, 300)}`);
+    if (res.status === 429 || res.status >= 500) {
+      if (attempt < maxRetries) {
+        const wait = attempt * 15;
+        console.log(`    ⏳ GitHub Models retry in ${wait}s (status ${res.status})...`);
+        await delay(wait * 1000);
+        continue;
+      }
+    }
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error(`GitHub Models ${res.status}: ${errText.slice(0, 300)}`);
+    }
+
+    const data = await res.json();
+    const text = data.choices?.[0]?.message?.content;
+    if (!text) throw new Error("Empty response from GitHub Models");
+
+    return parseJSON(text);
   }
 
-  const data = await res.json();
-  const text = data.choices?.[0]?.message?.content;
-  if (!text) throw new Error("Empty response from GitHub Models");
-
-  return parseJSON(text);
+  throw new Error("GitHub Models: max retries exceeded");
 }
 
 async function callGemini(prompt, imageBase64, maxRetries = 3) {
@@ -353,6 +365,7 @@ async function main() {
   await fs.mkdir("public", { recursive: true });
 
   const allResults = [];
+  const failedLotteries = [];
 
   for (const source of LOTTERY_SOURCES) {
     console.log(`\n${"=".repeat(50)}`);
@@ -368,9 +381,18 @@ async function main() {
         await fs.writeFile(outPath, JSON.stringify(result, null, 2), "utf8");
         console.log(`  💾 Saved: ${outPath}`);
         allResults.push(result);
+      } else {
+        failedLotteries.push({
+          lottery: source.id,
+          reason: "missing image files",
+        });
       }
     } catch (e) {
       console.log(`  ❌ Error: ${e.message}`);
+      failedLotteries.push({
+        lottery: source.id,
+        reason: e.message,
+      });
     }
 
     // delay ระหว่างหวย
@@ -380,12 +402,24 @@ async function main() {
     }
   }
 
+  if (allResults.length === 0) {
+    console.log("\n❌ No lotteries were processed successfully.");
+    if (failedLotteries.length > 0) {
+      console.log("📉 Failures:");
+      for (const f of failedLotteries) {
+        console.log(`   - ${f.lottery}: ${f.reason}`);
+      }
+    }
+    throw new Error("no successful lottery results; skip writing empty all_calculations.json");
+  }
+
   // เซฟไฟล์รวม
   const combined = {
     fetched_at: nowISO(),
     total_lotteries: allResults.length,
     scheduled_time: "08:00",
     lotteries: allResults,
+    failures: failedLotteries,
     notes: "ข้อมูลการคำนวณหวยและสถิติ - รันวันละ 1 ครั้ง",
   };
 
@@ -417,6 +451,13 @@ async function main() {
     console.log(
       `   Stats 30: bottom2=${r.statistics_30_draws.bottom2.length}, top3=${r.statistics_30_draws.top3.length}`
     );
+  }
+
+  if (failedLotteries.length > 0) {
+    console.log("\n⚠️ Failed lotteries:");
+    for (const f of failedLotteries) {
+      console.log(`   - ${f.lottery}: ${f.reason}`);
+    }
   }
 
   console.log(`\n✅ All done! Processed ${allResults.length}/${LOTTERY_SOURCES.length} lotteries`);
