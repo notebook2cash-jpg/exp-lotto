@@ -12,6 +12,7 @@ permissions:
 jobs:
   run:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
 
@@ -21,15 +22,21 @@ jobs:
 
       - name: Run script
         env:
-          # token pool หลายตัวที่คุณสร้างไว้ใน secret MODELS_TOKENS
+          # token pool หลายตัวจาก Secrets
           GITHUB_TOKENS: ${{ secrets.MODELS_TOKENS }}
 
-          # โหมดอ่านใหม่ทั้งรอบ (ไม่ใช้ cache มาข้าม)
+          # โหมดอ่านใหม่ทั้งหมด
           FULL_REFRESH_MODE: "1"
           FULL_REFRESH_MAX_WAIT_MINUTES: "5"
 
-          # ปรับความเร็ว/limit ให้จบไวขึ้น
-          MIN_AI_INTERVAL_MS: "1500"
+          # โหมดสปีดสูง (เพิ่งเพิ่มในโค้ด)
+          FAST_RUN_MODE: "1"
+          FAST_RUN_MAX_MINUTES: "5"
+
+          # ลดช่วงห่างให้เร็วขึ้น
+          MIN_AI_INTERVAL_MS: "300"
+
+          # ไม่ให้ติดเพดาน call ในรอบ
           MAX_AI_CALLS_PER_RUN: "200"
         run: node scripts/scrape-calculation.mjs
 
