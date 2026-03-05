@@ -57,6 +57,27 @@ const LOTTERY_SOURCES = [
     sourceUrl: "https://exphuay.com/calculate/gsb",
     outputFile: "gsb.json",
   },
+  {
+    id: "hanoi_normal",
+    imagePrefix: "hanoi_nor",
+    name: "หวยฮานอยปกติ",
+    sourceUrl: "https://exphuay.com/calculate/minhngoc",
+    outputFile: "hanoi_normal.json",
+  },
+  {
+    id: "hanoi_special",
+    imagePrefix: "hanoi_spa",
+    name: "หวยฮานอยพิเศษ",
+    sourceUrl: "https://exphuay.com/calculate/xsthm",
+    outputFile: "hanoi_special.json",
+  },
+  {
+    id: "hanoi_vip",
+    imagePrefix: "hanoi_vip",
+    name: "หวยฮานอย VIP",
+    sourceUrl: "https://exphuay.com/calculate/mlnhngo",
+    outputFile: "hanoi_vip.json",
+  },
 ];
 
 function nowISO() {
