@@ -2,7 +2,7 @@
   "lottery": "baac",
   "lottery_name": "หวยธ.ก.ส.",
   "source_url": "https://exphuay.com/calculate/baac",
-  "fetched_at": "2026-03-29T03:52:35.365Z",
+  "fetched_at": "2026-03-30T03:55:20.175Z",
   "window": {
     "latest_n_draws": 30
   },
@@ -10,38 +10,39 @@
     "top3": [
       "929",
       "305",
-      "170",
-      "270",
+      "178",
+      "578",
       "105"
     ],
     "top3_recommended": [],
     "bottom2": [
-      "03",
-      "98",
-      "69",
-      "35",
       "93",
+      "09",
+      "68",
+      "32",
+      "03",
       "66"
     ],
     "bottom2_recommended": [
-      "98"
+      "93",
+      "09"
     ],
-    "running_number": "8",
+    "running_number": "9",
     "full_set_number": "6"
   },
   "digit_frequency": {
     "data": [
       {
         "digit": "0",
-        "top3_count": 12,
+        "top3_count": 11,
         "bottom2_count": 8,
-        "total": 20
+        "total": 19
       },
       {
         "digit": "1",
         "top3_count": 10,
-        "bottom2_count": 5,
-        "total": 15
+        "bottom2_count": 4,
+        "total": 14
       },
       {
         "digit": "2",
@@ -63,8 +64,8 @@
       },
       {
         "digit": "5",
-        "top3_count": 13,
-        "bottom2_count": 4,
+        "top3_count": 14,
+        "bottom2_count": 3,
         "total": 17
       },
       {
@@ -75,9 +76,9 @@
       },
       {
         "digit": "7",
-        "top3_count": 7,
+        "top3_count": 6,
         "bottom2_count": 5,
-        "total": 12
+        "total": 11
       },
       {
         "digit": "8",
@@ -87,9 +88,9 @@
       },
       {
         "digit": "9",
-        "top3_count": 11,
-        "bottom2_count": 7,
-        "total": 18
+        "top3_count": 12,
+        "bottom2_count": 9,
+        "total": 21
       }
     ]
   },
@@ -104,15 +105,7 @@
         "count": 1
       },
       {
-        "number": "15",
-        "count": 1
-      },
-      {
         "number": "18",
-        "count": 1
-      },
-      {
-        "number": "23",
         "count": 1
       },
       {
@@ -185,6 +178,10 @@
       },
       {
         "number": "97",
+        "count": 1
+      },
+      {
+        "number": "99",
         "count": 1
       },
       {
@@ -270,6 +267,10 @@
         "count": 1
       },
       {
+        "number": "628",
+        "count": 1
+      },
+      {
         "number": "675",
         "count": 1
       },
@@ -319,10 +320,6 @@
       },
       {
         "number": "002",
-        "count": 1
-      },
-      {
-        "number": "077",
         "count": 1
       }
     ]
