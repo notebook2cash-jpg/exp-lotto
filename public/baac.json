@@ -2,7 +2,7 @@
   "lottery": "baac",
   "lottery_name": "หวยธ.ก.ส.",
   "source_url": "https://exphuay.com/calculate/baac",
-  "fetched_at": "2026-04-08T03:47:11.936Z",
+  "fetched_at": "2026-04-08T08:49:11.265Z",
   "window": {
     "latest_n_draws": 30
   },
@@ -106,6 +106,10 @@
       },
       {
         "number": "18",
+        "count": 1
+      },
+      {
+        "number": "23",
         "count": 1
       },
       {

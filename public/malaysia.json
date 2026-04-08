@@ -2,95 +2,98 @@
   "lottery": "malaysia",
   "lottery_name": "หวยมาเลย์",
   "source_url": "https://exphuay.com/calculate/magnum4d",
-  "fetched_at": "2026-04-08T03:46:50.637Z",
+  "fetched_at": "2026-04-08T08:48:47.190Z",
   "window": {
     "latest_n_draws": 30
   },
   "daily_calculation": {
     "top3": [
-      "684",
-      "572",
-      "939",
-      "439",
-      "972"
+      "579",
+      "697",
+      "265",
+      "965",
+      "297"
     ],
     "top3_recommended": [
-      "684"
+      "579",
+      "265",
+      "965"
     ],
     "bottom2": [
-      "01",
-      "67",
+      "07",
       "33",
       "90",
-      "61",
-      "83"
+      "89",
+      "37",
+      "19"
     ],
     "bottom2_recommended": [
-      "67"
+      "33",
+      "37"
     ],
-    "running_number": "7",
-    "full_set_number": "6"
+    "running_number": "3",
+    "full_set_number": "5"
   },
   "digit_frequency": {
     "data": [
       {
         "digit": "0",
-        "top3_count": 10,
+        "top3_count": 8,
         "bottom2_count": 10,
-        "total": 20
+        "total": 18
       },
       {
         "digit": "1",
-        "top3_count": 6,
+        "top3_count": 7,
         "bottom2_count": 7,
-        "total": 13
+        "total": 14
       },
       {
         "digit": "2",
         "top3_count": 9,
-        "bottom2_count": 3,
-        "total": 12
+        "bottom2_count": 6,
+        "total": 15
       },
       {
         "digit": "3",
-        "top3_count": 7,
+        "top3_count": 6,
         "bottom2_count": 9,
-        "total": 16
+        "total": 15
       },
       {
         "digit": "4",
-        "top3_count": 6,
-        "bottom2_count": 2,
+        "top3_count": 5,
+        "bottom2_count": 3,
         "total": 8
       },
       {
         "digit": "5",
-        "top3_count": 6,
-        "bottom2_count": 3,
-        "total": 9
+        "top3_count": 9,
+        "bottom2_count": 4,
+        "total": 13
       },
       {
         "digit": "6",
         "top3_count": 12,
-        "bottom2_count": 6,
-        "total": 18
+        "bottom2_count": 3,
+        "total": 15
       },
       {
         "digit": "7",
-        "top3_count": 11,
-        "bottom2_count": 5,
+        "top3_count": 12,
+        "bottom2_count": 4,
         "total": 16
       },
       {
         "digit": "8",
         "top3_count": 10,
-        "bottom2_count": 9,
-        "total": 19
+        "bottom2_count": 7,
+        "total": 17
       },
       {
         "digit": "9",
-        "top3_count": 13,
-        "bottom2_count": 6,
+        "top3_count": 12,
+        "bottom2_count": 7,
         "total": 19
       }
     ]
@@ -110,12 +113,12 @@
         "count": 1
       },
       {
-        "number": "30",
+        "number": "29",
         "count": 1
       },
       {
-        "number": "31",
-        "count": 3
+        "number": "30",
+        "count": 1
       },
       {
         "number": "37",
@@ -134,6 +137,10 @@
         "count": 1
       },
       {
+        "number": "54",
+        "count": 1
+      },
+      {
         "number": "55",
         "count": 1
       },
@@ -143,18 +150,14 @@
       },
       {
         "number": "68",
-        "count": 3
-      },
-      {
-        "number": "69",
-        "count": 1
-      },
-      {
-        "number": "78",
         "count": 1
       },
       {
         "number": "81",
+        "count": 1
+      },
+      {
+        "number": "82",
         "count": 1
       },
       {
@@ -167,7 +170,7 @@
       },
       {
         "number": "92",
-        "count": 1
+        "count": 2
       },
       {
         "number": "93",
@@ -200,6 +203,10 @@
         "count": 1
       },
       {
+        "number": "167",
+        "count": 1
+      },
+      {
         "number": "185",
         "count": 1
       },
@@ -224,10 +231,6 @@
         "count": 1
       },
       {
-        "number": "433",
-        "count": 1
-      },
-      {
         "number": "452",
         "count": 1
       },
@@ -237,6 +240,14 @@
       },
       {
         "number": "527",
+        "count": 1
+      },
+      {
+        "number": "559",
+        "count": 1
+      },
+      {
+        "number": "575",
         "count": 1
       },
       {
@@ -276,10 +287,6 @@
         "count": 1
       },
       {
-        "number": "879",
-        "count": 1
-      },
-      {
         "number": "913",
         "count": 1
       },
@@ -288,19 +295,15 @@
         "count": 1
       },
       {
-        "number": "990",
-        "count": 1
-      },
-      {
         "number": "991",
         "count": 1
       },
       {
-        "number": "069",
+        "number": "089",
         "count": 1
       },
       {
-        "number": "022",
+        "number": "069",
         "count": 1
       }
     ]

@@ -2,21 +2,19 @@
   "lottery": "gsb",
   "lottery_name": "หวยออมสิน",
   "source_url": "https://exphuay.com/calculate/gsb",
-  "fetched_at": "2026-04-08T03:47:32.602Z",
+  "fetched_at": "2026-04-08T08:49:35.074Z",
   "window": {
     "latest_n_draws": 30
   },
   "daily_calculation": {
     "top3": [
-      "379",
-      "953",
+      "359",
+      "993",
       "408",
-      "008",
-      "453"
+      "108",
+      "493"
     ],
-    "top3_recommended": [
-      "379"
-    ],
+    "top3_recommended": [],
     "bottom2": [
       "48",
       "89",
@@ -35,21 +33,21 @@
     "data": [
       {
         "digit": "0",
-        "top3_count": 7,
-        "bottom2_count": 6,
-        "total": 13
+        "top3_count": 9,
+        "bottom2_count": 5,
+        "total": 14
       },
       {
         "digit": "1",
         "top3_count": 12,
-        "bottom2_count": 9,
-        "total": 21
+        "bottom2_count": 10,
+        "total": 22
       },
       {
         "digit": "2",
-        "top3_count": 11,
-        "bottom2_count": 3,
-        "total": 14
+        "top3_count": 10,
+        "bottom2_count": 2,
+        "total": 12
       },
       {
         "digit": "3",
@@ -59,27 +57,27 @@
       },
       {
         "digit": "4",
-        "top3_count": 11,
+        "top3_count": 10,
         "bottom2_count": 9,
-        "total": 20
+        "total": 19
       },
       {
         "digit": "5",
         "top3_count": 8,
-        "bottom2_count": 2,
-        "total": 10
+        "bottom2_count": 3,
+        "total": 11
       },
       {
         "digit": "6",
-        "top3_count": 9,
+        "top3_count": 10,
         "bottom2_count": 8,
-        "total": 17
+        "total": 18
       },
       {
         "digit": "7",
-        "top3_count": 10,
+        "top3_count": 9,
         "bottom2_count": 5,
-        "total": 15
+        "total": 14
       },
       {
         "digit": "8",
@@ -119,7 +117,7 @@
       },
       {
         "number": "41",
-        "count": 2
+        "count": 1
       },
       {
         "number": "46",
@@ -136,6 +134,10 @@
       {
         "number": "49",
         "count": 2
+      },
+      {
+        "number": "51",
+        "count": 1
       },
       {
         "number": "53",
@@ -188,10 +190,6 @@
       {
         "number": "09",
         "count": 1
-      },
-      {
-        "number": "02",
-        "count": 1
       }
     ],
     "top3": [
@@ -209,6 +207,10 @@
       },
       {
         "number": "211",
+        "count": 1
+      },
+      {
+        "number": "254",
         "count": 1
       },
       {
@@ -237,10 +239,6 @@
       },
       {
         "number": "383",
-        "count": 1
-      },
-      {
-        "number": "393",
         "count": 1
       },
       {
