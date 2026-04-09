@@ -2,47 +2,50 @@
   "lottery": "lao_pattana",
   "lottery_name": "หวยลาวพัฒนา",
   "source_url": "https://exphuay.com/calculate/laosdevelops",
-  "fetched_at": "2026-04-09T03:46:13.286Z",
+  "fetched_at": "2026-04-09T04:25:42.139Z",
   "window": {
     "latest_n_draws": 30
   },
   "daily_calculation": {
     "top3": [
-      "078",
-      "915",
-      "703",
+      "978",
+      "715",
+      "403",
       "503",
+      "415"
+    ],
+    "top3_recommended": [
+      "978",
       "715"
     ],
-    "top3_recommended": [],
     "bottom2": [
-      "79",
       "67",
-      "44",
+      "74",
+      "40",
       "35",
-      "69",
-      "04"
+      "77",
+      "94"
     ],
     "bottom2_recommended": [
-      "79",
-      "67"
+      "74",
+      "94"
     ],
-    "running_number": "7",
-    "full_set_number": "4"
+    "running_number": "4",
+    "full_set_number": "7"
   },
   "digit_frequency": {
     "data": [
       {
         "digit": "0",
-        "top3_count": 12,
-        "bottom2_count": 7,
-        "total": 19
+        "top3_count": 11,
+        "bottom2_count": 6,
+        "total": 17
       },
       {
         "digit": "1",
-        "top3_count": 6,
+        "top3_count": 7,
         "bottom2_count": 5,
-        "total": 11
+        "total": 12
       },
       {
         "digit": "2",
@@ -76,21 +79,21 @@
       },
       {
         "digit": "7",
-        "top3_count": 11,
-        "bottom2_count": 9,
-        "total": 20
+        "top3_count": 9,
+        "bottom2_count": 8,
+        "total": 17
       },
       {
         "digit": "8",
-        "top3_count": 5,
-        "bottom2_count": 2,
-        "total": 7
+        "top3_count": 6,
+        "bottom2_count": 3,
+        "total": 9
       },
       {
         "digit": "9",
-        "top3_count": 12,
-        "bottom2_count": 4,
-        "total": 16
+        "top3_count": 13,
+        "bottom2_count": 5,
+        "total": 18
       }
     ]
   },
@@ -117,8 +120,16 @@
         "count": 1
       },
       {
+        "number": "32",
+        "count": 1
+      },
+      {
         "number": "37",
         "count": 2
+      },
+      {
+        "number": "43",
+        "count": 1
       },
       {
         "number": "44",
@@ -162,7 +173,7 @@
       },
       {
         "number": "70",
-        "count": 3
+        "count": 2
       },
       {
         "number": "74",
@@ -170,6 +181,10 @@
       },
       {
         "number": "80",
+        "count": 1
+      },
+      {
+        "number": "89",
         "count": 1
       },
       {
@@ -283,6 +298,10 @@
         "count": 1
       },
       {
+        "number": "977",
+        "count": 1
+      },
+      {
         "number": "049",
         "count": 1
       },
@@ -296,10 +315,6 @@
       },
       {
         "number": "085",
-        "count": 1
-      },
-      {
-        "number": "039",
         "count": 1
       }
     ]
