@@ -2,33 +2,33 @@
   "lottery": "hanoi_vip",
   "lottery_name": "หวยฮานอย VIP",
   "source_url": "https://exphuay.com/calculate/mlnhngo",
-  "fetched_at": "2026-04-09T04:29:20.488Z",
+  "fetched_at": "2026-04-10T03:50:18.181Z",
   "window": {
     "latest_n_draws": 30
   },
   "daily_calculation": {
     "top3": [
-      "950",
-      "818",
-      "507",
-      "707",
-      "518"
+      "850",
+      "518",
+      "306",
+      "906",
+      "318"
     ],
     "top3_recommended": [
-      "950"
+      "906"
     ],
     "bottom2": [
       "65",
-      "29",
-      "78",
-      "56",
+      "28",
+      "76",
+      "50",
       "25",
       "27"
     ],
     "bottom2_recommended": [
-      "29"
+      "28"
     ],
-    "running_number": "9",
+    "running_number": "8",
     "full_set_number": "9"
   },
   "digit_frequency": {
@@ -36,14 +36,14 @@
       {
         "digit": "0",
         "top3_count": 1,
-        "bottom2_count": 4,
-        "total": 5
+        "bottom2_count": 5,
+        "total": 6
       },
       {
         "digit": "1",
-        "top3_count": 10,
+        "top3_count": 11,
         "bottom2_count": 5,
-        "total": 15
+        "total": 16
       },
       {
         "digit": "2",
@@ -71,15 +71,15 @@
       },
       {
         "digit": "6",
-        "top3_count": 8,
+        "top3_count": 7,
         "bottom2_count": 10,
-        "total": 18
+        "total": 17
       },
       {
         "digit": "7",
-        "top3_count": 8,
+        "top3_count": 9,
         "bottom2_count": 4,
-        "total": 12
+        "total": 13
       },
       {
         "digit": "8",
@@ -89,9 +89,9 @@
       },
       {
         "digit": "9",
-        "top3_count": 10,
-        "bottom2_count": 4,
-        "total": 14
+        "top3_count": 9,
+        "bottom2_count": 3,
+        "total": 12
       }
     ]
   },
@@ -151,7 +151,7 @@
       },
       {
         "number": "60",
-        "count": 1
+        "count": 2
       },
       {
         "number": "62",
@@ -167,10 +167,6 @@
       },
       {
         "number": "68",
-        "count": 1
-      },
-      {
-        "number": "69",
         "count": 1
       },
       {
@@ -203,6 +199,10 @@
       }
     ],
     "top3": [
+      {
+        "number": "112",
+        "count": 1
+      },
       {
         "number": "140",
         "count": 1
@@ -317,10 +317,6 @@
       },
       {
         "number": "973",
-        "count": 1
-      },
-      {
-        "number": "997",
         "count": 1
       }
     ]
