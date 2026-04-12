@@ -2,7 +2,7 @@
   "lottery": "malaysia",
   "lottery_name": "หวยมาเลย์",
   "source_url": "https://exphuay.com/calculate/magnum4d",
-  "fetched_at": "2026-04-12T03:58:19.782Z",
+  "fetched_at": "2026-04-12T05:19:30.068Z",
   "window": {
     "latest_n_draws": 30
   },
@@ -18,18 +18,17 @@
       "573"
     ],
     "bottom2": [
-      "07",
-      "33",
-      "90",
-      "89",
+      "00",
       "37",
+      "93",
+      "89",
+      "30",
       "19"
     ],
     "bottom2_recommended": [
-      "33",
       "37"
     ],
-    "running_number": "3",
+    "running_number": "7",
     "full_set_number": "5"
   },
   "digit_frequency": {
@@ -37,19 +36,19 @@
       {
         "digit": "0",
         "top3_count": 9,
-        "bottom2_count": 11,
-        "total": 20
+        "bottom2_count": 12,
+        "total": 21
       },
       {
         "digit": "1",
         "top3_count": 6,
-        "bottom2_count": 6,
-        "total": 12
+        "bottom2_count": 5,
+        "total": 11
       },
       {
         "digit": "2",
-        "top3_count": 9,
-        "bottom2_count": 6,
+        "top3_count": 10,
+        "bottom2_count": 5,
         "total": 15
       },
       {
@@ -66,9 +65,9 @@
       },
       {
         "digit": "5",
-        "top3_count": 9,
+        "top3_count": 8,
         "bottom2_count": 4,
-        "total": 13
+        "total": 12
       },
       {
         "digit": "6",
@@ -78,9 +77,9 @@
       },
       {
         "digit": "7",
-        "top3_count": 11,
-        "bottom2_count": 4,
-        "total": 15
+        "top3_count": 12,
+        "bottom2_count": 5,
+        "total": 17
       },
       {
         "digit": "8",
@@ -90,18 +89,14 @@
       },
       {
         "digit": "9",
-        "top3_count": 12,
+        "top3_count": 11,
         "bottom2_count": 7,
-        "total": 19
+        "total": 18
       }
     ]
   },
   "statistics_30_draws": {
     "bottom2": [
-      {
-        "number": "21",
-        "count": 1
-      },
       {
         "number": "23",
         "count": 1
@@ -116,10 +111,6 @@
       },
       {
         "number": "31",
-        "count": 3
-      },
-      {
-        "number": "37",
         "count": 1
       },
       {
@@ -148,6 +139,10 @@
       },
       {
         "number": "68",
+        "count": 1
+      },
+      {
+        "number": "70",
         "count": 1
       },
       {
@@ -229,6 +224,10 @@
         "count": 1
       },
       {
+        "number": "286",
+        "count": 1
+      },
+      {
         "number": "342",
         "count": 1
       },
@@ -262,10 +261,6 @@
       },
       {
         "number": "595",
-        "count": 1
-      },
-      {
-        "number": "596",
         "count": 1
       },
       {
