@@ -2,33 +2,32 @@
   "lottery": "thai_government",
   "lottery_name": "หวยรัฐบาลไทย",
   "source_url": "https://exphuay.com/calculate/goverment",
-  "fetched_at": "2026-04-20T04:14:51.730Z",
+  "fetched_at": "2026-04-20T04:24:12.876Z",
   "window": {
     "latest_n_draws": 30
   },
   "daily_calculation": {
     "top3": [
-      "379",
-      "868",
-      "657",
-      "557",
-      "668"
+      "369",
+      "858",
+      "607",
+      "207",
+      "658"
     ],
     "top3_recommended": [
-      "657",
-      "557"
+      "858",
+      "658"
     ],
     "bottom2": [
       "56",
       "02",
       "31",
-      "20",
+      "80",
       "06",
       "73"
     ],
     "bottom2_recommended": [
-      "02",
-      "20"
+      "02"
     ],
     "running_number": "2",
     "full_set_number": "5"
@@ -50,13 +49,13 @@
       {
         "digit": "2",
         "top3_count": 7,
-        "bottom2_count": 8,
-        "total": 15
+        "bottom2_count": 7,
+        "total": 14
       },
       {
         "digit": "3",
-        "top3_count": 7,
-        "bottom2_count": 6,
+        "top3_count": 8,
+        "bottom2_count": 5,
         "total": 13
       },
       {
@@ -79,21 +78,21 @@
       },
       {
         "digit": "7",
-        "top3_count": 11,
-        "bottom2_count": 7,
-        "total": 18
+        "top3_count": 10,
+        "bottom2_count": 9,
+        "total": 19
       },
       {
         "digit": "8",
-        "top3_count": 13,
+        "top3_count": 12,
         "bottom2_count": 5,
-        "total": 18
+        "total": 17
       },
       {
         "digit": "9",
-        "top3_count": 8,
+        "top3_count": 9,
         "bottom2_count": 1,
-        "total": 9
+        "total": 10
       }
     ]
   },
@@ -109,10 +108,6 @@
       },
       {
         "number": "22",
-        "count": 1
-      },
-      {
-        "number": "23",
         "count": 1
       },
       {
@@ -177,7 +172,7 @@
       },
       {
         "number": "77",
-        "count": 1
+        "count": 2
       },
       {
         "number": "85",
@@ -258,6 +253,10 @@
         "count": 2
       },
       {
+        "number": "612",
+        "count": 1
+      },
+      {
         "number": "629",
         "count": 1
       },
@@ -279,10 +278,6 @@
       },
       {
         "number": "706",
-        "count": 1
-      },
-      {
-        "number": "779",
         "count": 1
       },
       {

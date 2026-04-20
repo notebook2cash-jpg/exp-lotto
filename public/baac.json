@@ -2,33 +2,34 @@
   "lottery": "baac",
   "lottery_name": "หวยธ.ก.ส.",
   "source_url": "https://exphuay.com/calculate/baac",
-  "fetched_at": "2026-04-20T04:16:00.443Z",
+  "fetched_at": "2026-04-20T04:29:10.952Z",
   "window": {
     "latest_n_draws": 30
   },
   "daily_calculation": {
     "top3": [
-      "929",
-      "305",
-      "178",
-      "578",
-      "105"
+      "921",
+      "105",
+      "370",
+      "570",
+      "305"
     ],
-    "top3_recommended": [],
+    "top3_recommended": [
+      "921"
+    ],
     "bottom2": [
-      "93",
+      "99",
+      "08",
+      "66",
+      "35",
       "09",
-      "68",
-      "32",
-      "03",
-      "66"
+      "36"
     ],
     "bottom2_recommended": [
-      "93",
-      "09"
+      "08"
     ],
-    "running_number": "9",
-    "full_set_number": "6"
+    "running_number": "8",
+    "full_set_number": "9"
   },
   "digit_frequency": {
     "data": [
