@@ -2,7 +2,7 @@
   "lottery": "baac",
   "lottery_name": "หวยธ.ก.ส.",
   "source_url": "https://exphuay.com/calculate/baac",
-  "fetched_at": "2026-04-21T04:03:27.883Z",
+  "fetched_at": "2026-04-22T03:55:48.199Z",
   "window": {
     "latest_n_draws": 30
   },
@@ -47,15 +47,15 @@
       },
       {
         "digit": "2",
-        "top3_count": 10,
+        "top3_count": 11,
         "bottom2_count": 5,
-        "total": 15
+        "total": 16
       },
       {
         "digit": "3",
-        "top3_count": 12,
+        "top3_count": 11,
         "bottom2_count": 9,
-        "total": 21
+        "total": 20
       },
       {
         "digit": "4",
@@ -66,26 +66,26 @@
       {
         "digit": "5",
         "top3_count": 14,
-        "bottom2_count": 3,
-        "total": 17
+        "bottom2_count": 4,
+        "total": 18
       },
       {
         "digit": "6",
         "top3_count": 4,
-        "bottom2_count": 9,
-        "total": 13
+        "bottom2_count": 8,
+        "total": 12
       },
       {
         "digit": "7",
         "top3_count": 6,
-        "bottom2_count": 5,
-        "total": 11
+        "bottom2_count": 4,
+        "total": 10
       },
       {
         "digit": "8",
         "top3_count": 6,
-        "bottom2_count": 5,
-        "total": 11
+        "bottom2_count": 6,
+        "total": 12
       },
       {
         "digit": "9",
@@ -159,10 +159,14 @@
       },
       {
         "number": "76",
-        "count": 2
+        "count": 1
       },
       {
         "number": "79",
+        "count": 1
+      },
+      {
+        "number": "85",
         "count": 1
       },
       {
@@ -213,6 +217,10 @@
       },
       {
         "number": "141",
+        "count": 1
+      },
+      {
+        "number": "159",
         "count": 1
       },
       {
@@ -277,10 +285,6 @@
       },
       {
         "number": "675",
-        "count": 1
-      },
-      {
-        "number": "738",
         "count": 1
       },
       {
