@@ -2,32 +2,34 @@
   "lottery": "lao_pattana",
   "lottery_name": "หวยลาวพัฒนา",
   "source_url": "https://exphuay.com/calculate/laosdevelops",
-  "fetched_at": "2026-04-23T03:16:14.978Z",
+  "fetched_at": "2026-04-23T03:59:58.024Z",
   "window": {
     "latest_n_draws": 30
   },
   "daily_calculation": {
     "top3": [
       "971",
-      "715",
-      "507",
-      "307",
-      "515"
+      "517",
+      "255",
+      "455",
+      "217"
     ],
-    "top3_recommended": [],
+    "top3_recommended": [
+      "971"
+    ],
     "bottom2": [
-      "17",
+      "15",
+      "42",
+      "07",
+      "74",
       "45",
-      "34",
-      "03",
-      "47",
-      "93"
+      "90"
     ],
     "bottom2_recommended": [
-      "45"
+      "42"
     ],
-    "running_number": "5",
-    "full_set_number": "6"
+    "running_number": "2",
+    "full_set_number": "9"
   },
   "digit_frequency": {
     "data": [
@@ -45,21 +47,21 @@
       },
       {
         "digit": "2",
-        "top3_count": 9,
-        "bottom2_count": 6,
-        "total": 15
+        "top3_count": 10,
+        "bottom2_count": 7,
+        "total": 17
       },
       {
         "digit": "3",
-        "top3_count": 8,
-        "bottom2_count": 7,
-        "total": 15
+        "top3_count": 7,
+        "bottom2_count": 6,
+        "total": 13
       },
       {
         "digit": "4",
-        "top3_count": 11,
+        "top3_count": 10,
         "bottom2_count": 7,
-        "total": 18
+        "total": 17
       },
       {
         "digit": "5",
@@ -76,20 +78,20 @@
       {
         "digit": "7",
         "top3_count": 10,
-        "bottom2_count": 7,
-        "total": 17
+        "bottom2_count": 6,
+        "total": 16
       },
       {
         "digit": "8",
-        "top3_count": 5,
-        "bottom2_count": 2,
-        "total": 7
+        "top3_count": 7,
+        "bottom2_count": 3,
+        "total": 10
       },
       {
         "digit": "9",
-        "top3_count": 12,
+        "top3_count": 11,
         "bottom2_count": 6,
-        "total": 18
+        "total": 17
       }
     ]
   },
@@ -108,10 +110,6 @@
         "count": 3
       },
       {
-        "number": "25",
-        "count": 1
-      },
-      {
         "number": "29",
         "count": 2
       },
@@ -125,7 +123,7 @@
       },
       {
         "number": "37",
-        "count": 2
+        "count": 1
       },
       {
         "number": "43",
@@ -176,6 +174,10 @@
         "count": 1
       },
       {
+        "number": "82",
+        "count": 1
+      },
+      {
         "number": "89",
         "count": 1
       },
@@ -211,6 +213,10 @@
       },
       {
         "number": "211",
+        "count": 1
+      },
+      {
+        "number": "257",
         "count": 1
       },
       {
@@ -259,10 +265,6 @@
       },
       {
         "number": "643",
-        "count": 1
-      },
-      {
-        "number": "702",
         "count": 1
       },
       {
