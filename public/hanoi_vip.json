@@ -2,21 +2,21 @@
   "lottery": "hanoi_vip",
   "lottery_name": "หวยฮานอย VIP",
   "source_url": "https://exphuay.com/calculate/mlnhngo",
-  "fetched_at": "2026-04-24T02:29:56.218Z",
+  "fetched_at": "2026-04-24T04:16:05.471Z",
   "window": {
     "latest_n_draws": 30
   },
   "daily_calculation": {
     "top3": [
       "350",
-      "876",
-      "964",
-      "264",
-      "976"
+      "877",
+      "566",
+      "166",
+      "577"
     ],
     "top3_recommended": [
-      "876",
-      "976"
+      "877",
+      "577"
     ],
     "bottom2": [
       "62",
@@ -36,9 +36,9 @@
     "data": [
       {
         "digit": "0",
-        "top3_count": 4,
+        "top3_count": 5,
         "bottom2_count": 3,
-        "total": 7
+        "total": 8
       },
       {
         "digit": "1",
@@ -54,9 +54,9 @@
       },
       {
         "digit": "3",
-        "top3_count": 13,
+        "top3_count": 14,
         "bottom2_count": 8,
-        "total": 21
+        "total": 22
       },
       {
         "digit": "4",
@@ -90,14 +90,18 @@
       },
       {
         "digit": "9",
-        "top3_count": 7,
+        "top3_count": 5,
         "bottom2_count": 5,
-        "total": 12
+        "total": 10
       }
     ]
   },
   "statistics_30_draws": {
     "bottom2": [
+      {
+        "number": "15",
+        "count": 1
+      },
       {
         "number": "19",
         "count": 1
@@ -132,10 +136,6 @@
       },
       {
         "number": "49",
-        "count": 1
-      },
-      {
-        "number": "51",
         "count": 1
       },
       {
@@ -233,6 +233,10 @@
         "count": 1
       },
       {
+        "number": "337",
+        "count": 1
+      },
+      {
         "number": "354",
         "count": 1
       },
@@ -298,10 +302,6 @@
       },
       {
         "number": "868",
-        "count": 1
-      },
-      {
-        "number": "902",
         "count": 1
       },
       {
