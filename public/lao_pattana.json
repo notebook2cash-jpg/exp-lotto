@@ -2,54 +2,52 @@
   "lottery": "lao_pattana",
   "lottery_name": "หวยลาวพัฒนา",
   "source_url": "https://exphuay.com/calculate/laosdevelops",
-  "fetched_at": "2026-04-23T03:59:58.024Z",
+  "fetched_at": "2026-04-24T02:25:22.704Z",
   "window": {
     "latest_n_draws": 30
   },
   "daily_calculation": {
     "top3": [
-      "971",
+      "981",
       "517",
-      "255",
-      "455",
-      "217"
+      "755",
+      "355",
+      "717"
     ],
-    "top3_recommended": [
-      "971"
-    ],
+    "top3_recommended": [],
     "bottom2": [
       "15",
-      "42",
-      "07",
-      "74",
+      "47",
+      "24",
+      "03",
       "45",
-      "90"
+      "92"
     ],
     "bottom2_recommended": [
-      "42"
+      "47"
     ],
-    "running_number": "2",
-    "full_set_number": "9"
+    "running_number": "7",
+    "full_set_number": "6"
   },
   "digit_frequency": {
     "data": [
       {
         "digit": "0",
-        "top3_count": 13,
+        "top3_count": 12,
         "bottom2_count": 7,
-        "total": 20
+        "total": 19
       },
       {
         "digit": "1",
         "top3_count": 9,
-        "bottom2_count": 7,
-        "total": 16
+        "bottom2_count": 8,
+        "total": 17
       },
       {
         "digit": "2",
-        "top3_count": 10,
+        "top3_count": 11,
         "bottom2_count": 7,
-        "total": 17
+        "total": 18
       },
       {
         "digit": "3",
@@ -71,9 +69,9 @@
       },
       {
         "digit": "6",
-        "top3_count": 9,
-        "bottom2_count": 4,
-        "total": 13
+        "top3_count": 7,
+        "bottom2_count": 3,
+        "total": 10
       },
       {
         "digit": "7",
@@ -89,9 +87,9 @@
       },
       {
         "digit": "9",
-        "top3_count": 11,
+        "top3_count": 13,
         "bottom2_count": 6,
-        "total": 17
+        "total": 19
       }
     ]
   },
@@ -110,8 +108,8 @@
         "count": 3
       },
       {
-        "number": "29",
-        "count": 2
+        "number": "25",
+        "count": 1
       },
       {
         "number": "31",
@@ -147,10 +145,6 @@
       },
       {
         "number": "52",
-        "count": 1
-      },
-      {
-        "number": "62",
         "count": 1
       },
       {
@@ -204,11 +198,11 @@
         "count": 1
       },
       {
-        "number": "181",
+        "number": "179",
         "count": 1
       },
       {
-        "number": "209",
+        "number": "181",
         "count": 1
       },
       {
