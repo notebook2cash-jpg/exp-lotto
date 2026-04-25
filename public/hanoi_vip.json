@@ -2,35 +2,32 @@
   "lottery": "hanoi_vip",
   "lottery_name": "หวยฮานอย VIP",
   "source_url": "https://exphuay.com/calculate/mlnhngo",
-  "fetched_at": "2026-04-25T03:52:02.092Z",
+  "fetched_at": "2026-04-25T07:14:28.178Z",
   "window": {
     "latest_n_draws": 30
   },
   "daily_calculation": {
     "top3": [
-      "350",
-      "877",
-      "566",
-      "166",
-      "577"
+      "357",
+      "876",
+      "564",
+      "264",
+      "576"
     ],
-    "top3_recommended": [
-      "877",
-      "577"
-    ],
+    "top3_recommended": [],
     "bottom2": [
       "62",
-      "39",
-      "77",
+      "79",
+      "37",
       "53",
-      "32",
-      "67"
+      "72",
+      "63"
     ],
     "bottom2_recommended": [
-      "39"
+      "79"
     ],
     "running_number": "9",
-    "full_set_number": "7"
+    "full_set_number": "9"
   },
   "digit_frequency": {
     "data": [
@@ -60,9 +57,9 @@
       },
       {
         "digit": "4",
-        "top3_count": 15,
+        "top3_count": 16,
         "bottom2_count": 4,
-        "total": 19
+        "total": 20
       },
       {
         "digit": "5",
@@ -72,27 +69,27 @@
       },
       {
         "digit": "6",
-        "top3_count": 4,
+        "top3_count": 5,
         "bottom2_count": 13,
-        "total": 17
+        "total": 18
       },
       {
         "digit": "7",
-        "top3_count": 8,
-        "bottom2_count": 7,
+        "top3_count": 7,
+        "bottom2_count": 8,
         "total": 15
       },
       {
         "digit": "8",
         "top3_count": 11,
-        "bottom2_count": 4,
-        "total": 15
+        "bottom2_count": 3,
+        "total": 14
       },
       {
         "digit": "9",
-        "top3_count": 5,
+        "top3_count": 4,
         "bottom2_count": 5,
-        "total": 10
+        "total": 9
       }
     ]
   },
@@ -108,10 +105,6 @@
       },
       {
         "number": "23",
-        "count": 1
-      },
-      {
-        "number": "28",
         "count": 1
       },
       {
@@ -176,6 +169,10 @@
       },
       {
         "number": "71",
+        "count": 1
+      },
+      {
+        "number": "72",
         "count": 1
       },
       {
@@ -261,6 +258,10 @@
         "count": 1
       },
       {
+        "number": "491",
+        "count": 1
+      },
+      {
         "number": "520",
         "count": 1
       },
@@ -282,10 +283,6 @@
       },
       {
         "number": "719",
-        "count": 1
-      },
-      {
-        "number": "740",
         "count": 1
       },
       {

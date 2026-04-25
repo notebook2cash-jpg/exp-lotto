@@ -2,36 +2,35 @@
   "lottery": "hanoi_special",
   "lottery_name": "หวยฮานอยพิเศษ",
   "source_url": "https://exphuay.com/calculate/xsthm",
-  "fetched_at": "2026-04-25T03:52:01.190Z",
+  "fetched_at": "2026-04-25T07:14:07.091Z",
   "window": {
     "latest_n_draws": 30
   },
   "daily_calculation": {
     "top3": [
-      "026",
-      "809",
-      "498",
-      "198",
-      "409"
+      "029",
+      "398",
+      "407",
+      "807",
+      "498"
     ],
     "top3_recommended": [
-      "809",
-      "498",
-      "409"
+      "407",
+      "807"
     ],
     "bottom2": [
-      "92",
+      "98",
       "74",
+      "82",
       "31",
-      "08",
-      "72",
-      "63"
+      "78",
+      "68"
     ],
     "bottom2_recommended": [
       "74"
     ],
     "running_number": "4",
-    "full_set_number": "9"
+    "full_set_number": "7"
   },
   "digit_frequency": {
     "data": [
@@ -43,15 +42,15 @@
       },
       {
         "digit": "1",
-        "top3_count": 11,
+        "top3_count": 12,
         "bottom2_count": 6,
-        "total": 17
+        "total": 18
       },
       {
         "digit": "2",
         "top3_count": 9,
-        "bottom2_count": 6,
-        "total": 15
+        "bottom2_count": 5,
+        "total": 14
       },
       {
         "digit": "3",
@@ -86,14 +85,14 @@
       {
         "digit": "8",
         "top3_count": 10,
-        "bottom2_count": 6,
-        "total": 16
+        "bottom2_count": 8,
+        "total": 18
       },
       {
         "digit": "9",
-        "top3_count": 8,
-        "bottom2_count": 6,
-        "total": 14
+        "top3_count": 7,
+        "bottom2_count": 5,
+        "total": 12
       }
     ]
   },
@@ -172,12 +171,16 @@
         "count": 2
       },
       {
+        "number": "88",
+        "count": 1
+      },
+      {
         "number": "91",
         "count": 1
       },
       {
         "number": "92",
-        "count": 2
+        "count": 1
       },
       {
         "number": "93",
@@ -189,10 +192,6 @@
       },
       {
         "number": "98",
-        "count": 1
-      },
-      {
-        "number": "04",
         "count": 1
       },
       {
@@ -250,6 +249,10 @@
         "count": 1
       },
       {
+        "number": "393",
+        "count": 1
+      },
+      {
         "number": "404",
         "count": 1
       },
@@ -291,10 +294,6 @@
       },
       {
         "number": "804",
-        "count": 1
-      },
-      {
-        "number": "807",
         "count": 1
       },
       {
