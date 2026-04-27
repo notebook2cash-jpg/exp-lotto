@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-04-26T04:29:34.175Z",
+  "fetched_at": "2026-04-27T04:27:45.487Z",
   "total_lotteries": 8,
   "scheduled_time": "08:00",
   "lotteries": [
@@ -7,7 +7,7 @@
       "lottery": "thai_government",
       "lottery_name": "หวยรัฐบาลไทย",
       "source_url": "https://exphuay.com/calculate/goverment",
-      "fetched_at": "2026-04-26T04:29:28.157Z",
+      "fetched_at": "2026-04-27T04:24:13.339Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -330,7 +330,7 @@
       "lottery": "lao_pattana",
       "lottery_name": "หวยลาวพัฒนา",
       "source_url": "https://exphuay.com/calculate/laosdevelops",
-      "fetched_at": "2026-04-26T04:29:28.763Z",
+      "fetched_at": "2026-04-27T04:24:33.516Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -661,34 +661,34 @@
       "lottery": "malaysia",
       "lottery_name": "หวยมาเลย์",
       "source_url": "https://exphuay.com/calculate/magnum4d",
-      "fetched_at": "2026-04-26T04:29:29.664Z",
+      "fetched_at": "2026-04-27T04:24:55.570Z",
       "window": {
         "latest_n_draws": 30
       },
       "daily_calculation": {
         "top3": [
-          "173",
-          "599",
-          "267",
+          "573",
+          "299",
+          "167",
           "667",
-          "299"
+          "199"
         ],
         "top3_recommended": [
-          "173"
+          "167",
+          "199"
         ],
         "bottom2": [
-          "30",
-          "99",
-          "06",
-          "84",
           "90",
+          "36",
+          "09",
+          "84",
+          "30",
           "10"
         ],
         "bottom2_recommended": [
-          "99",
-          "90"
+          "36"
         ],
-        "running_number": "9",
+        "running_number": "6",
         "full_set_number": "1"
       },
       "digit_frequency": {
@@ -701,9 +701,9 @@
           },
           {
             "digit": "1",
-            "top3_count": 9,
+            "top3_count": 8,
             "bottom2_count": 5,
-            "total": 14
+            "total": 13
           },
           {
             "digit": "2",
@@ -713,15 +713,15 @@
           },
           {
             "digit": "3",
-            "top3_count": 6,
+            "top3_count": 7,
             "bottom2_count": 9,
-            "total": 15
+            "total": 16
           },
           {
             "digit": "4",
             "top3_count": 4,
-            "bottom2_count": 5,
-            "total": 9
+            "bottom2_count": 4,
+            "total": 8
           },
           {
             "digit": "5",
@@ -732,26 +732,26 @@
           {
             "digit": "6",
             "top3_count": 11,
-            "bottom2_count": 6,
-            "total": 17
+            "bottom2_count": 7,
+            "total": 18
           },
           {
             "digit": "7",
-            "top3_count": 10,
-            "bottom2_count": 3,
+            "top3_count": 11,
+            "bottom2_count": 2,
             "total": 13
           },
           {
             "digit": "8",
-            "top3_count": 11,
+            "top3_count": 10,
             "bottom2_count": 5,
-            "total": 16
+            "total": 15
           },
           {
             "digit": "9",
             "top3_count": 13,
-            "bottom2_count": 8,
-            "total": 21
+            "bottom2_count": 9,
+            "total": 22
           }
         ]
       },
@@ -766,12 +766,16 @@
             "count": 1
           },
           {
-            "number": "31",
+            "number": "29",
             "count": 1
           },
           {
-            "number": "37",
+            "number": "30",
             "count": 1
+          },
+          {
+            "number": "31",
+            "count": 3
           },
           {
             "number": "38",
@@ -779,10 +783,6 @@
           },
           {
             "number": "43",
-            "count": 1
-          },
-          {
-            "number": "47",
             "count": 1
           },
           {
@@ -834,6 +834,10 @@
             "count": 1
           },
           {
+            "number": "96",
+            "count": 1
+          },
+          {
             "number": "99",
             "count": 1
           },
@@ -869,10 +873,6 @@
           },
           {
             "number": "184",
-            "count": 1
-          },
-          {
-            "number": "185",
             "count": 1
           },
           {
@@ -964,6 +964,10 @@
             "count": 1
           },
           {
+            "number": "072",
+            "count": 1
+          },
+          {
             "number": "089",
             "count": 1
           },
@@ -980,7 +984,7 @@
       "lottery": "baac",
       "lottery_name": "หวยธ.ก.ส.",
       "source_url": "https://exphuay.com/calculate/baac",
-      "fetched_at": "2026-04-26T04:29:30.566Z",
+      "fetched_at": "2026-04-27T04:25:15.368Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -1318,7 +1322,7 @@
       "lottery": "gsb",
       "lottery_name": "หวยออมสิน",
       "source_url": "https://exphuay.com/calculate/gsb",
-      "fetched_at": "2026-04-26T04:29:31.468Z",
+      "fetched_at": "2026-04-27T04:25:38.778Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -1634,7 +1638,7 @@
       "lottery": "hanoi_normal",
       "lottery_name": "หวยฮานอยปกติ",
       "source_url": "https://exphuay.com/calculate/minhngoc",
-      "fetched_at": "2026-04-26T04:29:32.370Z",
+      "fetched_at": "2026-04-27T04:25:58.985Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -1964,7 +1968,7 @@
       "lottery": "hanoi_special",
       "lottery_name": "หวยฮานอยพิเศษ",
       "source_url": "https://exphuay.com/calculate/xsthm",
-      "fetched_at": "2026-04-26T04:29:33.272Z",
+      "fetched_at": "2026-04-27T04:26:20.708Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -2299,7 +2303,7 @@
       "lottery": "hanoi_vip",
       "lottery_name": "หวยฮานอย VIP",
       "source_url": "https://exphuay.com/calculate/mlnhngo",
-      "fetched_at": "2026-04-26T04:29:34.173Z",
+      "fetched_at": "2026-04-27T04:27:45.486Z",
       "window": {
         "latest_n_draws": 30
       },
