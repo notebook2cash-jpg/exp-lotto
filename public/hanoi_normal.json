@@ -2,34 +2,34 @@
   "lottery": "hanoi_normal",
   "lottery_name": "หวยฮานอยปกติ",
   "source_url": "https://exphuay.com/calculate/minhngoc",
-  "fetched_at": "2026-05-03T04:37:42.612Z",
+  "fetched_at": "2026-05-04T04:09:28.727Z",
   "window": {
     "latest_n_draws": 30
   },
   "daily_calculation": {
     "top3": [
-      "766",
-      "234",
-      "029",
-      "929",
-      "034"
+      "754",
+      "229",
+      "078",
+      "178",
+      "029"
     ],
     "top3_recommended": [
-      "029",
-      "929"
+      "229",
+      "029"
     ],
     "bottom2": [
       "49",
-      "32",
-      "10",
-      "07",
+      "37",
+      "12",
+      "93",
       "39",
       "81"
     ],
     "bottom2_recommended": [
-      "32"
+      "37"
     ],
-    "running_number": "2",
+    "running_number": "7",
     "full_set_number": "9"
   },
   "digit_frequency": {
