@@ -2,24 +2,24 @@
   "lottery": "hanoi_special",
   "lottery_name": "หวยฮานอยพิเศษ",
   "source_url": "https://exphuay.com/calculate/xsthm",
-  "fetched_at": "2026-05-07T04:33:17.976Z",
+  "fetched_at": "2026-05-08T03:53:39.811Z",
   "window": {
     "latest_n_draws": 30
   },
   "daily_calculation": {
     "top3": [
-      "492",
-      "541",
-      "357",
-      "257",
-      "341"
+      "497",
+      "342",
+      "021",
+      "221",
+      "042"
     ],
     "top3_recommended": [],
     "bottom2": [
       "38",
       "84",
       "92",
-      "60",
+      "70",
       "88",
       "69"
     ],
@@ -39,9 +39,9 @@
       },
       {
         "digit": "1",
-        "top3_count": 10,
+        "top3_count": 9,
         "bottom2_count": 5,
-        "total": 15
+        "total": 14
       },
       {
         "digit": "2",
@@ -69,15 +69,15 @@
       },
       {
         "digit": "6",
-        "top3_count": 11,
-        "bottom2_count": 10,
+        "top3_count": 12,
+        "bottom2_count": 9,
         "total": 21
       },
       {
         "digit": "7",
         "top3_count": 4,
-        "bottom2_count": 3,
-        "total": 7
+        "bottom2_count": 4,
+        "total": 8
       },
       {
         "digit": "8",
@@ -124,6 +124,10 @@
         "count": 1
       },
       {
+        "number": "35",
+        "count": 1
+      },
+      {
         "number": "36",
         "count": 2
       },
@@ -144,10 +148,6 @@
         "count": 1
       },
       {
-        "number": "61",
-        "count": 1
-      },
-      {
         "number": "66",
         "count": 1
       },
@@ -157,7 +157,7 @@
       },
       {
         "number": "71",
-        "count": 1
+        "count": 2
       },
       {
         "number": "74",
@@ -262,10 +262,6 @@
         "count": 1
       },
       {
-        "number": "573",
-        "count": 1
-      },
-      {
         "number": "574",
         "count": 1
       },
@@ -275,6 +271,10 @@
       },
       {
         "number": "608",
+        "count": 1
+      },
+      {
+        "number": "627",
         "count": 1
       },
       {
