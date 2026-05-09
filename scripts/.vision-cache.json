@@ -27,7 +27,7 @@
       "running_number": "2",
       "full_set_number": "5"
     },
-    "updated_at": "2026-05-09T04:17:13.703Z"
+    "updated_at": "2026-05-09T04:53:50.531Z"
   },
   "thai_government:digit_frequency": {
     "hash": "f521444f530173f77b6afc779ce3749061288b873415833db978a10eb2f35d02",
@@ -95,7 +95,7 @@
         }
       ]
     },
-    "updated_at": "2026-05-09T04:17:19.045Z"
+    "updated_at": "2026-05-09T04:53:56.404Z"
   },
   "thai_government:statistics_30_draws": {
     "hash": "ed55d7fbb457f259eb767e1b418b43edcbe873d3135f118bd144eb181b5cd864",
@@ -321,21 +321,19 @@
         }
       ]
     },
-    "updated_at": "2026-05-09T04:17:29.239Z"
+    "updated_at": "2026-05-09T04:54:06.307Z"
   },
   "lao_pattana:calc": {
-    "hash": "526b03e5b022fdc5c28ea20041703afc8af2f35fc1c6152399c80d418610b52d",
+    "hash": "9002672437e4cbae5521640c5c61516a266dcc12bef66a4345b05d54542d320d",
     "data": {
       "top3": [
-        "997",
+        "998",
         "241",
         "080",
         "580",
         "041"
       ],
-      "top3_recommended": [
-        "997"
-      ],
+      "top3_recommended": [],
       "bottom2": [
         "72",
         "00",
@@ -351,10 +349,10 @@
       "running_number": "0",
       "full_set_number": "7"
     },
-    "updated_at": "2026-05-09T04:18:51.640Z"
+    "updated_at": "2026-05-09T04:54:10.733Z"
   },
   "lao_pattana:digit_frequency": {
-    "hash": "2e0db5c9987bb7bcdeafb42991e423ab4733c69b03c924f2a5af61f5775042a2",
+    "hash": "3113c4aef6972d17605349addd6d9b757dc66683593b3f2aea0ac34b1216c4d6",
     "data": {
       "data": [
         {
@@ -371,15 +369,15 @@
         },
         {
           "digit": "2",
-          "top3_count": 10,
+          "top3_count": 11,
           "bottom2_count": 5,
-          "total": 15
+          "total": 16
         },
         {
           "digit": "3",
           "top3_count": 6,
-          "bottom2_count": 5,
-          "total": 11
+          "bottom2_count": 4,
+          "total": 10
         },
         {
           "digit": "4",
@@ -396,33 +394,33 @@
         {
           "digit": "6",
           "top3_count": 7,
-          "bottom2_count": 3,
-          "total": 10
+          "bottom2_count": 2,
+          "total": 9
         },
         {
           "digit": "7",
-          "top3_count": 12,
-          "bottom2_count": 8,
-          "total": 20
+          "top3_count": 13,
+          "bottom2_count": 9,
+          "total": 22
         },
         {
           "digit": "8",
           "top3_count": 7,
-          "bottom2_count": 3,
-          "total": 10
+          "bottom2_count": 4,
+          "total": 11
         },
         {
           "digit": "9",
-          "top3_count": 17,
+          "top3_count": 15,
           "bottom2_count": 7,
-          "total": 24
+          "total": 22
         }
       ]
     },
-    "updated_at": "2026-05-09T04:18:57.385Z"
+    "updated_at": "2026-05-09T04:54:16.954Z"
   },
   "lao_pattana:statistics_30_draws": {
-    "hash": "050427a4feccec841ea44e4ee63ad05484fd2309a607071f4e730979d3272b1f",
+    "hash": "0515bb3d402410573a8c609e186e63a405281d23d8a4be31f3cdd73efc9ec78d",
     "data": {
       "bottom2": [
         {
@@ -438,10 +436,6 @@
           "count": 2
         },
         {
-          "number": "21",
-          "count": 1
-        },
-        {
           "number": "30",
           "count": 1
         },
@@ -451,10 +445,6 @@
         },
         {
           "number": "42",
-          "count": 1
-        },
-        {
-          "number": "43",
           "count": 1
         },
         {
@@ -474,10 +464,6 @@
           "count": 2
         },
         {
-          "number": "63",
-          "count": 1
-        },
-        {
           "number": "68",
           "count": 1
         },
@@ -495,6 +481,10 @@
         },
         {
           "number": "77",
+          "count": 1
+        },
+        {
+          "number": "78",
           "count": 1
         },
         {
@@ -560,10 +550,6 @@
           "count": 1
         },
         {
-          "number": "315",
-          "count": 1
-        },
-        {
           "number": "329",
           "count": 1
         },
@@ -616,6 +602,10 @@
           "count": 1
         },
         {
+          "number": "877",
+          "count": 1
+        },
+        {
           "number": "907",
           "count": 1
         },
@@ -649,7 +639,7 @@
         }
       ]
     },
-    "updated_at": "2026-05-09T04:19:06.882Z"
+    "updated_at": "2026-05-09T04:54:27.617Z"
   },
   "malaysia:calc": {
     "hash": "2f3ae398abea522c2101a3a31dd0888aaa4159f365cdd4db477d9f22a17e65e5",
@@ -680,7 +670,7 @@
       "running_number": "9",
       "full_set_number": "6"
     },
-    "updated_at": "2026-05-09T04:19:10.784Z"
+    "updated_at": "2026-05-09T04:54:31.696Z"
   },
   "malaysia:digit_frequency": {
     "hash": "46a824149717cbae762a00a05db8569e8b12b47c3934875724cd80ba47137bd6",
@@ -748,7 +738,7 @@
         }
       ]
     },
-    "updated_at": "2026-05-09T04:19:16.573Z"
+    "updated_at": "2026-05-09T04:54:37.598Z"
   },
   "malaysia:statistics_30_draws": {
     "hash": "c17979737c761818b25b11cac7b7b3363de51dd65d7354aba9a7d0cd60e72c06",
@@ -978,7 +968,7 @@
         }
       ]
     },
-    "updated_at": "2026-05-09T04:19:38.014Z"
+    "updated_at": "2026-05-09T04:54:48.378Z"
   },
   "baac:calc": {
     "hash": "374d3b6f8aad1c6dd3f8100590a8d280715c154074e0f4425a2e72bfd091b00c",
@@ -1007,7 +997,7 @@
       "running_number": "8",
       "full_set_number": "9"
     },
-    "updated_at": "2026-05-09T04:19:41.666Z"
+    "updated_at": "2026-05-09T04:54:52.575Z"
   },
   "baac:digit_frequency": {
     "hash": "8dfd70af831f0077f7ee67dc95b125867a1ccc45e5698278fdd34e02bdb4208f",
@@ -1075,7 +1065,7 @@
         }
       ]
     },
-    "updated_at": "2026-05-09T04:19:47.028Z"
+    "updated_at": "2026-05-09T04:54:58.522Z"
   },
   "baac:statistics_30_draws": {
     "hash": "662f85b5ab67f659c60781384e642704fc7018f2feb33acc09b0be8a821ce9f0",
@@ -1108,6 +1098,10 @@
         {
           "number": "38",
           "count": 2
+        },
+        {
+          "number": "39",
+          "count": 1
         },
         {
           "number": "43",
@@ -1313,7 +1307,7 @@
         }
       ]
     },
-    "updated_at": "2026-05-09T04:19:56.550Z"
+    "updated_at": "2026-05-09T04:55:08.648Z"
   },
   "gsb:calc": {
     "hash": "8e73a8a49f9b9f4bac07595fb4ed01ff0335aeaeaf7f59e925f5e663d24067d0",
@@ -1345,7 +1339,7 @@
       "running_number": "8",
       "full_set_number": "7"
     },
-    "updated_at": "2026-05-09T04:20:00.314Z"
+    "updated_at": "2026-05-09T04:55:12.439Z"
   },
   "gsb:digit_frequency": {
     "hash": "1bd70fc99f21c95e5a510c0e5bdf7d8f1e91c9bfe63589359c26dfc703c49ea0",
@@ -1413,7 +1407,7 @@
         }
       ]
     },
-    "updated_at": "2026-05-09T04:20:06.667Z"
+    "updated_at": "2026-05-09T04:55:18.094Z"
   },
   "gsb:statistics_30_draws": {
     "hash": "f8c7fac56406282bec30fbce95659bdc5cef86fd06f7ed839afce7372ef5f867",
@@ -1627,10 +1621,10 @@
         }
       ]
     },
-    "updated_at": "2026-05-09T04:20:15.530Z"
+    "updated_at": "2026-05-09T04:58:57.998Z"
   },
   "hanoi_normal:calc": {
-    "hash": "8fb9ad53b672d4ba03f003cd98c7e05e0a991d845cae2faec2e7bce0fe2c4f12",
+    "hash": "46f9256d97d5ca6ab839fb626ce99789d2a92ba55698fd9aad9141074ecd1970",
     "data": {
       "top3": [
         "230",
@@ -1657,10 +1651,10 @@
       "running_number": "9",
       "full_set_number": "7"
     },
-    "updated_at": "2026-05-09T04:20:19.060Z"
+    "updated_at": "2026-05-09T04:58:58.001Z"
   },
   "hanoi_normal:digit_frequency": {
-    "hash": "f8989b6c42dd0599e25ef804c4542710f1924145b551b94230dc522af3d870d0",
+    "hash": "a442da2ec1a89242a109a6231b4450f8cca610aa4e006ce5426b71b9478e297d",
     "data": {
       "data": [
         {
@@ -1725,10 +1719,10 @@
         }
       ]
     },
-    "updated_at": "2026-05-09T04:20:24.701Z"
+    "updated_at": "2026-05-09T04:58:58.302Z"
   },
   "hanoi_normal:statistics_30_draws": {
-    "hash": "d1f5116897df6c781681799fe9670a3844c501cb89ace57fca39dcd2f4d5c37b",
+    "hash": "bbb783f14e1db7ca4734933292f5ebd46b457c168cae8654f7ea1490f23d2b53",
     "data": {
       "bottom2": [
         {
@@ -1967,10 +1961,10 @@
         }
       ]
     },
-    "updated_at": "2026-05-09T04:20:36.866Z"
+    "updated_at": "2026-05-09T04:58:58.602Z"
   },
   "hanoi_special:calc": {
-    "hash": "e6c6c075946f9d154bb2ca0baf598b5bc1943d835462492ec8360ad36768627e",
+    "hash": "29ca7f07ad289b9f9ddfca96eb878b4bca1793b2eab714d9a434dd15cea5c4ff",
     "data": {
       "top3": [
         "497",
@@ -1994,10 +1988,10 @@
       "running_number": "4",
       "full_set_number": "8"
     },
-    "updated_at": "2026-05-09T04:20:41.801Z"
+    "updated_at": "2026-05-09T04:58:58.902Z"
   },
   "hanoi_special:digit_frequency": {
-    "hash": "b5b458245c23c599a483595294badedffd04b7da9204863c97293a0d78d382ef",
+    "hash": "a6b09fbb14c12eb53dbe11f9ba534a55f8f607f4a2c9c39fe963fcd6b24de076",
     "data": {
       "data": [
         {
@@ -2062,10 +2056,10 @@
         }
       ]
     },
-    "updated_at": "2026-05-09T04:20:47.459Z"
+    "updated_at": "2026-05-09T04:58:59.202Z"
   },
   "hanoi_special:statistics_30_draws": {
-    "hash": "ab93cb51383851db9146ede6ff729e43b5d7ca9010c90a681af3a0f1c22b5c71",
+    "hash": "391180c5efd84f3056e5c24768f6a65b1d5f562ded298f97a8ecd0188817b311",
     "data": {
       "bottom2": [
         {
@@ -2292,10 +2286,10 @@
         }
       ]
     },
-    "updated_at": "2026-05-09T04:20:56.653Z"
+    "updated_at": "2026-05-09T04:58:59.504Z"
   },
   "hanoi_vip:calc": {
-    "hash": "e725736788c6d9c3d19296cff1daf7a634ff03339bb8ff64956224914c4c26a5",
+    "hash": "9015b8274bb240b7efdb5c614b002502468e6a204da8bf9311e58b69793f616b",
     "data": {
       "top3": [
         "863",
@@ -2319,10 +2313,10 @@
       "running_number": "2",
       "full_set_number": "9"
     },
-    "updated_at": "2026-05-09T04:21:00.308Z"
+    "updated_at": "2026-05-09T04:58:59.805Z"
   },
   "hanoi_vip:digit_frequency": {
-    "hash": "633d2bc8e6820050ed0b223d6322d1e872ff4867cfd7f73fc5244d0424339601",
+    "hash": "eb19a5c010486a1b1e2ef00967afcdb8265e5c0cba9a2de3b5e697675d6b20a2",
     "data": {
       "data": [
         {
@@ -2387,10 +2381,10 @@
         }
       ]
     },
-    "updated_at": "2026-05-09T04:21:05.716Z"
+    "updated_at": "2026-05-09T04:59:00.106Z"
   },
   "hanoi_vip:statistics_30_draws": {
-    "hash": "81240c95c637f5f9b74223c009ba8d6eae77c74de843a918834c1a434be2943c",
+    "hash": "91b6d81a49932c5624cbe4e9650a9a5f48ee5b2bc14ac259b73999c4e440d89d",
     "data": {
       "bottom2": [
         {
@@ -2609,6 +2603,6 @@
         }
       ]
     },
-    "updated_at": "2026-05-09T04:21:15.219Z"
+    "updated_at": "2026-05-09T04:59:00.407Z"
   }
 }

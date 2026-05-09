@@ -2,21 +2,19 @@
   "lottery": "lao_pattana",
   "lottery_name": "หวยลาวพัฒนา",
   "source_url": "https://exphuay.com/calculate/laosdevelops",
-  "fetched_at": "2026-05-09T04:19:06.882Z",
+  "fetched_at": "2026-05-09T04:54:27.617Z",
   "window": {
     "latest_n_draws": 30
   },
   "daily_calculation": {
     "top3": [
-      "997",
+      "998",
       "241",
       "080",
       "580",
       "041"
     ],
-    "top3_recommended": [
-      "997"
-    ],
+    "top3_recommended": [],
     "bottom2": [
       "72",
       "00",
@@ -48,15 +46,15 @@
       },
       {
         "digit": "2",
-        "top3_count": 10,
+        "top3_count": 11,
         "bottom2_count": 5,
-        "total": 15
+        "total": 16
       },
       {
         "digit": "3",
         "top3_count": 6,
-        "bottom2_count": 5,
-        "total": 11
+        "bottom2_count": 4,
+        "total": 10
       },
       {
         "digit": "4",
@@ -73,26 +71,26 @@
       {
         "digit": "6",
         "top3_count": 7,
-        "bottom2_count": 3,
-        "total": 10
+        "bottom2_count": 2,
+        "total": 9
       },
       {
         "digit": "7",
-        "top3_count": 12,
-        "bottom2_count": 8,
-        "total": 20
+        "top3_count": 13,
+        "bottom2_count": 9,
+        "total": 22
       },
       {
         "digit": "8",
         "top3_count": 7,
-        "bottom2_count": 3,
-        "total": 10
+        "bottom2_count": 4,
+        "total": 11
       },
       {
         "digit": "9",
-        "top3_count": 17,
+        "top3_count": 15,
         "bottom2_count": 7,
-        "total": 24
+        "total": 22
       }
     ]
   },
@@ -111,10 +109,6 @@
         "count": 2
       },
       {
-        "number": "21",
-        "count": 1
-      },
-      {
         "number": "30",
         "count": 1
       },
@@ -124,10 +118,6 @@
       },
       {
         "number": "42",
-        "count": 1
-      },
-      {
-        "number": "43",
         "count": 1
       },
       {
@@ -147,10 +137,6 @@
         "count": 2
       },
       {
-        "number": "63",
-        "count": 1
-      },
-      {
         "number": "68",
         "count": 1
       },
@@ -168,6 +154,10 @@
       },
       {
         "number": "77",
+        "count": 1
+      },
+      {
+        "number": "78",
         "count": 1
       },
       {
@@ -233,10 +223,6 @@
         "count": 1
       },
       {
-        "number": "315",
-        "count": 1
-      },
-      {
         "number": "329",
         "count": 1
       },
@@ -286,6 +272,10 @@
       },
       {
         "number": "810",
+        "count": 1
+      },
+      {
+        "number": "877",
         "count": 1
       },
       {
