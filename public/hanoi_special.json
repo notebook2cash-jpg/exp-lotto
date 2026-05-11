@@ -2,26 +2,29 @@
   "lottery": "hanoi_special",
   "lottery_name": "หวยฮานอยพิเศษ",
   "source_url": "https://exphuay.com/calculate/xsthm",
-  "fetched_at": "2026-05-10T06:15:01.540Z",
+  "fetched_at": "2026-05-11T04:56:23.056Z",
   "window": {
     "latest_n_draws": 30
   },
   "daily_calculation": {
     "top3": [
-      "447",
-      "321",
-      "096",
-      "296",
-      "021"
+      "457",
+      "041",
+      "822",
+      "222",
+      "841"
     ],
-    "top3_recommended": [],
+    "top3_recommended": [
+      "822",
+      "841"
+    ],
     "bottom2": [
       "38",
       "44",
-      "92",
-      "80",
+      "22",
+      "90",
       "48",
-      "69"
+      "62"
     ],
     "bottom2_recommended": [
       "44",
@@ -35,32 +38,32 @@
       {
         "digit": "0",
         "top3_count": 8,
-        "bottom2_count": 7,
-        "total": 15
-      },
-      {
-        "digit": "1",
-        "top3_count": 9,
-        "bottom2_count": 5,
+        "bottom2_count": 6,
         "total": 14
       },
       {
+        "digit": "1",
+        "top3_count": 10,
+        "bottom2_count": 5,
+        "total": 15
+      },
+      {
         "digit": "2",
-        "top3_count": 7,
-        "bottom2_count": 7,
+        "top3_count": 6,
+        "bottom2_count": 8,
         "total": 14
       },
       {
         "digit": "3",
-        "top3_count": 9,
-        "bottom2_count": 6,
+        "top3_count": 8,
+        "bottom2_count": 7,
         "total": 15
       },
       {
         "digit": "4",
-        "top3_count": 11,
+        "top3_count": 12,
         "bottom2_count": 8,
-        "total": 19
+        "total": 20
       },
       {
         "digit": "5",
@@ -76,15 +79,15 @@
       },
       {
         "digit": "7",
-        "top3_count": 4,
+        "top3_count": 5,
         "bottom2_count": 4,
-        "total": 8
+        "total": 9
       },
       {
         "digit": "8",
-        "top3_count": 13,
-        "bottom2_count": 9,
-        "total": 22
+        "top3_count": 12,
+        "bottom2_count": 8,
+        "total": 20
       },
       {
         "digit": "9",
@@ -109,6 +112,10 @@
         "count": 1
       },
       {
+        "number": "23",
+        "count": 1
+      },
+      {
         "number": "24",
         "count": 1
       },
@@ -122,6 +129,10 @@
       },
       {
         "number": "34",
+        "count": 1
+      },
+      {
+        "number": "35",
         "count": 1
       },
       {
@@ -187,10 +198,6 @@
       {
         "number": "06",
         "count": 1
-      },
-      {
-        "number": "08",
-        "count": 1
       }
     ],
     "top3": [
@@ -219,10 +226,6 @@
         "count": 1
       },
       {
-        "number": "316",
-        "count": 1
-      },
-      {
         "number": "349",
         "count": 1
       },
@@ -248,6 +251,10 @@
       },
       {
         "number": "430",
+        "count": 1
+      },
+      {
+        "number": "454",
         "count": 1
       },
       {
