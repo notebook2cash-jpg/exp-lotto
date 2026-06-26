@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-06-25T04:58:07.470Z",
+  "fetched_at": "2026-06-26T05:04:32.710Z",
   "total_lotteries": 8,
   "scheduled_time": "08:00",
   "lotteries": [
@@ -7,7 +7,7 @@
       "lottery": "thai_government",
       "lottery_name": "หวยรัฐบาลไทย",
       "source_url": "https://exphuay.com/calculate/goverment",
-      "fetched_at": "2026-06-25T04:55:39.734Z",
+      "fetched_at": "2026-06-26T05:00:48.217Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -330,7 +330,7 @@
       "lottery": "lao_pattana",
       "lottery_name": "หวยลาวพัฒนา",
       "source_url": "https://exphuay.com/calculate/laosdevelops",
-      "fetched_at": "2026-06-25T04:56:02.678Z",
+      "fetched_at": "2026-06-26T05:01:10.751Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -507,7 +507,7 @@
           },
           {
             "number": "09",
-            "count": 1
+            "count": 2
           },
           {
             "number": "05",
@@ -648,7 +648,7 @@
       "lottery": "malaysia",
       "lottery_name": "หวยมาเลย์",
       "source_url": "https://exphuay.com/calculate/magnum4d",
-      "fetched_at": "2026-06-25T04:56:24.280Z",
+      "fetched_at": "2026-06-26T05:01:33.553Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -662,7 +662,6 @@
         ],
         "top3_recommended": [
           "905",
-          "094",
           "505"
         ],
         "bottom2": [
@@ -984,7 +983,7 @@
       "lottery": "baac",
       "lottery_name": "หวยธ.ก.ส.",
       "source_url": "https://exphuay.com/calculate/baac",
-      "fetched_at": "2026-06-25T04:56:46.106Z",
+      "fetched_at": "2026-06-26T05:01:57.355Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -1322,7 +1321,7 @@
       "lottery": "gsb",
       "lottery_name": "หวยออมสิน",
       "source_url": "https://exphuay.com/calculate/gsb",
-      "fetched_at": "2026-06-25T04:57:06.231Z",
+      "fetched_at": "2026-06-26T05:03:26.575Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -1635,7 +1634,7 @@
       "lottery": "hanoi_normal",
       "lottery_name": "หวยฮานอยปกติ",
       "source_url": "https://exphuay.com/calculate/minhngoc",
-      "fetched_at": "2026-06-25T04:57:26.466Z",
+      "fetched_at": "2026-06-26T05:03:49.027Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -1965,7 +1964,7 @@
       "lottery": "hanoi_special",
       "lottery_name": "หวยฮานอยพิเศษ",
       "source_url": "https://exphuay.com/calculate/xsthm",
-      "fetched_at": "2026-06-25T04:57:47.321Z",
+      "fetched_at": "2026-06-26T05:04:11.354Z",
       "window": {
         "latest_n_draws": 30
       },
@@ -2291,7 +2290,7 @@
       "lottery": "hanoi_vip",
       "lottery_name": "หวยฮานอย VIP",
       "source_url": "https://exphuay.com/calculate/mlnhngo",
-      "fetched_at": "2026-06-25T04:58:07.468Z",
+      "fetched_at": "2026-06-26T05:04:32.708Z",
       "window": {
         "latest_n_draws": 30
       },
