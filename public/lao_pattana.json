@@ -2,7 +2,7 @@
   "lottery": "lao_pattana",
   "lottery_name": "หวยลาวพัฒนา",
   "source_url": "https://exphuay.com/calculate/laosdevelops",
-  "fetched_at": "2026-07-13T04:23:14.249Z",
+  "fetched_at": "2026-07-14T03:50:37.377Z",
   "window": {
     "latest_n_draws": 30
   },
@@ -179,7 +179,7 @@
       },
       {
         "number": "09",
-        "count": 1
+        "count": 2
       },
       {
         "number": "05",
