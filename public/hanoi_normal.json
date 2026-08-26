@@ -2,7 +2,7 @@
   "lottery": "hanoi_normal",
   "lottery_name": "หวยฮานอยปกติ",
   "source_url": "https://exphuay.com/calculate/minhngoc",
-  "fetched_at": "2026-08-25T02:10:07.970Z",
+  "fetched_at": "2026-08-26T02:15:58.034Z",
   "window": {
     "latest_n_draws": 30
   },
