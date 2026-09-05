@@ -2,7 +2,7 @@
   "lottery": "thai_government",
   "lottery_name": "หวยรัฐบาลไทย",
   "source_url": "https://exphuay.com/calculate/goverment",
-  "fetched_at": "2026-09-04T05:11:06.978Z",
+  "fetched_at": "2026-09-05T05:00:19.859Z",
   "window": {
     "latest_n_draws": 30
   },
